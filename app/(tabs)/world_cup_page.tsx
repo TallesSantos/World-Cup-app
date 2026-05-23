@@ -1,0 +1,158 @@
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+
+import React, { useEffect, useState } from "react";
+
+import GroupStageMatches from "@/src/components/world-cup/group-stage-matches";
+import KnockoutStageMatches from "@/src/components/world-cup/knockut-stage-matches";
+import { WorldCup } from "@/src/shared/schemas/world_cup_schemas";
+import { worldCupService } from "@/src/shared/services/api-services/world-cup-service";
+import { ThemedText } from "../../src/components/themed-text";
+import { ThemedView } from "../../src/components/themed-view";
+
+export default function Store() {
+    const [wordlCupData, setWordCupData] = useState<WorldCup | null>();
+    const [openGroupStageContainer, setOpenGroupStageContainer] = useState(true);
+    const [openKnockupStageContainer, setOpenKnockupStageContainer] = useState(true);
+
+    async function loadPage() {
+        const wordlCupResponse = await worldCupService.getWolrdlCupById(1)
+        setWordCupData(wordlCupResponse)
+    }
+
+    useEffect(() => {
+        loadPage()
+    }, [])
+
+    return (
+        <ScrollView>
+            <ThemedView style={
+                {
+                    flex: 1,
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: 16,
+                    paddingTop: 48,
+                    width: "100%",
+                    gap: 12,
+                }
+            } >
+                {!wordlCupData
+
+                    ? <ThemedView style={[styles.titleContainer, styles.flexBox]} >
+                        <ThemedText type="title">Loading...</ThemedText>
+                    </ThemedView>
+
+                    : <ThemedView style={[styles.titleContainer, styles.flexBox, { flexWrap: "wrap" }]} >
+                        <ThemedText type="title">{wordlCupData.title}</ThemedText>
+
+                        <ThemedView
+                            style={[
+                                styles.titleContainer,
+                                styles.flexBox,
+                                {
+                                    flexDirection: "row",
+                                    flexWrap: "wrap",
+                                    alignItems: "flex-start",
+                                    width: "100%",
+                                },
+                            ]}
+                        >
+                            <View style={{ width: "48%" }}>
+                                <ThemedText>basic statistics:</ThemedText>
+                                <ThemedText>
+                                    country: {wordlCupData.statistics.hostCountry}
+                                </ThemedText>
+                                <ThemedText>
+                                    first place: {wordlCupData.statistics.fistPlace}
+                                </ThemedText>
+                                <ThemedText>
+                                    second place: {wordlCupData.statistics.secondPlace}
+                                </ThemedText>
+                                <ThemedText>
+                                    third place: {wordlCupData.statistics.thirdPlace}
+                                </ThemedText>
+                            </View>
+
+                            <View style={{ width: "48%" }}>
+                                <ThemedText>other statistics:</ThemedText>
+                                <ThemedText>
+                                    top score: {wordlCupData.statistics.topScore},
+                                    scores: {wordlCupData.statistics.topScoreNumber}
+                                </ThemedText>
+                                <ThemedText>
+                                    Best Goalkeeper: {wordlCupData.statistics.bestGoalkeeper}
+                                </ThemedText>
+                            </View>
+                        </ThemedView>
+
+                        <ThemedText type="title">  Cup matches </ThemedText>
+                        <ThemedView
+                            style={[
+                                styles.titleContainer,
+                                styles.flexBox,
+                                {
+                                    flexDirection: "column",
+                                    flexWrap: "wrap",
+                                    alignItems: "flex-start",
+                                    width: "100%",
+                                },
+                            ]}
+                        >
+
+
+                            <View>
+
+                                <TouchableOpacity
+                                    onPress={() => setOpenGroupStageContainer(!openGroupStageContainer)}
+                                >
+                                    <ThemedText type="subtitle">Group Stage Matches   {openGroupStageContainer ? "[close]" : "[open]"}
+                                    </ThemedText>
+                                </TouchableOpacity>
+
+                                {openGroupStageContainer && <GroupStageMatches data={wordlCupData.groupStage} />}
+                            </View>
+
+                            <View>
+
+                                <TouchableOpacity
+                                    onPress={() => setOpenKnockupStageContainer(!openKnockupStageContainer)}
+                                >
+                                    <ThemedText type="subtitle" >Knockout stage matches  {openKnockupStageContainer ? "[close]" : "[open]"}
+                                    </ThemedText>
+                                </TouchableOpacity>
+                                {openKnockupStageContainer && <KnockoutStageMatches data={wordlCupData.knockoutStage} />}
+                            </View>
+                        </ThemedView>
+
+                    </ThemedView>}
+            </ThemedView>
+        </ScrollView>
+    );
+}
+
+const styles = StyleSheet.create({
+    flexBox: {
+        display: "flex",
+        flexDirection: "column"
+    },
+
+    titleContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+    },
+
+    stepContainer: {
+        gap: 8,
+        marginBottom: 8,
+    },
+
+    reactLogo: {
+        height: 178,
+        width: 290,
+        bottom: 0,
+        left: 0,
+        position: "absolute",
+    },
+});

@@ -40,9 +40,9 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="store"
+        name="world_cup_page"
         options={{
-          title: "Store",
+          title: "world cup",
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="cart" color={color} />
           ),
