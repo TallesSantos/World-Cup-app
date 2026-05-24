@@ -397,7 +397,12 @@ const MOCK_MATCH: WorldCupDetailedMatches = {
 
     matchVideos: [{
         title: "Argentina vs France | Final Highlights | FIFA World Cup Qatar 2022",
-        url: "https://www.youtube.com/watch?v=zhEWqfP6V_w",
+        url: "aqz-KE-bpKQ",
+        plataform: "youtube",
+    }, {
+        title: "Argentina vs France | Final Highlights | FIFA World Cup Qatar 2022 2",
+        url: "aqz-KE-bpKQ",
+        plataform: "youtube",
     }],
 };
 

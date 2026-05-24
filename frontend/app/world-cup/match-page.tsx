@@ -1,3 +1,4 @@
+import VideoCarousel from "@/src/components/carroucel-of-videos";
 import { ThemedText } from "@/src/components/common/themed-text";
 import { ThemedView } from "@/src/components/common/themed-view";
 import SoccerPlayerLink from "@/src/components/links/soccer-player-link";
@@ -95,9 +96,7 @@ export default function MatchPage() {
                         </ThemedView>
                         <ThemedView>
                             <ThemedText type="defaultSemiBold">Gols of the match:</ThemedText>
-                            {matchData.matchVideos.map((video, index) => {
-                                return <ThemedText key={index + video.title}>url: {video.url}</ThemedText>
-                            })}
+                            <VideoCarousel data={matchData.matchVideos} />
                         </ThemedView>
                     </ThemedView>}
             </ThemedView>

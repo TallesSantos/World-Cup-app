@@ -22,5 +22,6 @@ export interface WorldCupDetailedMatches extends Omit<WorldCupMatches, "id"> {
 
 export interface MatchVideo {
     title: string,
-    url: string
+    url: string,
+    plataform: 'youtube' | 'resource-server'
 }
