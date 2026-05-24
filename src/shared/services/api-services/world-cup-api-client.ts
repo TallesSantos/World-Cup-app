@@ -1,9 +1,11 @@
+import { WorldCupDetailedContry } from "../../schemas/world-cup/country-schema";
 import { WorldCupDetailedMatches } from "../../schemas/world-cup/match-schema";
 import { WorldCup } from "../../schemas/world-cup/world-cup-tornment-schemas";
 
-export const worldCupService = {
+export const worldCupApiClient = {
     getWolrdlCupById: getWolrdlCupById,
-    getMatchById: getMatchById
+    getMatchById: getMatchById,
+    getContryDataById: getContryDataById
 }
 
 async function getWolrdlCupById(id: number) {
@@ -18,6 +20,268 @@ async function getMatchById(id: string) {
     const match: WorldCupDetailedMatches = MOCK_MATCH;
     return match;
 }
+
+async function getContryDataById(id: string) {
+    //mocado
+
+    const country: WorldCupDetailedContry = MOCK_COUNTRY
+    return country;
+}
+
+const MOCK_COUNTRY: WorldCupDetailedContry = {
+    id: "argentina",
+
+    name: "Argentina",
+
+    fifaCode: "ARG",
+
+    flagUrl: "https://flagcdn.com/ar.svg",
+
+    confederation: "CONMEBOL",
+
+    coach: "Lionel Scaloni",
+
+    captain: "Lionel Messi",
+
+    fifaRanking: "1",
+
+    worldCupAppearances: "18",
+
+    bestWorldCupFinish: "Champion",
+
+    titles: {
+        worldCups: 3,
+        continentalCups: 15,
+        confederationsCup: 1,
+        olympicGoldMedals: 2,
+    },
+
+    allTimeStatistics: {
+        matches: "88",
+        wins: "47",
+        draws: "17",
+        losses: "24",
+        goalsScored: "152",
+        goalsConceded: "101",
+    },
+
+    allTimeSquad: {
+        currentSquad: [
+            {
+                id: "messi",
+                name: "Lionel Messi",
+                number: "10",
+                position: "Forward",
+            },
+            {
+                id: "julian-alvarez",
+                name: "Julián Álvarez",
+                number: "9",
+                position: "Forward",
+            },
+            {
+                id: "enzo-fernandez",
+                name: "Enzo Fernández",
+                number: "24",
+                position: "Midfielder",
+            },
+        ],
+
+        allPlayers: [
+            {
+                id: "messi",
+                name: "Lionel Messi",
+                number: "10",
+                position: "Forward",
+            },
+            {
+                id: "maradona",
+                name: "Diego Maradona",
+                number: "10",
+                position: "Midfielder",
+            },
+            {
+                id: "batistuta",
+                name: "Gabriel Batistuta",
+                number: "9",
+                position: "Striker",
+            },
+            {
+                id: "riquelme",
+                name: "Juan Román Riquelme",
+                number: "8",
+                position: "Midfielder",
+            },
+        ],
+    },
+
+    legendaryPlayers: [
+        {
+            id: "maradona",
+            name: "Diego Maradona",
+            number: "10",
+            position: "Midfielder",
+        },
+        {
+            id: "messi",
+            name: "Lionel Messi",
+            number: "10",
+            position: "Forward",
+        },
+        {
+            id: "batistuta",
+            name: "Gabriel Batistuta",
+            number: "9",
+            position: "Striker",
+        },
+    ],
+
+    worldCupHistory: [
+        {
+            worldCupYear: "1978",
+
+            hostCountry: "Argentina",
+
+            finalPosition: "Champion",
+
+            coach: "César Luis Menotti",
+
+            captain: "Daniel Passarella",
+
+            campaignSummary:
+                "Argentina won its first FIFA World Cup title by defeating the Netherlands in the final.",
+
+            statistics: {
+                matches: "7",
+                wins: "5",
+                draws: "1",
+                losses: "1",
+                goalsScored: "15",
+                goalsConceded: "4",
+            },
+
+            topScorer: {
+                playerName: "Mario Kempes",
+                goals: "6",
+            },
+
+            squad: [
+                {
+                    id: "kempes",
+                    name: "Mario Kempes",
+                    number: "10",
+                    position: "Forward",
+                },
+                {
+                    id: "passarella",
+                    name: "Daniel Passarella",
+                    number: "19",
+                    position: "Defender",
+                },
+            ],
+        },
+
+        {
+            worldCupYear: "1986",
+
+            hostCountry: "Mexico",
+
+            finalPosition: "Champion",
+
+            coach: "Carlos Bilardo",
+
+            captain: "Diego Maradona",
+
+            campaignSummary:
+                "Led by Diego Maradona, Argentina defeated West Germany in the final and secured its second world title.",
+
+            statistics: {
+                matches: "7",
+                wins: "6",
+                draws: "1",
+                losses: "0",
+                goalsScored: "14",
+                goalsConceded: "5",
+            },
+
+            topScorer: {
+                playerName: "Jorge Valdano",
+                goals: "4",
+            },
+
+            squad: [
+                {
+                    id: "maradona",
+                    name: "Diego Maradona",
+                    number: "10",
+                    position: "Midfielder",
+                },
+                {
+                    id: "valdano",
+                    name: "Jorge Valdano",
+                    number: "11",
+                    position: "Forward",
+                },
+            ],
+        },
+
+        {
+            worldCupYear: "2022",
+
+            hostCountry: "Qatar",
+
+            finalPosition: "Champion",
+
+            coach: "Lionel Scaloni",
+
+            captain: "Lionel Messi",
+
+            campaignSummary:
+                "Argentina won the World Cup after defeating France on penalties in one of the greatest finals in football history.",
+
+            statistics: {
+                matches: "7",
+                wins: "6",
+                draws: "0",
+                losses: "1",
+                goalsScored: "15",
+                goalsConceded: "8",
+            },
+
+            topScorer: {
+                playerName: "Lionel Messi",
+                goals: "7",
+            },
+
+            squad: [
+                {
+                    id: "messi",
+                    name: "Lionel Messi",
+                    number: "10",
+                    position: "Forward",
+                },
+                {
+                    id: "julian-alvarez",
+                    name: "Julián Álvarez",
+                    number: "9",
+                    position: "Forward",
+                },
+                {
+                    id: "enzo-fernandez",
+                    name: "Enzo Fernández",
+                    number: "24",
+                    position: "Midfielder",
+                },
+                {
+                    id: "emiliano-martinez",
+                    name: "Emiliano Martínez",
+                    number: "23",
+                    position: "Goalkeeper",
+                },
+            ],
+        },
+    ],
+};
 
 const MOCK_MATCH: WorldCupDetailedMatches = {
     id: "final-2022",

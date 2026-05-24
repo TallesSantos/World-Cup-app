@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import GroupStageMatches from "@/src/components/world-cup/group-stage-matches";
 import KnockoutStageMatches from "@/src/components/world-cup/knockut-stage-matches";
 import { WorldCup } from "@/src/shared/schemas/world-cup/world-cup-tornment-schemas";
-import { worldCupService } from "@/src/shared/services/api-services/world-cup-service";
+import { worldCupApiClient } from "@/src/shared/services/api-services/world-cup-api-client";
 import { ThemedText } from "../../src/components/themed-text";
 import { ThemedView } from "../../src/components/themed-view";
 
@@ -15,7 +15,7 @@ export default function Store() {
     const [openKnockupStageContainer, setOpenKnockupStageContainer] = useState(true);
 
     async function loadPage() {
-        const wordlCupResponse = await worldCupService.getWolrdlCupById(1)
+        const wordlCupResponse = await worldCupApiClient.getWolrdlCupById(1)
         setWordCupData(wordlCupResponse)
     }
 

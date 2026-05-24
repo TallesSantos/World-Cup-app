@@ -1,7 +1,8 @@
 import { ThemedText } from "@/src/components/themed-text";
 import { ThemedView } from "@/src/components/themed-view";
+import SoccerPlayerLink from "@/src/components/world-cup/country-icon/soccer-player-link";
 import { WorldCupDetailedMatches } from "@/src/shared/schemas/world-cup/match-schema";
-import { worldCupService } from "@/src/shared/services/api-services/world-cup-service";
+import { worldCupApiClient } from "@/src/shared/services/api-services/world-cup-api-client";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
@@ -11,7 +12,7 @@ export default function MatchPage() {
     const [matchData, setMatchData] = useState<WorldCupDetailedMatches | null>(null);
 
     async function loadData() {
-        const matchResponse = await worldCupService.getMatchById(id as string);
+        const matchResponse = await worldCupApiClient.getMatchById(id as string);
         setMatchData(matchResponse)
     }
 
@@ -82,12 +83,12 @@ export default function MatchPage() {
                             <ThemedView style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                 <ThemedView style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                                     {matchData.homeTeamMatchPlayers.map(player => {
-                                        return <ThemedText key={player.id}>{player.name}  - {player.number}</ThemedText>
+                                        return <SoccerPlayerLink player={player} key={player.id}>{player.name}  - {player.number}</SoccerPlayerLink>
                                     })}
                                 </ThemedView>
                                 <ThemedView style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                                     {matchData.visitingTeamMatchPlayers.map(player => {
-                                        return <ThemedText key={player.id}>{player.name} - {player.number}</ThemedText>
+                                        return <SoccerPlayerLink player={player} key={player.id}>{player.name} - {player.number}</SoccerPlayerLink>
                                     })}
                                 </ThemedView>
                             </ThemedView>
