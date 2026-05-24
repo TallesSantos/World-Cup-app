@@ -1,4 +1,4 @@
-import { KnockoutStage } from "@/src/shared/schemas/world_cup_schemas";
+import { KnockoutStage } from "@/src/shared/schemas/world-cup/world-cup-tornment-schemas";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { ThemedText } from "../themed-text";

@@ -1,3 +1,6 @@
+import { WordlCupCountry } from "./country-schema";
+import { WorldCupMatches } from "./match-schema";
+
 export interface WorldCup {
 
     title: string;
@@ -24,20 +27,6 @@ export interface WorldCupStageGroup {
 
 }
 
-export interface WordlCupCountry {
-    id: string
-    name: string
-    endRatingPoint: string
-}
-
-export interface WorldCupMatches {
-    id: string
-    homeTeam: WordlCupCountry,
-    homeTeamScore?: string
-    visitingTeam: WordlCupCountry
-    visitingTeamScore?: string
-}
-
 export interface KnockoutStage {
 
     grandFinal: WorldCupMatches
@@ -58,3 +47,4 @@ export interface KnockoutStage {
     }
 
 }
+

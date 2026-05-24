@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import GroupStageMatches from "@/src/components/world-cup/group-stage-matches";
 import KnockoutStageMatches from "@/src/components/world-cup/knockut-stage-matches";
-import { WorldCup } from "@/src/shared/schemas/world_cup_schemas";
+import { WorldCup } from "@/src/shared/schemas/world-cup/world-cup-tornment-schemas";
 import { worldCupService } from "@/src/shared/services/api-services/world-cup-service";
 import { ThemedText } from "../../src/components/themed-text";
 import { ThemedView } from "../../src/components/themed-view";

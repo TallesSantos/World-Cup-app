@@ -1,8 +1,10 @@
-import { WorldCupStageGroup } from "@/src/shared/schemas/world_cup_schemas";
+import { WorldCupStageGroup } from "@/src/shared/schemas/world-cup/world-cup-tornment-schemas";
+import { useRouter } from "expo-router";
 import { ThemedText } from "../themed-text";
 import { ThemedView } from "../themed-view";
 
 export default function GroupStageMatches({ data }: { data: WorldCupStageGroup[] }) {
+    const router = useRouter();
     return (
         <ThemedView style={{ gap: 12, marginBottom: 12 }}>
 
@@ -19,7 +21,7 @@ export default function GroupStageMatches({ data }: { data: WorldCupStageGroup[]
                     {group.matches.map((match, index) => {
                         return (
                             <ThemedView key={index + match.id}>
-                                <ThemedText>{match.homeTeam.name} x {match.visitingTeam.name} - {match.homeTeamScore || "?"} x {match.visitingTeamScore || "?"}
+                                <ThemedText onPress={() => { router.push({ pathname: `/world-cup/match-page`, params: { id: match.id } }, { relativeToDirectory: true }) }}>{match.homeTeam.name} x {match.visitingTeam.name} - {match.homeTeamScore || "?"} x {match.visitingTeamScore || "?"}
                                 </ThemedText>
                             </ThemedView>
                         )

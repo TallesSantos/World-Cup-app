@@ -1,7 +1,7 @@
 {
   "name": "world-championship",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -9,7 +9,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "generate-aab-to-google-plastore": "eas build -p android --profile production --clear-cache"
+    "generate-aab-to-google-playstore": "eas build -p android --profile production --clear-cache",
+    "submit-internal": "eas submit -p android --profile production --latest",
+    "submit-production": "eas submit -p android --profile production --latest"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -29,7 +31,6 @@
     "expo-status-bar": "~3.0.8",
     "expo-symbols": "~1.0.7",
     "expo-system-ui": "~6.0.8",
-    "expo-updates": "~29.0.17",
     "expo-web-browser": "~15.0.11",
     "react": "19.1.0",
     "react-dom": "19.1.0",

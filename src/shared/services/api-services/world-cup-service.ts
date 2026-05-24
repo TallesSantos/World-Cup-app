@@ -1,7 +1,9 @@
-import { WorldCup } from "../../schemas/world_cup_schemas";
+import { WorldCupDetailedMatches } from "../../schemas/world-cup/match-schema";
+import { WorldCup } from "../../schemas/world-cup/world-cup-tornment-schemas";
 
 export const worldCupService = {
-    getWolrdlCupById: getWolrdlCupById
+    getWolrdlCupById: getWolrdlCupById,
+    getMatchById: getMatchById
 }
 
 async function getWolrdlCupById(id: number) {
@@ -10,6 +12,123 @@ async function getWolrdlCupById(id: number) {
     return worldCup;
 }
 
+async function getMatchById(id: string) {
+
+    //mocado
+    const match: WorldCupDetailedMatches = MOCK_MATCH;
+    return match;
+}
+
+const MOCK_MATCH: WorldCupDetailedMatches = {
+    id: "final-2022",
+
+    homeTeam: {
+        id: "argentina",
+        name: "Argentina",
+        endRatingPoint: "Champion",
+    },
+
+    homeTeamScore: "3",
+
+    visitingTeam: {
+        id: "france",
+        name: "France",
+        endRatingPoint: "Runner-up",
+    },
+
+    visitingTeamScore: "3",
+
+    stadium: "Lusail Stadium",
+
+    basicStatistics: [
+        {
+            name: "Competition",
+            value: "FIFA World Cup Qatar 2022",
+        },
+        {
+            name: "Stage",
+            value: "Final",
+        },
+        {
+            name: "Date",
+            value: "18 December 2022",
+        },
+        {
+            name: "Attendance",
+            value: "88,966",
+        },
+    ],
+
+    comparativeStatistics: [
+        {
+            name: "Possession",
+            homeTeamValue: "54%",
+            visitingTeamValue: "46%",
+        },
+        {
+            name: "Shots",
+            homeTeamValue: "20",
+            visitingTeamValue: "10",
+        },
+        {
+            name: "Shots on target",
+            homeTeamValue: "9",
+            visitingTeamValue: "5",
+        },
+        {
+            name: "Corners",
+            homeTeamValue: "6",
+            visitingTeamValue: "5",
+        },
+    ],
+
+    homeTeamMatchPlayers: [
+        {
+            id: "messi",
+            name: "Lionel Messi",
+            number: "10",
+            position: "Forward",
+        },
+        {
+            id: "alvarez",
+            name: "Julián Álvarez",
+            number: "9",
+            position: "Forward",
+        },
+        {
+            id: "dimaria",
+            name: "Ángel Di María",
+            number: "11",
+            position: "Winger",
+        },
+    ],
+
+    visitingTeamMatchPlayers: [
+        {
+            id: "mbappe",
+            name: "Kylian Mbappé",
+            number: "10",
+            position: "Forward",
+        },
+        {
+            id: "griezmann",
+            name: "Antoine Griezmann",
+            number: "7",
+            position: "Midfielder",
+        },
+        {
+            id: "giroud",
+            name: "Olivier Giroud",
+            number: "9",
+            position: "Striker",
+        },
+    ],
+
+    matchVideos: [{
+        title: "Argentina vs France | Final Highlights | FIFA World Cup Qatar 2022",
+        url: "https://www.youtube.com/watch?v=zhEWqfP6V_w",
+    }],
+};
 
 const MOCK: WorldCup = {
     title: "FIFA World Cup Qatar 2022",

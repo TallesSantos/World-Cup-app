@@ -1,9 +1,17 @@
 {
   "build": {
     "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
       "android": {
-        "buildType": "app-bundle"
+        "track": "internal"
       }
     }
+  },
+  "cli": {
+    "appVersionSource": "remote"
   }
 }
