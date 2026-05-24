@@ -5,7 +5,7 @@ export interface CountryWorldCupHistory {
     hostCountry: string;
     finalPosition: string;
     coach: string;
-    captain: string;
+    captain: SoccerPlayer;
     campaignSummary: string;
 
     statistics: {
@@ -18,7 +18,7 @@ export interface CountryWorldCupHistory {
     };
 
     topScorer: {
-        playerName: string;
+        player: SoccerPlayer;
         goals: string;
     };
 
@@ -50,7 +50,7 @@ export interface WorldCupDetailedContry
 
     coach: string;
 
-    captain: string;
+    captain: SoccerPlayer;
 
     fifaRanking: string;
 

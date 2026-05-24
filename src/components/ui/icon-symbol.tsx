@@ -23,6 +23,7 @@ const MAPPING = {
   'person.crop.circle': 'account-circle',
   'cart.fill': 'shopping-cart',
   'cart': 'shopping-cart',
+  'soccerball': 'sports-soccer',
 } as IconMapping;
 
 /**

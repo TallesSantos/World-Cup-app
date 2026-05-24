@@ -2,20 +2,22 @@ import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
 import React, { useEffect, useState } from "react";
 
-import GroupStageMatches from "@/src/components/world-cup/group-stage-matches";
-import KnockoutStageMatches from "@/src/components/world-cup/knockut-stage-matches";
-import { WorldCup } from "@/src/shared/schemas/world-cup/world-cup-tornment-schemas";
-import { worldCupApiClient } from "@/src/shared/services/api-services/world-cup-api-client";
-import { ThemedText } from "../../src/components/themed-text";
-import { ThemedView } from "../../src/components/themed-view";
+import { ThemedText } from "@/src/components/common/themed-text";
+import { ThemedView } from "@/src/components/common/themed-view";
+import GroupStageMatches from "@/src/components/group-stage-matches";
+import KnockoutStageMatches from "@/src/components/knockut-stage-matches";
+import { DetailedWorldCup } from "@/src/schemas/world-cup/world-cup-tornment-schemas";
+import { worldCupApiClient } from "@/src/services/api-services/world-cup-api-client";
+import { useLocalSearchParams } from "expo-router";
 
 export default function Store() {
-    const [wordlCupData, setWordCupData] = useState<WorldCup | null>();
+    const { id } = useLocalSearchParams();
+    const [wordlCupData, setWordCupData] = useState<DetailedWorldCup | null>();
     const [openGroupStageContainer, setOpenGroupStageContainer] = useState(true);
     const [openKnockupStageContainer, setOpenKnockupStageContainer] = useState(true);
 
     async function loadPage() {
-        const wordlCupResponse = await worldCupApiClient.getWolrdlCupById(1)
+        const wordlCupResponse = await worldCupApiClient.getWolrdlCupById(Number(id))
         setWordCupData(wordlCupResponse)
     }
 

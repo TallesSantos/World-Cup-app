@@ -1,9 +1,17 @@
+import { Statistic } from "./statistics-schema";
+
 export interface Player {
     id: string;
     name: string
 }
 
 export interface CoachPlayer extends Player {
+    statistics: Statistic[]
+}
+
+export interface DetailedCoachPlayer extends CoachPlayer {
+    alreadSoccerPlayer: boolean;
+    playerHistory?: DetailedSoccerPlayer
 }
 
 export interface SoccerPlayer extends Player {

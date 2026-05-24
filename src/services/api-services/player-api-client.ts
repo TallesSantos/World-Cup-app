@@ -1,7 +1,8 @@
-import { DetailedSoccerPlayer } from "../../schemas/world-cup/soccer-player-schema";
+import { DetailedCoachPlayer, DetailedSoccerPlayer } from "../../schemas/world-cup/soccer-player-schema";
 
 export const playerApiClient = {
-    getDetailedPlayerById: getDetailedPlayerById
+    getDetailedPlayerById: getDetailedPlayerById,
+    getDetailedCoachById: getDetailedCoachById
 }
 
 export async function getDetailedPlayerById(id: string) {
@@ -9,6 +10,13 @@ export async function getDetailedPlayerById(id: string) {
     return player;
 
 }
+
+export async function getDetailedCoachById(id: string) {
+    const coach = Coach
+    return coach
+}
+
+const Coach: DetailedCoachPlayer = {} as DetailedCoachPlayer
 
 const MESSI: DetailedSoccerPlayer = {
     id: "messi",

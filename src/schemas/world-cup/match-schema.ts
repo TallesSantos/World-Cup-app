@@ -1,5 +1,6 @@
 import { WordlCupCountry } from "./country-schema";
 import { SoccerPlayer } from "./soccer-player-schema";
+import { Statistic, comparativeStatistics } from "./statistics-schema";
 
 export interface WorldCupMatches {
     id: string;
@@ -17,17 +18,6 @@ export interface WorldCupDetailedMatches extends Omit<WorldCupMatches, "id"> {
     homeTeamMatchPlayers: SoccerPlayer[],
     visitingTeamMatchPlayers: SoccerPlayer[],
     matchVideos: MatchVideo[]
-}
-
-export interface Statistic {
-    name: string;
-    value: string
-}
-
-export interface comparativeStatistics {
-    name: string,
-    homeTeamValue: string,
-    visitingTeamValue: string
 }
 
 export interface MatchVideo {

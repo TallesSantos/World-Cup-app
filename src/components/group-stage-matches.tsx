@@ -1,11 +1,12 @@
-import { WorldCupStageGroup } from "@/src/shared/schemas/world-cup/world-cup-tornment-schemas";
-import { useRouter } from "expo-router";
-import { ThemedText } from "../themed-text";
-import { ThemedView } from "../themed-view";
-import CountryIcon from "./country-icon/country-icon";
+import { WorldCupStageGroup } from "@/src/schemas/world-cup/world-cup-tornment-schemas";
+import { ThemedText } from "./common/themed-text";
+import { ThemedView } from "./common/themed-view";
+import CountryIcon from "./icons/country-icon";
+import CountryLink from "./links/country-link";
+import MatchLink from "./links/match-link";
 
 export default function GroupStageMatches({ data }: { data: WorldCupStageGroup[] }) {
-    const router = useRouter();
+
     return (
         <ThemedView style={{ gap: 12, marginBottom: 12 }}>
 
@@ -15,7 +16,9 @@ export default function GroupStageMatches({ data }: { data: WorldCupStageGroup[]
                     <ThemedView style={{ display: "flex", flexDirection: "row", gap: 8 }}>{group.teams.map(async (team, index) => {
 
                         return (
-                            <ThemedText key={index + team.id}><CountryIcon /> |{team.endRatingPoint}pt|</ThemedText>
+                            <ThemedText key={index + team.id}><CountryLink country={team}>
+                                <ThemedText type="link"> <CountryIcon /> |{team.endRatingPoint}pt</ThemedText>
+                            </CountryLink>|</ThemedText>
                         )
                     })}
                     </ThemedView>
@@ -23,8 +26,7 @@ export default function GroupStageMatches({ data }: { data: WorldCupStageGroup[]
                     {group.matches.map((match, index) => {
                         return (
                             <ThemedView key={index + match.id}>
-                                <ThemedText onPress={() => { router.push({ pathname: `/world-cup/match-page`, params: { id: match.id } }, { relativeToDirectory: true }) }}>{match.homeTeam.name} x {match.visitingTeam.name} - {match.homeTeamScore || "?"} x {match.visitingTeamScore || "?"}
-                                </ThemedText>
+                                <MatchLink match={match} />
                             </ThemedView>
                         )
                     })}

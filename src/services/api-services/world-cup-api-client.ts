@@ -1,16 +1,23 @@
 import { WorldCupDetailedContry } from "../../schemas/world-cup/country-schema";
 import { WorldCupDetailedMatches } from "../../schemas/world-cup/match-schema";
-import { WorldCup } from "../../schemas/world-cup/world-cup-tornment-schemas";
+import { DetailedWorldCup, WorldCup } from "../../schemas/world-cup/world-cup-tornment-schemas";
 
 export const worldCupApiClient = {
+    listWordlCups: listWordlCups,
     getWolrdlCupById: getWolrdlCupById,
     getMatchById: getMatchById,
     getContryDataById: getContryDataById
 }
 
+async function listWordlCups() {
+    //mocado
+    const WordlCups: WorldCup[] = [{ id: MOCK.id, title: MOCK.title, imgBannerUrl: MOCK.imgBannerUrl }]
+    return WordlCups;
+}
+
 async function getWolrdlCupById(id: number) {
     //mocado
-    const worldCup: WorldCup = MOCK
+    const worldCup: DetailedWorldCup = MOCK
     return worldCup;
 }
 
@@ -41,7 +48,7 @@ const MOCK_COUNTRY: WorldCupDetailedContry = {
 
     coach: "Lionel Scaloni",
 
-    captain: "Lionel Messi",
+    captain: { id: "1", name: "Lionel Messi", number: "10", position: "Forward" },
 
     fifaRanking: "1",
 
@@ -146,7 +153,7 @@ const MOCK_COUNTRY: WorldCupDetailedContry = {
 
             coach: "César Luis Menotti",
 
-            captain: "Daniel Passarella",
+            captain: { id: '1', name: "Daniel Passarella", number: '8', position: "Midfield" },
 
             campaignSummary:
                 "Argentina won its first FIFA World Cup title by defeating the Netherlands in the final.",
@@ -161,7 +168,7 @@ const MOCK_COUNTRY: WorldCupDetailedContry = {
             },
 
             topScorer: {
-                playerName: "Mario Kempes",
+                player: { id: '1', name: "Mario Kempes", number: '10', position: "Forward" },
                 goals: "6",
             },
 
@@ -190,7 +197,7 @@ const MOCK_COUNTRY: WorldCupDetailedContry = {
 
             coach: "Carlos Bilardo",
 
-            captain: "Diego Maradona",
+            captain: { id: '1', name: "Diego Maradona", number: '10', position: "Midfielder" },
 
             campaignSummary:
                 "Led by Diego Maradona, Argentina defeated West Germany in the final and secured its second world title.",
@@ -205,7 +212,7 @@ const MOCK_COUNTRY: WorldCupDetailedContry = {
             },
 
             topScorer: {
-                playerName: "Jorge Valdano",
+                player: { id: '1', name: "Jorge Valdano", number: '11', position: "Forward" },
                 goals: "4",
             },
 
@@ -234,7 +241,7 @@ const MOCK_COUNTRY: WorldCupDetailedContry = {
 
             coach: "Lionel Scaloni",
 
-            captain: "Lionel Messi",
+            captain: { id: '1', name: "Lionel Messi", number: '10', position: 'Forward' },
 
             campaignSummary:
                 "Argentina won the World Cup after defeating France on penalties in one of the greatest finals in football history.",
@@ -249,7 +256,7 @@ const MOCK_COUNTRY: WorldCupDetailedContry = {
             },
 
             topScorer: {
-                playerName: "Lionel Messi",
+                player: { name: "Lionel Messi", id: '1', number: '10', position: 'Forward' },
                 goals: "7",
             },
 
@@ -394,9 +401,10 @@ const MOCK_MATCH: WorldCupDetailedMatches = {
     }],
 };
 
-const MOCK: WorldCup = {
+const MOCK: DetailedWorldCup = {
+    id: '01',
     title: "FIFA World Cup Qatar 2022",
-
+    imgBannerUrl: "world-cup-2022-banner.jpg",
     statistics: {
         fistPlace: "Argentina",
         secondPlace: "France",

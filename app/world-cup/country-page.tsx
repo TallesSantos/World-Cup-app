@@ -1,8 +1,9 @@
-import { ThemedText } from "@/src/components/themed-text";
-import { ThemedView } from "@/src/components/themed-view";
-import CountryIcon from "@/src/components/world-cup/country-icon/country-icon";
-import { WorldCupDetailedContry } from "@/src/shared/schemas/world-cup/country-schema";
-import { worldCupApiClient } from "@/src/shared/services/api-services/world-cup-api-client";
+import { ThemedText } from "@/src/components/common/themed-text";
+import { ThemedView } from "@/src/components/common/themed-view";
+import CountryLink from "@/src/components/links/country-link";
+import SoccerPlayerLink from "@/src/components/links/soccer-player-link";
+import { WorldCupDetailedContry } from "@/src/schemas/world-cup/country-schema";
+import { worldCupApiClient } from "@/src/services/api-services/world-cup-api-client";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
@@ -40,7 +41,7 @@ export default function ContryPage() {
                 </ThemedView>
 
                 : <ThemedView style={[styles.titleContainer, styles.flexBox, { flexWrap: "wrap" }]} >
-                    <ThemedText type="title"><CountryIcon /> {countryData.name}</ThemedText>
+                    <ThemedText type="title"><CountryLink /> {countryData.name}</ThemedText>
                     <ThemedView
                         style={{
                             padding: 16,
@@ -61,7 +62,7 @@ export default function ContryPage() {
                         </ThemedText>
 
                         <ThemedText>
-                            Captain: {countryData.captain}
+                            Captain: {countryData.captain.name}
                         </ThemedText>
 
                         <ThemedText>
@@ -164,7 +165,7 @@ export default function ContryPage() {
                                     }}
                                 >
                                     <ThemedText>
-                                        {player.name}
+                                        <SoccerPlayerLink player={player}>{player.name}</SoccerPlayerLink>
                                     </ThemedText>
 
                                     <ThemedText>
@@ -215,7 +216,7 @@ export default function ContryPage() {
                                     </ThemedText>
 
                                     <ThemedText>
-                                        Captain: {history.captain}
+                                        Captain: {history.captain.name}
                                     </ThemedText>
 
                                     <ThemedText>
@@ -223,7 +224,7 @@ export default function ContryPage() {
                                     </ThemedText>
 
                                     <ThemedText>
-                                        Top Scorer: {history.topScorer.playerName} (
+                                        Top Scorer: <SoccerPlayerLink player={history.topScorer.player}>{history.topScorer.player.name}</SoccerPlayerLink> (
                                         {history.topScorer.goals} goals)
                                     </ThemedText>
                                 </ThemedView>

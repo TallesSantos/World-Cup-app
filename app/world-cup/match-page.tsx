@@ -1,8 +1,8 @@
-import { ThemedText } from "@/src/components/themed-text";
-import { ThemedView } from "@/src/components/themed-view";
-import SoccerPlayerLink from "@/src/components/world-cup/country-icon/soccer-player-link";
-import { WorldCupDetailedMatches } from "@/src/shared/schemas/world-cup/match-schema";
-import { worldCupApiClient } from "@/src/shared/services/api-services/world-cup-api-client";
+import { ThemedText } from "@/src/components/common/themed-text";
+import { ThemedView } from "@/src/components/common/themed-view";
+import SoccerPlayerLink from "@/src/components/links/soccer-player-link";
+import { WorldCupDetailedMatches } from "@/src/schemas/world-cup/match-schema";
+import { worldCupApiClient } from "@/src/services/api-services/world-cup-api-client";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";

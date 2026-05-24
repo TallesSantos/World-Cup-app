@@ -2,8 +2,12 @@ import { WordlCupCountry } from "./country-schema";
 import { WorldCupMatches } from "./match-schema";
 
 export interface WorldCup {
+    id: string,
+    title: string,
+    imgBannerUrl: string
+}
 
-    title: string;
+export interface DetailedWorldCup extends WorldCup {
     statistics: {
         fistPlace: string,
         secondPlace: string,

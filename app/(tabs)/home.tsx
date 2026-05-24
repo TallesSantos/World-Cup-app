@@ -1,13 +1,13 @@
 import { Image } from "expo-image";
 import { Button, StyleSheet, View } from "react-native";
 
+import { HelloWave } from "@/src/components/common/hello-wave";
+import ParallaxScrollView from "@/src/components/common/parallax-scroll-view";
+import { ThemedText } from "@/src/components/common/themed-text";
+import { ThemedView } from "@/src/components/common/themed-view";
 import { useRouter } from "expo-router";
 import React from "react";
-import { HelloWave } from "../../src/components/hello-wave";
-import ParallaxScrollView from "../../src/components/parallax-scroll-view";
-import { ThemedText } from "../../src/components/themed-text";
-import { ThemedView } from "../../src/components/themed-view";
-import { useUserContext } from "../../src/shared/context/user.context";
+import { useUserContext } from "../../src/context/user.context";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -15,10 +15,12 @@ export default function HomeScreen() {
 
   return (
     <ParallaxScrollView
+
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
       headerImage={
         <Image
-          source={require("@/assets/images/partial-react-logo.png")}
+          source={require("@/assets/images/world-cup-2026-banner.jpg")}
+          resizeMode="cover"
           style={styles.reactLogo}
         />
       }
@@ -63,8 +65,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   reactLogo: {
-    height: 178,
-    width: 290,
+    width: "100%",
+    height: 300,
     bottom: 0,
     left: 0,
     position: "absolute",

@@ -1,8 +1,9 @@
-import { KnockoutStage } from "@/src/shared/schemas/world-cup/world-cup-tornment-schemas";
+import { KnockoutStage } from "@/src/schemas/world-cup/world-cup-tornment-schemas";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { ThemedText } from "../themed-text";
-import { ThemedView } from "../themed-view";
+import { ThemedText } from "./common/themed-text";
+import { ThemedView } from "./common/themed-view";
+import MatchLink from "./links/match-link";
 
 type Round = "RoundOf16" | "quarterFinals" | "semiFinals" | "grandFinal"
 
@@ -44,38 +45,30 @@ export default function KnockoutStageMatches({ data }: { data: KnockoutStage }) 
             {round === "RoundOf16" && data.RoundOf16.matchs.map((match, index) => {
                 return (
                     <ThemedView key={index + match.id}>
-                        <ThemedText>{match.homeTeam.name} x {match.visitingTeam.name} - {match.homeTeamScore || "?"} x {match.visitingTeamScore || "?"}
-                        </ThemedText>
+                        <MatchLink match={match} />
                     </ThemedView>
                 )
             })}
 
             {round === "quarterFinals" &&
                 <ThemedView>
-                    <ThemedText>{data.quarterFinals.match1.homeTeam.name} x {data.quarterFinals.match1.visitingTeam.name} - {data.quarterFinals.match1.homeTeamScore || "?"} x {data.quarterFinals.match1.visitingTeamScore || "?"}
-                    </ThemedText>
-                    <ThemedText>{data.quarterFinals.match2.homeTeam.name} x {data.quarterFinals.match2.visitingTeam.name} - {data.quarterFinals.match2.homeTeamScore || "?"} x {data.quarterFinals.match2.visitingTeamScore || "?"}
-                    </ThemedText>
-                    <ThemedText>{data.quarterFinals.match3.homeTeam.name} x {data.quarterFinals.match3.visitingTeam.name} - {data.quarterFinals.match3.homeTeamScore || "?"} x {data.quarterFinals.match3.visitingTeamScore || "?"}
-                    </ThemedText>
-                    <ThemedText>{data.quarterFinals.match4.homeTeam.name} x {data.quarterFinals.match4.visitingTeam.name} - {data.quarterFinals.match4.homeTeamScore || "?"} x {data.quarterFinals.match4.visitingTeamScore || "?"}
-                    </ThemedText>
+                    <MatchLink match={data.quarterFinals.match1} />
+                    <MatchLink match={data.quarterFinals.match2} />
+                    <MatchLink match={data.quarterFinals.match3} />
+                    <MatchLink match={data.quarterFinals.match4} />
                 </ThemedView>
             }
 
             {round === "semiFinals" &&
                 <ThemedView>
-                    <ThemedText>{data.semiFinals.match1.homeTeam.name} x {data.semiFinals.match1.visitingTeam.name} - {data.semiFinals.match1.homeTeamScore || "?"} x {data.semiFinals.match1.visitingTeamScore || "?"}
-                    </ThemedText>
-                    <ThemedText>{data.semiFinals.match2.homeTeam.name} x {data.semiFinals.match2.visitingTeam.name} - {data.semiFinals.match2.homeTeamScore || "?"} x {data.semiFinals.match2.visitingTeamScore || "?"}
-                    </ThemedText>
+                    <MatchLink match={data.semiFinals.match1} />
+                    <MatchLink match={data.semiFinals.match2} />
                 </ThemedView>
             }
 
             {round === "grandFinal" &&
                 <ThemedView>
-                    <ThemedText>{data.grandFinal.homeTeam.name} x {data.grandFinal.visitingTeam.name} - {data.grandFinal.homeTeamScore || "?"} x {data.grandFinal.visitingTeamScore || "?"}
-                    </ThemedText>
+                    <MatchLink match={data.grandFinal} />
                 </ThemedView>
             }
         </ThemedView>
