@@ -1,11 +1,29 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
     name: 'World Cup api'
+  datasource:
+    url: jdbc:h2:mem:worldcupdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
 
 resource:
   server-side-pattern-path: '/images/**'
   storage:
     path: 'D:/images'
+
+app:
+  data:
+    world-cups-path: './data/WorldCups.csv'
+    world-cups-matches-path: './data/WorldCupMatches.csv'
+    world-cups-players-path: './data/WorldCupPlayers.csv'

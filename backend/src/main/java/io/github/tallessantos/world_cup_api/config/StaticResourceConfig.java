@@ -5,21 +5,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.nio.file.Path;
+
 @Configuration
 public class StaticResourceConfig implements WebMvcConfigurer {
 
 
-    @Value("resource.storage.path")
+    @Value("${resource.storage.path}")
     private String storagePath;
 
-    @Value("resource.server-side-pattern-path")
+    @Value("${resource.server-side-pattern-path}")
     private String pathPatterns;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
+        String resourceLocation = Path.of(storagePath).toUri().toString();
         registry
                 .addResourceHandler(pathPatterns)
-                .addResourceLocations("file:///"+storagePath);
+                .addResourceLocations(resourceLocation);
     }
 }
