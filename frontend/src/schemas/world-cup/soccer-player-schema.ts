@@ -23,82 +23,82 @@ export interface DetailedSoccerPlayer extends SoccerPlayer {
 
     fullName: string;
 
-    nickname?: string;
+    nickname?: string | null;
 
     profileImageUrl: string;
 
     country: string;
 
-    birthDate: string;
+    birthDate?: string | null;
 
-    age: number;
+    age?: number | null;
 
-    height: string;
+    height?: string | null;
 
-    weight: string;
+    weight?: string | null;
 
-    preferredFoot: "Right" | "Left" | "Both";
+    preferredFoot?: "Right" | "Left" | "Both" | null;
 
-    currentClub: string;
+    currentClub?: string | null;
 
-    marketValue: string;
+    marketValue?: string | null;
 
     captain: boolean;
 
-    retired: boolean;
+    retired?: boolean | null;
 
     shirtHistory: {
         club: string;
         number: string;
         startYear: string;
-        endYear?: string;
+        endYear?: string | null;
     }[];
 
     positionsHistory: {
         position: string;
         startYear: string;
-        endYear?: string;
+        endYear?: string | null;
     }[];
 
-    attributes: {
+    attributes?: {
         pace: number;
         shooting: number;
         passing: number;
         dribbling: number;
         defending: number;
         physical: number;
-    };
+    } | null;
 
     careerStatistics: {
-        matches: string;
-        goals: string;
-        assists: string;
-        yellowCards: string;
-        redCards: string;
-        minutesPlayed: string;
+        matches: number;
+        goals: number;
+        assists?: number | null;
+        yellowCards: number;
+        redCards: number;
+        minutesPlayed?: number | null;
     };
 
     nationalTeamStatistics: {
-        matches: string;
-        goals: string;
-        assists: string;
+        matches: number;
+        goals: number;
+        assists?: number | null;
     };
 
     clubsHistory: {
         clubName: string;
         startYear: string;
-        endYear?: string;
-        matches: string;
-        goals: string;
+        endYear?: string | null;
+        matches: number;
+        goals: number;
     }[];
 
     worldCupHistory: {
         year: string;
         hostCountry: string;
         finalPosition: string;
-        matches: string;
-        goals: string;
-        assists: string;
+        matches: number;
+        goals: number;
+        assists?: number | null;
     }[];
 
     awards: {
@@ -116,7 +116,7 @@ export interface DetailedSoccerPlayer extends SoccerPlayer {
         instagram?: string;
         twitter?: string;
         facebook?: string;
-    };
+    } | null;
 
     biography: string;
 }

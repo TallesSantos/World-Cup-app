@@ -20,7 +20,7 @@ export default function HomeScreen() {
       headerImage={
         <Image
           source={require("@/assets/images/world-cup-2026-banner.jpg")}
-          resizeMode="cover"
+          contentFit="cover"
           style={styles.reactLogo}
         />
       }

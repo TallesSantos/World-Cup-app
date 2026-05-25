@@ -42,7 +42,7 @@ export default function KnockoutStageMatches({ data }: { data: KnockoutStage }) 
                 </ThemedView>
             </ThemedView>
 
-            {round === "RoundOf16" && data.RoundOf16.matchs.map((match, index) => {
+            {round === "RoundOf16" && data.roundOf16.matches.map((match, index) => {
                 return (
                     <ThemedView key={index + match.id}>
                         <MatchLink match={match} />
@@ -68,7 +68,7 @@ export default function KnockoutStageMatches({ data }: { data: KnockoutStage }) 
 
             {round === "grandFinal" &&
                 <ThemedView>
-                    <MatchLink match={data.grandFinal} />
+                    <MatchLink match={data.finalMatch} />
                 </ThemedView>
             }
         </ThemedView>

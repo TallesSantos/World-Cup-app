@@ -17,7 +17,7 @@ export default function Store() {
     const [openKnockupStageContainer, setOpenKnockupStageContainer] = useState(true);
 
     async function loadPage() {
-        const wordlCupResponse = await worldCupApiClient.getWolrdlCupById(Number(id))
+        const wordlCupResponse = await worldCupApiClient.getWolrdlCupById(id as string);
         setWordCupData(wordlCupResponse)
     }
 
@@ -63,28 +63,18 @@ export default function Store() {
                             <View style={{ width: "48%" }}>
                                 <ThemedText>basic statistics:</ThemedText>
                                 <ThemedText>
-                                    country: {wordlCupData.statistics.hostCountry}
+                                    country: {wordlCupData.hostCountries}
                                 </ThemedText>
                                 <ThemedText>
-                                    first place: {wordlCupData.statistics.fistPlace}
+                                    first place: {wordlCupData.statistics.totalGoals}
                                 </ThemedText>
-                                <ThemedText>
-                                    second place: {wordlCupData.statistics.secondPlace}
-                                </ThemedText>
-                                <ThemedText>
-                                    third place: {wordlCupData.statistics.thirdPlace}
-                                </ThemedText>
+
                             </View>
 
                             <View style={{ width: "48%" }}>
                                 <ThemedText>other statistics:</ThemedText>
-                                <ThemedText>
-                                    top score: {wordlCupData.statistics.topScore},
-                                    scores: {wordlCupData.statistics.topScoreNumber}
-                                </ThemedText>
-                                <ThemedText>
-                                    Best Goalkeeper: {wordlCupData.statistics.bestGoalkeeper}
-                                </ThemedText>
+
+
                             </View>
                         </ThemedView>
 

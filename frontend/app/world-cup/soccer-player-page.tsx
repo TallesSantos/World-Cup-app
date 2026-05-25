@@ -141,27 +141,27 @@ export default function PlayerPage() {
                                 </ThemedText>
 
                                 <ThemedText>
-                                    Pace: {playerData.attributes.pace}
+                                    Pace: {playerData.attributes?.pace}
                                 </ThemedText>
 
                                 <ThemedText>
-                                    Shooting: {playerData.attributes.shooting}
+                                    Shooting: {playerData.attributes?.shooting}
                                 </ThemedText>
 
                                 <ThemedText>
-                                    Passing: {playerData.attributes.passing}
+                                    Passing: {playerData.attributes?.passing}
                                 </ThemedText>
 
                                 <ThemedText>
-                                    Dribbling: {playerData.attributes.dribbling}
+                                    Dribbling: {playerData.attributes?.dribbling}
                                 </ThemedText>
 
                                 <ThemedText>
-                                    Defending: {playerData.attributes.defending}
+                                    Defending: {playerData.attributes?.defending}
                                 </ThemedText>
 
                                 <ThemedText>
-                                    Physical: {playerData.attributes.physical}
+                                    Physical: {playerData.attributes?.physical}
                                 </ThemedText>
                             </ThemedView>
 

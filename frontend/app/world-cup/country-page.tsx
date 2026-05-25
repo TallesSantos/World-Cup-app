@@ -41,7 +41,9 @@ export default function ContryPage() {
                 </ThemedView>
 
                 : <ThemedView style={[styles.titleContainer, styles.flexBox, { flexWrap: "wrap" }]} >
-                    <ThemedText type="title"><CountryLink /> {countryData.name}</ThemedText>
+                    <CountryLink country={countryData}>
+                        <ThemedText type="title"> {countryData.name}</ThemedText>
+                    </CountryLink>
                     <ThemedView
                         style={{
                             padding: 16,

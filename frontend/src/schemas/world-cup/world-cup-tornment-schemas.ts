@@ -8,20 +8,34 @@ export interface WorldCup {
 }
 
 export interface DetailedWorldCup extends WorldCup {
+    status: string;
+    startDate: string;
+    endDate: string;
+
+    hostCountries: string;
+
+    finalStandings: {
+        firstPlace: string;
+        secondPlace: string;
+        thirdPlace: string;
+    };
+
+    awards: {
+        bestPlayer: string | null;
+        topScorer: string | null;
+        topScorerGoals: number | null;
+        bestGoalkeeper: string | null;
+    };
+
     statistics: {
-        fistPlace: string,
-        secondPlace: string,
-        thirdPlace: string,
-        hostCountry: string,
-        bestPlayer: string,
-        topScore: string,
-        topScoreNumber: string
-        bestGoalkeeper: string
-    },
-    groupStage: WorldCupStageGroup[]
-    knockoutStage: KnockoutStage
+        totalMatches: number;
+        totalGoals: number;
+        attendance: string;
+    };
 
+    groupStage: WorldCupStageGroup[];
 
+    knockoutStage: KnockoutStage;
 }
 
 export interface WorldCupStageGroup {
@@ -33,7 +47,7 @@ export interface WorldCupStageGroup {
 
 export interface KnockoutStage {
 
-    grandFinal: WorldCupMatches
+    finalMatch: WorldCupMatches
     semiFinals: {
         match1: WorldCupMatches,
         match2: WorldCupMatches,
@@ -46,8 +60,8 @@ export interface KnockoutStage {
         match3: WorldCupMatches,
         match4: WorldCupMatches
     },
-    RoundOf16: {
-        matchs: WorldCupMatches[]
+    roundOf16: {
+        matches: WorldCupMatches[]
     }
 
 }
