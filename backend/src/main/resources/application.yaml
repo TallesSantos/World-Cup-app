@@ -1,6 +1,13 @@
 server:
   port: 8081
 
+joinfaces:
+  primefaces:
+    theme: saga
+
+  faces:
+    project-stage: development
+
 spring:
   application:
     name: 'World Cup api'
@@ -18,7 +25,7 @@ spring:
     show-sql: false
 
 resource:
-  server-side-pattern-path: '/images/**'
+  server-side-pattern-path: '/storage/**'
   storage:
     path: 'D:/images'
 
