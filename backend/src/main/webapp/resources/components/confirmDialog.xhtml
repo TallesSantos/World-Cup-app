@@ -7,61 +7,74 @@
 <cc:interface>
 
     <cc:attribute name="visible" required="true"/>
+
     <cc:attribute name="title" required="true"/>
+
     <cc:attribute name="message" required="true"/>
 
-    <h:commandButton value="Confirm"
-                     action="#{cc.attrs.confirmAction}">
+    <cc:attribute name="confirmAction"
+                  method-signature="void action()"
+                  required="true"/>
 
-        <f:ajax execute="@this"
-                render=":playersForm"/>
-
-    </h:commandButton>
-
-    <h:commandButton value="Cancel"
-                     action="#{cc.attrs.cancelAction}">
-
-        <f:ajax execute="@this"
-                render=":playersForm:confirmPanel"/>
-
-    </h:commandButton>
+    <cc:attribute name="cancelAction"
+                  method-signature="void action()"
+                  required="true"/>
 
 </cc:interface>
 
 <cc:implementation>
 
-    <h:panelGroup rendered="#{cc.attrs.visible}"
-                  layout="block"
-                  style="
-                        position:fixed;
-                        top:30%;
-                        left:30%;
-                        width:300px;
-                        background:white;
-                        border:1px solid black;
-                        padding:20px;
-                        z-index:9999;
-                  ">
+    <h:panelGroup rendered="#{cc.attrs.visible}">
 
-        <h3>#{cc.attrs.title}</h3>
+        <!-- BACKDROP -->
 
-        <p>#{cc.attrs.message}</p>
+        <div style="
+            position:fixed;
+            top:0;
+            left:0;
+            width:100vw;
+            height:100vh;
+            background:rgba(0,0,0,0.5);
+            z-index:9998;
+        ">
+        </div>
 
-        <h:commandButton value="Confirm"
-                         action="#{cc.attrs.confirmAction}">
+        <!-- MODAL -->
 
-            <f:ajax execute="@form"
-                    render="@form"/>
+        <div style="
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            width:320px;
+            background:white;
+            border-radius:8px;
+            padding:20px;
+            box-shadow:0 0 10px rgba(0,0,0,0.3);
+            z-index:9999;
+        ">
 
-        </h:commandButton>
+            <h3>#{cc.attrs.title}</h3>
 
-        <h:commandButton value="Cancel"
-                         action="#{cc.attrs.cancelAction}">
+            <p>#{cc.attrs.message}</p>
 
-            <f:ajax execute="@this"
-                    render="@form"/>
+            <h:commandButton value="Confirm"
+                             action="#{cc.attrs.confirmAction}">
 
-        </h:commandButton>
+                <f:ajax execute="@form"
+                        render="@form"/>
+
+            </h:commandButton>
+
+            <h:commandButton value="Cancel"
+                             action="#{cc.attrs.cancelAction}">
+
+                <f:ajax execute="@this"
+                        render="@form"/>
+
+            </h:commandButton>
+
+        </div>
 
     </h:panelGroup>
 

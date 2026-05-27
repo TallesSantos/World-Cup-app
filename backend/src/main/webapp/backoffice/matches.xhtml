@@ -175,11 +175,12 @@
                 <h:commandButton value="Save"
                                  action="#{matchesBean.askSave(match)}">
 
-                    <f:ajax render="confirmPanel"/>
+                    <f:ajax execute="@form"
+                            render="@form"/>
 
                 </h:commandButton>
 
-                <h:commandButton value="Details"
+                <h:commandButton value="Details [TODO]"
                                  action="#{matchesBean.selectMatch(match)}">
 
                     <f:ajax render="matchDetails"/>
@@ -268,16 +269,14 @@
 
         </h:panelGroup>
 
-        <h:panelGroup id="confirmPanel">
 
-            <app:confirmDialog
-                    visible="#{not empty matchesBean.pendingSave}"
-                    title="Confirm update"
-                    message="Save changes for selected match?"
-                    confirmAction="#{matchesBean.confirmSave}"
-                    cancelAction="#{matchesBean.cancelSave}"/>
+        <app:confirmDialog
+                visible="#{not empty matchesBean.pendingSave}"
+                title="Confirm update"
+                message="Save changes for selected match?"
+                confirmAction="#{matchesBean.confirmSave}"
+                cancelAction="#{matchesBean.cancelSave}"/>
 
-        </h:panelGroup>
 
     </h:form>
 

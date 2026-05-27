@@ -170,21 +170,36 @@ public class MatchesBean implements Serializable {
     }
 
     public void askSave(MatchEntity match) {
-        this.pendingSave = match;
+
+        MatchEntity copy = new MatchEntity();
+        copy.setId(match.getId());
+        copy.setWorldCupId(match.getWorldCupId());
+        copy.setKickoffAt(match.getKickoffAt());
+        copy.setStage(match.getStage());
+        copy.setStadium(match.getStadium());
+        copy.setCity(match.getCity());
+        copy.setHomeTeamName(match.getHomeTeamName());
+        copy.setHomeTeamInitials(match.getHomeTeamInitials());
+        copy.setHomeTeamGoals(match.getHomeTeamGoals());
+        copy.setAwayTeamGoals(match.getAwayTeamGoals());
+        copy.setAwayTeamName(match.getAwayTeamName());
+        copy.setAwayTeamInitials(match.getAwayTeamInitials());
+        copy.setWinConditions(match.getWinConditions());
+        copy.setAttendance(match.getAttendance());
+        copy.setReferee(match.getReferee());
+
+        this.pendingSave = copy;
     }
 
     public void confirmSave() {
 
-        if (pendingSave != null) {
-            service.save(pendingSave);
-        }
-
+        service.save(pendingSave);
         pendingSave = null;
-
         loadPage();
     }
 
     public void cancelSave() {
         pendingSave = null;
+        loadPage();
     }
 }

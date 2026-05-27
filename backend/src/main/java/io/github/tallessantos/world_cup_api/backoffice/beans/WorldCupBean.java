@@ -129,10 +129,21 @@ public class WorldCupBean implements Serializable {
     }
 
     public void askSave(WorldCupEntity worldCup) {
-        this.pendingSave = worldCup;
+
+        WorldCupEntity copy = new WorldCupEntity();
+
+        copy.setId(worldCup.getId());
+        copy.setTitle(worldCup.getTitle());
+        copy.setStatus(worldCup.getStatus());
+        copy.setHostCountriesRaw(worldCup.getHostCountriesRaw());
+        copy.setWinner(worldCup.getWinner());
+        copy.setMatchesPlayed(worldCup.getMatchesPlayed());
+
+        this.pendingSave = copy;
     }
 
     public void confirmSave() {
+
         service.save(pendingSave);
         pendingSave = null;
         loadPage();
@@ -140,6 +151,7 @@ public class WorldCupBean implements Serializable {
 
     public void cancelSave() {
         pendingSave = null;
+        loadPage();
     }
 
     public void nextPage() {

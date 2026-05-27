@@ -139,17 +139,19 @@
 
             <h:column>
 
-                <f:facet name="header">Actions</f:facet>
+                <f:facet name="header">
+                    Actions
+                </f:facet>
 
                 <h:commandButton value="Save"
                                  action="#{playersBean.askSave(player)}">
 
-                    <f:ajax execute="@this"
-                            render="confirmPanel"/>
+                    <f:ajax execute="@form"
+                            render="@form"/>
 
                 </h:commandButton>
 
-                <h:commandButton value="Details"
+                <h:commandButton value="Details [TODO]"
                                  action="#{playersBean.selectPlayer(player)}">
 
                     <f:ajax render="playersDetails"/>
@@ -164,21 +166,13 @@
 
         <app:pagination bean="#{playersBean}"/>
 
-        <br/>
 
-        <h:panelGroup layout="block"
-                      style="#{cc.attrs.visible ? '' : 'display:none;'}">
-
-            <app:confirmDialog
-                    visible="#{not empty playersBean.pendingSave}"
-                    title="Confirm update"
-                    message="Save changes?"
-                    confirmAction="#{playersBean.confirmSave}"
-                    cancelAction="#{playersBean.cancelSave}"/>
-
-        </h:panelGroup>
-
-        <br/>
+        <app:confirmDialog
+                visible="#{not empty playersBean.pendingSave}"
+                title="Confirm update"
+                message="Save changes?"
+                confirmAction="#{playersBean.confirmSave}"
+                cancelAction="#{playersBean.cancelSave}"/>
 
         <h:panelGroup id="playersDetails">
 

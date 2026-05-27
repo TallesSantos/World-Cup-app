@@ -156,32 +156,34 @@ public class PlayersBean implements Serializable {
                 new PlayerAppearanceEntity();
     }
 
-    public String askSave(PlayerAppearanceEntity player) {
+    public void askSave(PlayerAppearanceEntity player) {
 
-        this.pendingSave = player;
+        PlayerAppearanceEntity copy = new PlayerAppearanceEntity();
 
-        return null;
+        copy.setId(player.getId());
+        copy.setMatchId(player.getMatchId());
+        copy.setPlayerName(player.getPlayerName());
+        copy.setTeamInitials(player.getTeamInitials());
+        copy.setPosition(player.getPosition());
+        copy.setShirtNumber(player.getShirtNumber());
+        copy.setEvent(player.getEvent());
+        copy.setLineup(player.getLineup());
+        copy.setCoachName(player.getCoachName());
+
+        this.pendingSave = copy;
+
     }
 
-    public String confirmSave() {
-
-        System.out.println("CONFIRM SAVE");
+    public void confirmSave() {
 
         service.save(pendingSave);
-
         pendingSave = null;
-
         loadPage();
-
-        return null;
     }
 
-    public String cancelSave() {
-
-        System.out.println("CANCEL SAVE");
+    public void cancelSave() {
 
         pendingSave = null;
-
-        return null;
+        loadPage();
     }
 }

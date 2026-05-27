@@ -134,11 +134,12 @@
                 <h:commandButton value="Save"
                                  action="#{worldCupBean.askSave(worldCup)}">
 
-                    <f:ajax render="confirmPanel"/>
+                    <f:ajax execute="@form"
+                            render="@form"/>
 
                 </h:commandButton>
 
-                <h:commandButton value="Details"
+                <h:commandButton value="Details [TODO]"
                                  action="#{worldCupBean.selectWorldCup(worldCup)}">
 
                     <f:ajax render="worldCupDetails"/>
@@ -155,34 +156,12 @@
 
         <br/>
 
-        <h:panelGroup id="confirmPanel">
-
-            <h:panelGroup rendered="#{not empty worldCupBean.pendingSave}">
-
-                <h3>Confirm update</h3>
-
-                <p>
-                    Save changes for:
-                    <b>#{worldCupBean.pendingSave.title}</b> ?
-                </p>
-
-                <h:commandButton value="Yes"
-                                 action="#{worldCupBean.confirmSave}">
-
-                    <f:ajax render="@form"/>
-
-                </h:commandButton>
-
-                <h:commandButton value="Cancel"
-                                 action="#{worldCupBean.cancelSave}">
-
-                    <f:ajax render="confirmPanel"/>
-
-                </h:commandButton>
-
-            </h:panelGroup>
-
-        </h:panelGroup>
+        <app:confirmDialog
+                visible="#{not empty worldCupBean.pendingSave}"
+                title="Confirm update"
+                message="Save changes?"
+                confirmAction="#{worldCupBean.confirmSave}"
+                cancelAction="#{worldCupBean.cancelSave}" />
 
     </h:form>
 
