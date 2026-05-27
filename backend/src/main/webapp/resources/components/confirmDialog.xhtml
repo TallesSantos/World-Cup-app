@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:cc="jakarta.faces.composite">
+
+<cc:interface>
+
+    <cc:attribute name="visible" required="true"/>
+    <cc:attribute name="title" required="true"/>
+    <cc:attribute name="message" required="true"/>
+
+    <h:commandButton value="Confirm"
+                     action="#{cc.attrs.confirmAction}">
+
+        <f:ajax execute="@this"
+                render=":playersForm"/>
+
+    </h:commandButton>
+
+    <h:commandButton value="Cancel"
+                     action="#{cc.attrs.cancelAction}">
+
+        <f:ajax execute="@this"
+                render=":playersForm:confirmPanel"/>
+
+    </h:commandButton>
+
+</cc:interface>
+
+<cc:implementation>
+
+    <h:panelGroup rendered="#{cc.attrs.visible}"
+                  layout="block"
+                  style="
+                        position:fixed;
+                        top:30%;
+                        left:30%;
+                        width:300px;
+                        background:white;
+                        border:1px solid black;
+                        padding:20px;
+                        z-index:9999;
+                  ">
+
+        <h3>#{cc.attrs.title}</h3>
+
+        <p>#{cc.attrs.message}</p>
+
+        <h:commandButton value="Confirm"
+                         action="#{cc.attrs.confirmAction}">
+
+            <f:ajax execute="@form"
+                    render="@form"/>
+
+        </h:commandButton>
+
+        <h:commandButton value="Cancel"
+                         action="#{cc.attrs.cancelAction}">
+
+            <f:ajax execute="@this"
+                    render="@form"/>
+
+        </h:commandButton>
+
+    </h:panelGroup>
+
+</cc:implementation>
+
+</html>

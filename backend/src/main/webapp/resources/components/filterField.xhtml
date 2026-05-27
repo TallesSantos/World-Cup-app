@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:composite="jakarta.faces.composite">
+
+<composite:interface>
+
+    <composite:attribute name="label"/>
+    <composite:attribute name="value"/>
+
+</composite:interface>
+
+<composite:implementation>
+
+    <h:outputText value="#{cc.attrs.label}"/>
+
+    <h:inputText value="#{cc.attrs.value}"/>
+
+</composite:implementation>
+
+</html>

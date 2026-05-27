@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:app="http://xmlns.jcp.org/jsf/composite/components">
+
+<h:head>
+    <title>World Cups</title>
+</h:head>
+
+<h:body>
+
+    <h1>World Cups</h1>
+
+    <h:form id="worldCupForm">
+
+        <h2>Filters</h2>
+
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <app:filterField
+                    label="Title:"
+                    value="#{worldCupBean.filterTitle}" />
+
+            <app:filterField
+                    label="Status:"
+                    value="#{worldCupBean.filterStatus}" />
+
+            <app:filterField
+                    label="Winner:"
+                    value="#{worldCupBean.filterWinner}" />
+
+            <h:outputText value="Sort Field:"/>
+
+            <h:selectOneMenu value="#{worldCupBean.sortField}">
+                <f:selectItem itemValue="title" itemLabel="Title"/>
+                <f:selectItem itemValue="status" itemLabel="Status"/>
+                <f:selectItem itemValue="winner" itemLabel="Winner"/>
+                <f:selectItem itemValue="matchesPlayed" itemLabel="Matches"/>
+                <f:selectItem itemValue="startDate" itemLabel="Start Date"/>
+            </h:selectOneMenu>
+
+            <h:outputText value="Sort Direction:"/>
+
+            <h:selectOneMenu value="#{worldCupBean.sortDirection}">
+                <f:selectItem itemValue="asc" itemLabel="Ascending"/>
+                <f:selectItem itemValue="desc" itemLabel="Descending"/>
+            </h:selectOneMenu>
+
+        </h:panelGrid>
+
+        <br/>
+
+        <h:commandButton value="Apply Filters"
+                         action="#{worldCupBean.filter}">
+
+            <f:ajax execute="@form"
+                    render="@form"/>
+
+        </h:commandButton>
+
+        <h:commandButton value="Clear Filters"
+                         action="#{worldCupBean.clearFilters}">
+
+            <f:ajax execute="@form"
+                    render="@form"/>
+
+        </h:commandButton>
+
+        <br/>
+        <br/>
+
+        <h:dataTable value="#{worldCupBean.worldCups}"
+                     var="worldCup"
+                     border="1"
+                     cellpadding="6">
+
+            <h:column>
+
+                <f:facet name="header">
+                    Title
+                </f:facet>
+
+                <h:inputText value="#{worldCup.title}" />
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Status
+                </f:facet>
+
+                <h:inputText value="#{worldCup.status}" />
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Hosts
+                </f:facet>
+
+                <h:inputText value="#{worldCup.hostCountriesRaw}" />
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Winner
+                </f:facet>
+
+                <h:inputText value="#{worldCup.winner}" />
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Matches
+                </f:facet>
+
+                <h:inputText value="#{worldCup.matchesPlayed}" />
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Actions
+                </f:facet>
+
+                <h:commandButton value="Save"
+                                 action="#{worldCupBean.askSave(worldCup)}">
+
+                    <f:ajax render="confirmPanel"/>
+
+                </h:commandButton>
+
+                <h:commandButton value="Details"
+                                 action="#{worldCupBean.selectWorldCup(worldCup)}">
+
+                    <f:ajax render="worldCupDetails"/>
+
+                </h:commandButton>
+
+            </h:column>
+
+        </h:dataTable>
+
+        <br/>
+
+        <app:pagination bean="#{worldCupBean}" />
+
+        <br/>
+
+        <h:panelGroup id="confirmPanel">
+
+            <h:panelGroup rendered="#{not empty worldCupBean.pendingSave}">
+
+                <h3>Confirm update</h3>
+
+                <p>
+                    Save changes for:
+                    <b>#{worldCupBean.pendingSave.title}</b> ?
+                </p>
+
+                <h:commandButton value="Yes"
+                                 action="#{worldCupBean.confirmSave}">
+
+                    <f:ajax render="@form"/>
+
+                </h:commandButton>
+
+                <h:commandButton value="Cancel"
+                                 action="#{worldCupBean.cancelSave}">
+
+                    <f:ajax render="confirmPanel"/>
+
+                </h:commandButton>
+
+            </h:panelGroup>
+
+        </h:panelGroup>
+
+    </h:form>
+
+</h:body>
+
+</html>

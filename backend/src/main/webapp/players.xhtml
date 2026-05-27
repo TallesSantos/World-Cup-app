@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:app="http://xmlns.jcp.org/jsf/composite/components">
+
+<h:head>
+    <title>Players</title>
+</h:head>
+
+<h:body>
+
+    <h1>Players</h1>
+
+    <h:form id="playersForm">
+
+        <h2>Filters</h2>
+
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <app:filterField
+                    label="Player:"
+                    value="#{playersBean.filterPlayerName}"/>
+
+            <app:filterField
+                    label="Team:"
+                    value="#{playersBean.filterTeam}"/>
+
+            <app:filterField
+                    label="Position:"
+                    value="#{playersBean.filterPosition}"/>
+
+            <h:outputText value="Sort Field:"/>
+
+            <h:selectOneMenu value="#{playersBean.sortField}">
+
+                <f:selectItem itemValue="playerName"
+                              itemLabel="Player"/>
+
+                <f:selectItem itemValue="teamInitials"
+                              itemLabel="Team"/>
+
+                <f:selectItem itemValue="position"
+                              itemLabel="Position"/>
+
+                <f:selectItem itemValue="shirtNumber"
+                              itemLabel="Shirt"/>
+
+            </h:selectOneMenu>
+
+            <h:outputText value="Sort Direction:"/>
+
+            <h:selectOneMenu
+                    value="#{playersBean.sortDirection}">
+
+                <f:selectItem itemValue="asc"
+                              itemLabel="Ascending"/>
+
+                <f:selectItem itemValue="desc"
+                              itemLabel="Descending"/>
+
+            </h:selectOneMenu>
+
+        </h:panelGrid>
+
+        <br/>
+
+        <h:commandButton value="Apply Filters"
+                         action="#{playersBean.filter}">
+
+            <f:ajax execute="@form"
+                    render="@form"/>
+
+        </h:commandButton>
+
+        <h:commandButton value="Clear Filters"
+                         action="#{playersBean.clearFilters}">
+
+            <f:ajax execute="@form"
+                    render="@form"/>
+
+        </h:commandButton>
+
+        <br/>
+        <br/>
+
+        <h:dataTable value="#{playersBean.players}"
+                     var="player"
+                     border="1"
+                     cellpadding="6">
+
+            <h:column>
+
+                <f:facet name="header">Match ID</f:facet>
+
+                <h:inputText value="#{player.matchId}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">Player</f:facet>
+
+                <h:inputText value="#{player.playerName}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">Team</f:facet>
+
+                <h:inputText value="#{player.teamInitials}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">Position</f:facet>
+
+                <h:inputText value="#{player.position}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">Shirt</f:facet>
+
+                <h:inputText value="#{player.shirtNumber}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">Event</f:facet>
+
+                <h:inputText value="#{player.event}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">Actions</f:facet>
+
+                <h:commandButton value="Save"
+                                 action="#{playersBean.askSave(player)}">
+
+                    <f:ajax execute="@this"
+                            render="confirmPanel"/>
+
+                </h:commandButton>
+
+                <h:commandButton value="Details"
+                                 action="#{playersBean.selectPlayer(player)}">
+
+                    <f:ajax render="playersDetails"/>
+
+                </h:commandButton>
+
+            </h:column>
+
+        </h:dataTable>
+
+        <br/>
+
+        <app:pagination bean="#{playersBean}"/>
+
+        <br/>
+
+        <h:panelGroup layout="block"
+                      style="#{cc.attrs.visible ? '' : 'display:none;'}">
+
+            <app:confirmDialog
+                    visible="#{not empty playersBean.pendingSave}"
+                    title="Confirm update"
+                    message="Save changes?"
+                    confirmAction="#{playersBean.confirmSave}"
+                    cancelAction="#{playersBean.cancelSave}"/>
+
+        </h:panelGroup>
+
+        <br/>
+
+        <h:panelGroup id="playersDetails">
+
+            <h:panelGroup
+                    rendered="#{not empty playersBean.selectedPlayer.id}">
+
+                <hr/>
+
+                <h2>
+                    #{playersBean.selectedPlayer.playerName}
+                </h2>
+
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <h:outputText value="ID:"/>
+                    <h:outputText
+                            value="#{playersBean.selectedPlayer.id}"/>
+
+                    <h:outputText value="Match ID:"/>
+                    <h:outputText
+                            value="#{playersBean.selectedPlayer.matchId}"/>
+
+                    <h:outputText value="Player Name:"/>
+                    <h:outputText
+                            value="#{playersBean.selectedPlayer.playerName}"/>
+
+                    <h:outputText value="Team Initials:"/>
+                    <h:outputText
+                            value="#{playersBean.selectedPlayer.teamInitials}"/>
+
+                    <h:outputText value="Coach Name:"/>
+                    <h:outputText
+                            value="#{playersBean.selectedPlayer.coachName}"/>
+
+                    <h:outputText value="Lineup:"/>
+                    <h:outputText
+                            value="#{playersBean.selectedPlayer.lineup}"/>
+
+                    <h:outputText value="Shirt Number:"/>
+                    <h:outputText
+                            value="#{playersBean.selectedPlayer.shirtNumber}"/>
+
+                    <h:outputText value="Position:"/>
+                    <h:outputText
+                            value="#{playersBean.selectedPlayer.position}"/>
+
+                    <h:outputText value="Event:"/>
+                    <h:outputText
+                            value="#{playersBean.selectedPlayer.event}"/>
+
+                </h:panelGrid>
+
+                <br/>
+
+                <h:commandButton value="Clear Selection"
+                                 action="#{playersBean.clearSelection}">
+
+                    <f:ajax render="playersDetails"/>
+
+                </h:commandButton>
+
+            </h:panelGroup>
+
+        </h:panelGroup>
+
+    </h:form>
+
+</h:body>
+
+</html>

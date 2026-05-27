@@ -1,11 +1,11 @@
 package io.github.tallessantos.world_cup_api.api.dto;
 
-import io.github.tallessantos.world_cup_api.business.core.domain.ComparativeStatistic;
-import io.github.tallessantos.world_cup_api.business.core.domain.MatchDetail;
-import io.github.tallessantos.world_cup_api.business.core.domain.MatchVideo;
-import io.github.tallessantos.world_cup_api.business.core.domain.PlayerReference;
-import io.github.tallessantos.world_cup_api.business.core.domain.StatisticItem;
-import io.github.tallessantos.world_cup_api.business.core.domain.TeamReference;
+import io.github.tallessantos.world_cup_api.core.domain.ComparativeStatistic;
+import io.github.tallessantos.world_cup_api.core.domain.MatchDetail;
+import io.github.tallessantos.world_cup_api.core.domain.MatchVideo;
+import io.github.tallessantos.world_cup_api.core.domain.PlayerReference;
+import io.github.tallessantos.world_cup_api.core.domain.StatisticItem;
+import io.github.tallessantos.world_cup_api.core.domain.TeamReference;
 
 import java.time.LocalDateTime;
 import java.util.List;

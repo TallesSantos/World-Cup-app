@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+
+<h:head>
+    <title>Countries</title>
+</h:head>
+
+<h:body>
+
+    <h1>Countries</h1>
+
+    <h:form id="countriesForm">
+
+        <h:dataTable value="#{countriesBean.countries}"
+                     var="country"
+                     border="1"
+                     cellpadding="6">
+
+            <h:column>
+                <f:facet name="header">Flag</f:facet>
+
+                <h:graphicImage value="#{country.flagUrl()}"
+                                width="48"
+                                height="32" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                #{country.name()}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">FIFA Code</f:facet>
+                #{country.fifaCode()}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Confederation</f:facet>
+                #{country.confederation()}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Coach</f:facet>
+                #{country.coach()}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Ranking</f:facet>
+                #{country.fifaRanking()}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">World Cups</f:facet>
+                #{country.titles().worldCups()}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Best Finish</f:facet>
+                #{country.bestWorldCupFinish()}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Actions</f:facet>
+
+                <h:commandButton value="Details"
+                                 action="#{countriesBean.selectCountry(country)}">
+                    <f:ajax render="countryDetails"/>
+                </h:commandButton>
+
+            </h:column>
+
+        </h:dataTable>
+
+        <br/>
+
+        <h:panelGroup id="countryDetails">
+
+            <h:panelGroup rendered="#{not empty countriesBean.selectedCountry}">
+
+                <hr/>
+
+                <h2>
+                    #{countriesBean.selectedCountry.name()}
+                </h2>
+
+                <h:graphicImage value="#{countriesBean.selectedCountry.flagUrl()}"
+                                width="120"
+                                height="80"/>
+
+                <br/><br/>
+
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <h:outputText value="FIFA Code:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.fifaCode()}"/>
+
+                    <h:outputText value="Confederation:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.confederation()}"/>
+
+                    <h:outputText value="Coach:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.coach()}"/>
+
+                    <h:outputText value="FIFA Ranking:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.fifaRanking()}"/>
+
+                    <h:outputText value="World Cup Appearances:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.worldCupAppearances()}"/>
+
+                    <h:outputText value="Best World Cup Finish:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.bestWorldCupFinish()}"/>
+
+                </h:panelGrid>
+
+                <br/>
+
+                <h3>Titles</h3>
+
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <h:outputText value="World Cups:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.titles().worldCups()}"/>
+
+                    <h:outputText value="Continental Cups:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.titles().continentalCups()}"/>
+
+                    <h:outputText value="Confederations Cup:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.titles().confederationsCup()}"/>
+
+                    <h:outputText value="Olympic Gold Medals:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.titles().olympicGoldMedals()}"/>
+
+                </h:panelGrid>
+
+                <br/>
+
+                <h3>All Time Statistics</h3>
+
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <h:outputText value="Matches:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().matches()}"/>
+
+                    <h:outputText value="Wins:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().wins()}"/>
+
+                    <h:outputText value="Draws:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().draws()}"/>
+
+                    <h:outputText value="Losses:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().losses()}"/>
+
+                    <h:outputText value="Goals Scored:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().goalsScored()}"/>
+
+                    <h:outputText value="Goals Conceded:"/>
+                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().goalsConceded()}"/>
+
+                </h:panelGrid>
+
+                <br/>
+
+                <h3>Legendary Players</h3>
+
+                <ui:repeat value="#{countriesBean.selectedCountry.legendaryPlayers()}"
+                           var="player">
+
+                    <div>
+                        #{player.name()}
+                    </div>
+
+                </ui:repeat>
+
+                <br/>
+
+                <h3>World Cup History</h3>
+
+                <h:dataTable value="#{countriesBean.selectedCountry.worldCupHistory()}"
+                             var="history"
+                             border="1"
+                             cellpadding="5">
+
+                    <h:column>
+                        <f:facet name="header">Year</f:facet>
+                        #{history.worldCupYear()}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Host</f:facet>
+                        #{history.hostCountry()}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Position</f:facet>
+                        #{history.finalPosition()}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Coach</f:facet>
+                        #{history.coach()}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Top Scorer</f:facet>
+                        #{history.topScorer().player().name()}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Goals</f:facet>
+                        #{history.topScorer().goals()}
+                    </h:column>
+
+                </h:dataTable>
+
+                <br/>
+
+                <h:commandButton value="Clear Selection"
+                                 action="#{countriesBean.clearSelection}">
+                    <f:ajax render="countryDetails"/>
+                </h:commandButton>
+
+            </h:panelGroup>
+
+        </h:panelGroup>
+
+    </h:form>
+
+</h:body>
+
+</html>

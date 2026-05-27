@@ -1,0 +1,64 @@
+<ui:component
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="jakarta.faces.html"
+        xmlns:f="jakarta.faces.core"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:composite="jakarta.faces.composite">
+
+    <composite:interface>
+
+        <composite:attribute name="bean"/>
+
+    </composite:interface>
+
+    <composite:implementation>
+
+        <h:panelGroup layout="block">
+
+            <h:commandButton value="Previous"
+                             action="#{cc.attrs.bean.previousPage}"
+                             disabled="#{cc.attrs.bean.currentPage == 0}">
+
+                <f:ajax render="@form"/>
+
+            </h:commandButton>
+
+            <h:outputText
+                    value=" Page #{cc.attrs.bean.currentPage + 1}
+                            of
+                            #{cc.attrs.bean.totalPages} "/>
+
+            <h:commandButton value="Next"
+                             action="#{cc.attrs.bean.nextPage}"
+                             disabled="#{not cc.attrs.bean.hasNextPage}">
+
+                <f:ajax render="@form"/>
+
+            </h:commandButton>
+
+            <h:outputText value=" Total records: "/>
+
+            <h:outputText value="#{cc.attrs.bean.totalRecords}"/>
+
+            <h:outputText value=" | Page size: "/>
+
+            <h:selectOneMenu value="#{cc.attrs.bean.pageSize}">
+
+                <f:selectItem itemValue="5" itemLabel="5"/>
+
+                <f:selectItem itemValue="10" itemLabel="10"/>
+
+                <f:selectItem itemValue="20" itemLabel="20"/>
+
+                <f:selectItem itemValue="50" itemLabel="50"/>
+
+                <f:ajax listener="#{cc.attrs.bean.changePageSize}"
+                        render="@form"/>
+
+            </h:selectOneMenu>
+
+        </h:panelGroup>
+
+    </composite:implementation>
+
+</ui:component>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:app="http://xmlns.jcp.org/jsf/composite/components">
+
+<h:head>
+    <title>Matches</title>
+</h:head>
+
+<h:body>
+
+    <h1>Matches</h1>
+
+    <h:form id="matchesForm">
+
+        <h2>Filters</h2>
+
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <app:filterField
+                    label="Stage:"
+                    value="#{matchesBean.filterStage}"/>
+
+            <app:filterField
+                    label="City:"
+                    value="#{matchesBean.filterCity}"/>
+
+            <app:filterField
+                    label="Home Team:"
+                    value="#{matchesBean.filterHomeTeam}"/>
+
+            <app:filterField
+                    label="Away Team:"
+                    value="#{matchesBean.filterAwayTeam}"/>
+
+            <h:outputText value="Sort Field:"/>
+
+            <h:selectOneMenu value="#{matchesBean.sortField}">
+
+                <f:selectItem itemValue="kickoffAt"
+                              itemLabel="Kickoff"/>
+
+                <f:selectItem itemValue="stage"
+                              itemLabel="Stage"/>
+
+                <f:selectItem itemValue="city"
+                              itemLabel="City"/>
+
+                <f:selectItem itemValue="homeTeamName"
+                              itemLabel="Home Team"/>
+
+                <f:selectItem itemValue="awayTeamName"
+                              itemLabel="Away Team"/>
+
+            </h:selectOneMenu>
+
+            <h:outputText value="Sort Direction:"/>
+
+            <h:selectOneMenu value="#{matchesBean.sortDirection}">
+
+                <f:selectItem itemValue="asc"
+                              itemLabel="Ascending"/>
+
+                <f:selectItem itemValue="desc"
+                              itemLabel="Descending"/>
+
+            </h:selectOneMenu>
+
+        </h:panelGrid>
+
+        <br/>
+
+        <h:commandButton value="Apply Filters"
+                         action="#{matchesBean.filter}">
+
+            <f:ajax execute="@form"
+                    render="@form"/>
+
+        </h:commandButton>
+
+        <h:commandButton value="Clear Filters"
+                         action="#{matchesBean.clearFilters}">
+
+            <f:ajax execute="@form"
+                    render="@form"/>
+
+        </h:commandButton>
+
+        <br/>
+        <br/>
+
+        <h:dataTable value="#{matchesBean.matches}"
+                     var="match"
+                     border="1"
+                     cellpadding="6">
+
+            <h:column>
+
+                <f:facet name="header">
+                    World Cup
+                </f:facet>
+
+                <h:inputText value="#{match.worldCupId}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Stage
+                </f:facet>
+
+                <h:inputText value="#{match.stage}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Kickoff
+                </f:facet>
+
+                <h:outputText
+                        value="#{matchesBean.formatDate(matchesBean.selectedMatch.kickoffAt)}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Home Team
+                </f:facet>
+
+                <h:inputText value="#{match.homeTeamName}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Score
+                </f:facet>
+
+                #{match.homeTeamGoals} x #{match.awayTeamGoals}
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Away Team
+                </f:facet>
+
+                <h:inputText value="#{match.awayTeamName}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    City
+                </f:facet>
+
+                <h:inputText value="#{match.city}"/>
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">
+                    Actions
+                </f:facet>
+
+                <h:commandButton value="Save"
+                                 action="#{matchesBean.askSave(match)}">
+
+                    <f:ajax render="confirmPanel"/>
+
+                </h:commandButton>
+
+                <h:commandButton value="Details"
+                                 action="#{matchesBean.selectMatch(match)}">
+
+                    <f:ajax render="matchDetails"/>
+
+                </h:commandButton>
+
+            </h:column>
+
+        </h:dataTable>
+
+        <br/>
+
+        <app:pagination
+                bean="#{matchesBean}"/>
+
+        <br/>
+
+        <h:panelGroup id="matchDetails">
+
+            <h:panelGroup rendered="#{not empty matchesBean.selectedMatch.id}">
+
+                <hr/>
+
+                <h2>
+
+                    #{matchesBean.selectedMatch.homeTeamName}
+                    x
+                    #{matchesBean.selectedMatch.awayTeamName}
+
+                </h2>
+
+                <h3>
+
+                    #{matchesBean.selectedMatch.homeTeamGoals}
+                    x
+                    #{matchesBean.selectedMatch.awayTeamGoals}
+
+                </h3>
+
+                <h:panelGrid columns="2"
+                             cellpadding="5">
+
+                    <h:outputText value="Match ID:"/>
+                    <h:outputText value="#{matchesBean.selectedMatch.id}"/>
+
+                    <h:outputText value="World Cup:"/>
+                    <h:outputText value="#{matchesBean.selectedMatch.worldCupId}"/>
+
+                    <h:outputText value="Stage:"/>
+                    <h:outputText value="#{matchesBean.selectedMatch.stage}"/>
+
+                    <h:outputText value="Kickoff:"/>
+
+                    <h:outputText value="#{matchesBean.formatDate(match.kickoffAt)}"/>
+
+                    <h:outputText value="Stadium:"/>
+                    <h:outputText value="#{matchesBean.selectedMatch.stadium}"/>
+
+                    <h:outputText value="City:"/>
+                    <h:outputText value="#{matchesBean.selectedMatch.city}"/>
+
+                    <h:outputText value="Home Team:"/>
+                    <h:outputText value="#{matchesBean.selectedMatch.homeTeamName}"/>
+
+                    <h:outputText value="Away Team:"/>
+                    <h:outputText value="#{matchesBean.selectedMatch.awayTeamName}"/>
+
+                    <h:outputText value="Attendance:"/>
+                    <h:outputText value="#{matchesBean.selectedMatch.attendance}"/>
+
+                    <h:outputText value="Referee:"/>
+                    <h:outputText value="#{matchesBean.selectedMatch.referee}"/>
+
+                </h:panelGrid>
+
+                <br/>
+
+                <h:commandButton value="Clear Selection"
+                                 action="#{matchesBean.clearSelection}">
+
+                    <f:ajax render="matchDetails"/>
+
+                </h:commandButton>
+
+            </h:panelGroup>
+
+        </h:panelGroup>
+
+        <h:panelGroup id="confirmPanel">
+
+            <app:confirmDialog
+                    visible="#{not empty matchesBean.pendingSave}"
+                    title="Confirm update"
+                    message="Save changes for selected match?"
+                    confirmAction="#{matchesBean.confirmSave}"
+                    cancelAction="#{matchesBean.cancelSave}"/>
+
+        </h:panelGroup>
+
+    </h:form>
+
+</h:body>
+
+</html>

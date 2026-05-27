@@ -1,6 +1,6 @@
 package io.github.tallessantos.world_cup_api.api.dto;
 
-import io.github.tallessantos.world_cup_api.business.core.domain.WorldCupDetail;
+import io.github.tallessantos.world_cup_api.core.domain.WorldCupDetail;
 
 import java.time.LocalDate;
 import java.util.List;

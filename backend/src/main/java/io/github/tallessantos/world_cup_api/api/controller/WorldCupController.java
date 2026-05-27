@@ -2,7 +2,7 @@ package io.github.tallessantos.world_cup_api.api.controller;
 
 import io.github.tallessantos.world_cup_api.api.dto.WorldCupSummaryResponse;
 import io.github.tallessantos.world_cup_api.api.dto.WorldCupDetailResponse;
-import io.github.tallessantos.world_cup_api.business.core.service.WorldCupService;
+import io.github.tallessantos.world_cup_api.core.service.WorldCupService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

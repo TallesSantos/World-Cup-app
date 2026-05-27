@@ -1,7 +1,7 @@
 package io.github.tallessantos.world_cup_api.api.dto;
 
-import io.github.tallessantos.world_cup_api.business.core.domain.CountryDetail;
-import io.github.tallessantos.world_cup_api.business.core.domain.PlayerReference;
+import io.github.tallessantos.world_cup_api.core.domain.CountryDetail;
+import io.github.tallessantos.world_cup_api.core.domain.PlayerReference;
 
 import java.util.List;
 
