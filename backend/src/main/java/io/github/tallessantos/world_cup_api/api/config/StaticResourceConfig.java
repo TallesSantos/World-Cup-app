@@ -11,10 +11,10 @@ import java.nio.file.Path;
 public class StaticResourceConfig implements WebMvcConfigurer {
 
 
-    @Value("${resource.storage.path}")
+    @Value("${app.resource.storage.path}")
     private String storagePath;
 
-    @Value("${resource.server-side-pattern-path}")
+    @Value("${app.resource.server-side-pattern-path}")
     private String pathPatterns;
 
     @Override

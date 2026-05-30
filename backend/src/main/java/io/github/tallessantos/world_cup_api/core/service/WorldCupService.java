@@ -1,15 +1,12 @@
 package io.github.tallessantos.world_cup_api.core.service;
 
+import io.github.tallessantos.world_cup_api.core.domain.*;
+import io.github.tallessantos.world_cup_api.core.exception.BusinessException;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
-import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
-import io.github.tallessantos.world_cup_api.core.domain.MatchSummary;
-import io.github.tallessantos.world_cup_api.core.domain.TeamReference;
-import io.github.tallessantos.world_cup_api.core.domain.WorldCup;
-import io.github.tallessantos.world_cup_api.core.domain.WorldCupDetail;
-import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
-import io.github.tallessantos.world_cup_api.core.domain.WorldCupStatus;
+import io.github.tallessantos.world_cup_api.infra.repository.MediaRespository;
 import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,23 +15,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 public class WorldCupService {
 
+    @Value("${app.resource.storage.path}")
+    private String storagePath;
+
+    @Value("${app.resource.server-side-pattern-path}")
+    private String resourcePath;
+
     private final WorldCupRepository worldCupRepository;
     private final MatchRepository matchRepository;
+    private final MediaStorageService mediaStorageService;
+    private final MediaRespository mediaRespository;
 
-    public WorldCupService(WorldCupRepository worldCupRepository, MatchRepository matchRepository) {
+    public WorldCupService(WorldCupRepository worldCupRepository, MatchRepository matchRepository, MediaStorageService mediaStorageService,
+                           MediaRespository mediaRespository) {
         this.worldCupRepository = worldCupRepository;
         this.matchRepository = matchRepository;
+        this.mediaStorageService = mediaStorageService;
+        this.mediaRespository = mediaRespository;
     }
 
     public List<WorldCup> listWorldCups() {
@@ -202,6 +206,50 @@ public class WorldCupService {
 
     public void save(WorldCupEntity worldCup) {
         worldCupRepository.save(worldCup);
+    }
+
+    public MediaEntity saveBannerImage(WorldCupEntity entity, byte[] image) {
+
+        //TODO add audit columns
+
+        String pathToFile = "/world-cups/banners/" + entity.getId() + ".jpeg";
+
+        String savedPath = mediaStorageService
+                .saveImageInStoragePassingPathAndByteArray(storagePath + pathToFile, image);
+
+        MediaEntity mediaEntity = new MediaEntity();
+
+        mediaEntity.setMediaContentType(MediaContentType.WORLD_CUP_BANNER);
+
+        mediaEntity.setMediaPlataform(MediaPlataform.RESOURCE_SERVER);
+
+        mediaEntity.setFullStoragePath(savedPath);
+
+        mediaEntity.setStoragePath(storagePath);
+
+        mediaEntity.setResourcePath(resourcePath.replace("/**", ""));
+
+        mediaEntity.setFullResourcePath(resourcePath.replace("/**", "") + pathToFile);
+
+        mediaRespository.saveAndFlush(mediaEntity);
+
+        entity.setWorldCupBannerMedia(mediaEntity);
+
+        worldCupRepository.save(entity);
+
+        return mediaEntity;
+    }
+
+    public MediaEntity updateBannerImage(WorldCupEntity entity, byte[] image){
+
+        //TODO add audit columns
+
+        String fullStoragePath =  entity.getWorldCupBannerMedia().getFullStoragePath();
+        if(storagePath == null) {
+            throw new BusinessException("Error try update image");
+        }
+        mediaStorageService.replaceImageInStoragePassingPathAndByteArray(fullStoragePath, image);
+        return entity.getWorldCupBannerMedia();
     }
 
     public Page<WorldCupEntity> findPageFiltered(

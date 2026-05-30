@@ -23,14 +23,20 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
-
-resource:
-  server-side-pattern-path: '/storage/**'
-  storage:
-    path: 'D:/images'
-
 app:
+  world-cups:
+    banners-path: '/worldcups_banners'
+
+  players:
+    players-image: '/players_image'
+
   data:
     world-cups-path: './data/WorldCups.csv'
     world-cups-matches-path: './data/WorldCupMatches.csv'
     world-cups-players-path: './data/WorldCupPlayers.csv'
+
+  resource:
+    server-side-pattern-path: '/storage/**'
+    storage:
+      path: 'D:/storage'
+

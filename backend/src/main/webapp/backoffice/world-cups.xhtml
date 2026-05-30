@@ -12,11 +12,13 @@
 
     <h1>World Cups</h1>
 
-    <h:form id="worldCupForm">
+    <h:form id="worldCupForm"
+            enctype="multipart/form-data">
 
         <h2>Filters</h2>
 
-        <h:panelGrid columns="2" cellpadding="5">
+        <h:panelGrid columns="2"
+                     cellpadding="5">
 
             <app:filterField
                     label="Title:"
@@ -30,21 +32,37 @@
                     label="Winner:"
                     value="#{worldCupBean.filterWinner}" />
 
-            <h:outputText value="Sort Field:"/>
+            <h:outputText value="Sort Field:" />
 
             <h:selectOneMenu value="#{worldCupBean.sortField}">
-                <f:selectItem itemValue="title" itemLabel="Title"/>
-                <f:selectItem itemValue="status" itemLabel="Status"/>
-                <f:selectItem itemValue="winner" itemLabel="Winner"/>
-                <f:selectItem itemValue="matchesPlayed" itemLabel="Matches"/>
-                <f:selectItem itemValue="startDate" itemLabel="Start Date"/>
+
+                <f:selectItem itemValue="title"
+                              itemLabel="Title" />
+
+                <f:selectItem itemValue="status"
+                              itemLabel="Status" />
+
+                <f:selectItem itemValue="winner"
+                              itemLabel="Winner" />
+
+                <f:selectItem itemValue="matchesPlayed"
+                              itemLabel="Matches" />
+
+                <f:selectItem itemValue="startDate"
+                              itemLabel="Start Date" />
+
             </h:selectOneMenu>
 
-            <h:outputText value="Sort Direction:"/>
+            <h:outputText value="Sort Direction:" />
 
             <h:selectOneMenu value="#{worldCupBean.sortDirection}">
-                <f:selectItem itemValue="asc" itemLabel="Ascending"/>
-                <f:selectItem itemValue="desc" itemLabel="Descending"/>
+
+                <f:selectItem itemValue="asc"
+                              itemLabel="Ascending" />
+
+                <f:selectItem itemValue="desc"
+                              itemLabel="Descending" />
+
             </h:selectOneMenu>
 
         </h:panelGrid>
@@ -55,7 +73,7 @@
                          action="#{worldCupBean.filter}">
 
             <f:ajax execute="@form"
-                    render="@form"/>
+                    render="@form" />
 
         </h:commandButton>
 
@@ -63,7 +81,7 @@
                          action="#{worldCupBean.clearFilters}">
 
             <f:ajax execute="@form"
-                    render="@form"/>
+                    render="@form" />
 
         </h:commandButton>
 
@@ -74,6 +92,85 @@
                      var="worldCup"
                      border="1"
                      cellpadding="6">
+
+            <h:column>
+
+                <f:facet name="header">
+                    Banner
+                </f:facet>
+
+                <h:panelGroup
+                        layout="block"
+                        style="
+                            display:flex;
+                            align-items:center;
+                            justify-content:space-between;
+                            gap:10px;
+                            min-width:240px;
+                        ">
+
+                    <!-- upload -->
+
+                    <h:panelGroup
+                            layout="block"
+                            style="
+                                display:flex;
+                                flex-direction:column;
+                                gap:4px;
+                            ">
+
+                        <h:inputFile
+                                value="#{worldCupBean.uploadedBanners[worldCup.id]}" />
+
+                        <h:commandButton
+                                value="#{empty worldCup.worldCupBannerMedia ? 'Add Banner' : 'Replace Banner'}"
+                                action="#{worldCupBean.uploadBanner(worldCup)}">
+
+                            <f:ajax execute="@form"
+                                    render="@form" />
+
+                        </h:commandButton>
+
+                    </h:panelGroup>
+
+                    <!-- preview -->
+
+                    <h:panelGroup rendered="#{not empty worldCup.worldCupBannerMedia}">
+
+                        <h:graphicImage
+                                value="#{'http://localhost:8081'.concat(worldCup.worldCupBannerMedia.fullResourcePath)}"
+                                height="70"
+                                style="
+                                    border:1px solid gray;
+                                    padding:2px;
+                                    width:120px;
+                                    object-fit:cover;
+                                " />
+
+                    </h:panelGroup>
+
+                    <!-- placeholder -->
+
+                    <h:panelGroup
+                            rendered="#{empty worldCup.worldCupBannerMedia}"
+                            layout="block"
+                            style="
+                                width:120px;
+                                height:70px;
+                                border:1px dashed gray;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-size:12px;
+                            ">
+
+                        <h:outputText value="No banner" />
+
+                    </h:panelGroup>
+
+                </h:panelGroup>
+
+            </h:column>
 
             <h:column>
 
@@ -135,14 +232,14 @@
                                  action="#{worldCupBean.askSave(worldCup)}">
 
                     <f:ajax execute="@form"
-                            render="@form"/>
+                            render="@form" />
 
                 </h:commandButton>
 
                 <h:commandButton value="Details [TODO]"
                                  action="#{worldCupBean.selectWorldCup(worldCup)}">
 
-                    <f:ajax render="worldCupDetails"/>
+                    <f:ajax render="worldCupDetails" />
 
                 </h:commandButton>
 

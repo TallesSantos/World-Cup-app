@@ -1,18 +1,22 @@
 package io.github.tallessantos.world_cup_api.backoffice.beans;
 
+import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
 import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
 import io.github.tallessantos.world_cup_api.core.service.WorldCupService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.servlet.http.Part;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Named
 @ViewScoped
@@ -74,6 +78,9 @@ public class WorldCupBean implements Serializable {
     @Getter
     private int totalPages;
 
+    @Getter
+    private Map<String, Part> uploadedBanners = new HashMap<>();
+
     @PostConstruct
     public void init() {
         loadPage();
@@ -130,16 +137,7 @@ public class WorldCupBean implements Serializable {
 
     public void askSave(WorldCupEntity worldCup) {
 
-        WorldCupEntity copy = new WorldCupEntity();
-
-        copy.setId(worldCup.getId());
-        copy.setTitle(worldCup.getTitle());
-        copy.setStatus(worldCup.getStatus());
-        copy.setHostCountriesRaw(worldCup.getHostCountriesRaw());
-        copy.setWinner(worldCup.getWinner());
-        copy.setMatchesPlayed(worldCup.getMatchesPlayed());
-
-        this.pendingSave = copy;
+        this.pendingSave = worldCup;
     }
 
     public void confirmSave() {
@@ -179,5 +177,50 @@ public class WorldCupBean implements Serializable {
     public void update(WorldCupEntity worldCup) {
         service.save(worldCup);
         loadPage();
+    }
+
+    public void uploadBanner(WorldCupEntity worldCup) {
+        //TODO fix delay of image wen replace banner
+
+        Part uploadedBanner =
+                uploadedBanners.get(worldCup.getId());
+
+        if (uploadedBanner == null) {
+            return;
+        }
+
+        try {
+
+            byte[] bytes = uploadedBanner
+                    .getInputStream()
+                    .readAllBytes();
+
+            MediaEntity media;
+
+            if (worldCup.getWorldCupBannerMedia() == null) {
+                media =
+                        service.saveBannerImage(
+                                worldCup,
+                                bytes
+                        );
+            } else {
+                media =
+                        service.updateBannerImage(
+                                worldCup,
+                                bytes
+                        );
+            }
+
+            worldCup.setWorldCupBannerMedia(media);
+
+            service.save(worldCup);
+
+            uploadedBanners.remove(worldCup.getId());
+
+            loadPage();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

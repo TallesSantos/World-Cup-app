@@ -1,8 +1,6 @@
 package io.github.tallessantos.world_cup_api.core.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,4 +28,8 @@ public class WorldCupEntity {
     private Integer qualifiedTeams;
     private Integer matchesPlayed;
     private String attendance;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "world_cup_banner_media_id")
+    private MediaEntity worldCupBannerMedia;
 }
