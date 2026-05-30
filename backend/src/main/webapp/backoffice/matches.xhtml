@@ -7,6 +7,15 @@
 
 <h:head>
     <title>Matches</title>
+    <style>
+
+        .finished-row{
+
+            background:#dff5df;
+
+        }
+
+    </style>
 </h:head>
 
 <h:body>
@@ -36,6 +45,10 @@
             <app:filterField
                     label="Away Team:"
                     value="#{matchesBean.filterAwayTeam}"/>
+
+            <app:filterSelect
+                    label="Finished:"
+                    value="#{matchesBean.filterFinished}" />
 
             <h:outputText value="Sort Field:"/>
 
@@ -93,12 +106,14 @@
         <br/>
         <br/>
 
-        <h:dataTable value="#{matchesBean.matches}"
-                     var="match"
-                     border="1"
-                     cellpadding="6">
+        <h:dataTable
+                value="#{matchesBean.matches}"
+                var="match"
+                border="1"
+                cellpadding="6"
+                rowClasses="">
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(match)}">
 
                 <f:facet name="header">
                     Videos
@@ -129,7 +144,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(match)}">
 
                 <f:facet name="header">
                     World Cup
@@ -139,7 +154,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(match)}">
 
                 <f:facet name="header">
                     Stage
@@ -149,7 +164,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(match)}">
 
                 <f:facet name="header">
                     Kickoff
@@ -160,7 +175,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(match)}">
 
                 <f:facet name="header">
                     Home Team
@@ -170,7 +185,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(match)}">
 
                 <f:facet name="header">
                     Score
@@ -180,7 +195,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(match)}">
 
                 <f:facet name="header">
                     Away Team
@@ -190,7 +205,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(match)}">
 
                 <f:facet name="header">
                     City
@@ -200,7 +215,32 @@
 
             </h:column>
 
-            <h:column>
+            <h:column
+                    styleClass="#{match.audit.finished ? 'finished-row' : ''}">
+
+                <f:facet name="header">
+
+                    Completed
+
+                </f:facet>
+
+                <h:selectOneRadio
+                        value="#{match.audit.finished}"
+                        layout="lineDirection">
+
+                    <f:selectItem
+                            itemValue="false"
+                            itemLabel="Open"/>
+
+                    <f:selectItem
+                            itemValue="true"
+                            itemLabel="Finished"/>
+
+                </h:selectOneRadio>
+
+            </h:column>
+
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(match)}">
 
                 <f:facet name="header">
                     Actions

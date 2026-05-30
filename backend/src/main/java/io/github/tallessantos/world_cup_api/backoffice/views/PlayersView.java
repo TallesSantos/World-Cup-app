@@ -13,9 +13,9 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-@Named
+@Named("playerBean")
 @ViewScoped
-public class PlayersBean implements Serializable {
+public class PlayersView implements Serializable {
 
     private PlayerService service;
 
@@ -67,7 +67,7 @@ public class PlayersBean implements Serializable {
     @Getter
     private int totalPages;
 
-    public PlayersBean(PlayerService service) {
+    public PlayersView(PlayerService service) {
         this.service = service;
     }
 

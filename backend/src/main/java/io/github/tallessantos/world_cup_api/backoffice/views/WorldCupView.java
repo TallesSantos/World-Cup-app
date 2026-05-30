@@ -22,9 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Named
+@Named("worldCupBean")
 @ViewScoped
-public class WorldCupBean implements Serializable {
+public class WorldCupView implements Serializable {
 
     @Autowired
     private ToastMessageUtil toastMessageUtil;

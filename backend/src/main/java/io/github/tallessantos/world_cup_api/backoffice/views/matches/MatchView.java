@@ -15,11 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 
-@Named
+@Named("matchBean")
 @ViewScoped
 @Getter
 @Setter
-public class MatchBean implements Serializable {
+public class MatchView implements Serializable {
 
     @Autowired
     private ToastMessageUtil toastMessageUtil;
@@ -40,7 +40,7 @@ public class MatchBean implements Serializable {
 
     private final MatchService service;
 
-    public MatchBean(MatchService service) {
+    public MatchView(MatchService service) {
         this.service = service;
     }
 

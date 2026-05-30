@@ -22,12 +22,14 @@ public interface MatchRepository extends JpaRepository<MatchEntity, String> {
     AND (:city IS NULL OR LOWER(m.city) LIKE LOWER(CONCAT('%', :city, '%')))
     AND (:homeTeamName IS NULL OR LOWER(m.homeTeamName) LIKE LOWER(CONCAT('%', :homeTeamName, '%')))
     AND (:awayTeamName IS NULL OR LOWER(m.awayTeamName) LIKE LOWER(CONCAT('%', :awayTeamName, '%')))
+     AND (:finished IS NULL OR m.audit.finished = :finished)
     """)
     Page<MatchEntity> findFiltered(
             @Param("stage") String stage,
             @Param("city") String city,
             @Param("homeTeamName") String homeTeamName,
             @Param("awayTeamName") String awayTeamName,
+            @Param("finished") Boolean finished,
             Pageable pageable
     );
 

@@ -144,6 +144,7 @@ public class MatchService {
                                           String filterCity,
                                           String filterHomeTeam,
                                           String filterAwayTeam,
+                                          Boolean filterFinished,
                                           int page,
                                           int size,
                                           String sortField,
@@ -161,6 +162,7 @@ public class MatchService {
                 filterCity,
                 filterHomeTeam,
                 filterAwayTeam,
+                filterFinished,
                 pageable
 
         );

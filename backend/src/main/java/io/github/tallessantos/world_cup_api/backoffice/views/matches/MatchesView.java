@@ -1,12 +1,16 @@
 package io.github.tallessantos.world_cup_api.backoffice.views.matches;
 
+import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
+import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
 import io.github.tallessantos.world_cup_api.core.service.MatchService;
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
@@ -15,9 +19,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
-@Named
+@Named("matchesBean")
 @ViewScoped
-public class MatchesBean implements Serializable {
+public class MatchesView implements Serializable {
+
+    @Autowired
+    private ToastMessageUtil toastMessageUtil;
 
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -49,6 +56,10 @@ public class MatchesBean implements Serializable {
     @Getter
     @Setter
     private String filterAwayTeam;
+
+    @Getter
+    @Setter
+    private Boolean filterFinished;
 
     @Getter
     @Setter
@@ -87,7 +98,7 @@ public class MatchesBean implements Serializable {
 
     private final MatchService service;
 
-    public MatchesBean(MatchService service) {
+    public MatchesView(MatchService service) {
         this.service = service;
     }
 
@@ -103,6 +114,7 @@ public class MatchesBean implements Serializable {
                 filterCity,
                 filterHomeTeam,
                 filterAwayTeam,
+                filterFinished,
                 currentPage,
                 pageSize,
                 sortField,
@@ -133,6 +145,7 @@ public class MatchesBean implements Serializable {
         filterCity = null;
         filterHomeTeam = null;
         filterAwayTeam = null;
+        filterFinished = null;
 
         sortField = "kickoffAt";
         sortDirection = "asc";
@@ -176,9 +189,27 @@ public class MatchesBean implements Serializable {
 
     public void confirmSave() {
 
+        if(Boolean.TRUE.equals(
+                pendingSave.getAudit().getFinished()
+        )){
+
+            AuditUtils.markFinished(
+                    pendingSave,
+                    true,
+                    "BACKOFFICE_USER"
+            );
+
+        }
+
         service.save(pendingSave);
+
         pendingSave = null;
+
         loadPage();
+        toastMessageUtil.addMessage(
+                FacesMessage.SEVERITY_INFO,
+                "Successfully saved registry data."
+        );
     }
 
     public void cancelSave() {

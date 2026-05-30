@@ -12,9 +12,9 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.List;
 
-@Named
+@Named("countriesView")
 @ViewScoped
-public class CountriesBean implements Serializable {
+public class CountriesView implements Serializable {
 
     @Getter
     private List<CountryDetail> countries;
