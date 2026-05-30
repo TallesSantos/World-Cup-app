@@ -1,4 +1,4 @@
-package io.github.tallessantos.world_cup_api.backoffice.beans;
+package io.github.tallessantos.world_cup_api.backoffice.views;
 
 import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
 import io.github.tallessantos.world_cup_api.core.service.PlayerService;

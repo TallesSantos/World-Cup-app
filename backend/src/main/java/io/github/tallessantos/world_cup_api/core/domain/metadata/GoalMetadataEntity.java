@@ -1,4 +1,4 @@
-package io.github.tallessantos.world_cup_api.core.domain;
+package io.github.tallessantos.world_cup_api.core.domain.metadata;
 
 import jakarta.persistence.*;
 import lombok.Getter;

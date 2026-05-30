@@ -258,6 +258,7 @@ public class WorldCupService {
             String title,
             String status,
             String winner,
+            Boolean finished,
             String sortField,
             String sortDirection
     ) {
@@ -272,6 +273,7 @@ public class WorldCupService {
                 title,
                 status,
                 winner,
+                finished,
                 pageable
         );
     }

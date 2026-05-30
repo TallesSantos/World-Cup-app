@@ -1,15 +1,19 @@
-package io.github.tallessantos.world_cup_api.backoffice.beans;
+package io.github.tallessantos.world_cup_api.backoffice.views;
 
+import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
+import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
 import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
 import io.github.tallessantos.world_cup_api.core.service.WorldCupService;
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.Part;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
@@ -22,12 +26,15 @@ import java.util.Map;
 @ViewScoped
 public class WorldCupBean implements Serializable {
 
-    @Getter
-    @Setter
-    private int pageSize = 5;
+    @Autowired
+    private ToastMessageUtil toastMessageUtil;
 
     @Inject
     private WorldCupService service;
+
+    @Getter
+    @Setter
+    private int pageSize = 5;
 
     @Getter
     private List<WorldCupEntity> worldCups;
@@ -56,6 +63,10 @@ public class WorldCupBean implements Serializable {
     @Getter
     @Setter
     private String filterWinner;
+
+    @Getter
+    @Setter
+    private Boolean filterFinished;
 
     /*
      * SORT
@@ -94,6 +105,7 @@ public class WorldCupBean implements Serializable {
                 filterTitle,
                 filterStatus,
                 filterWinner,
+                filterFinished,
                 sortField,
                 sortDirection
         );
@@ -126,6 +138,7 @@ public class WorldCupBean implements Serializable {
         filterTitle = null;
         filterStatus = null;
         filterWinner = null;
+        filterFinished = null;
 
         sortField = "title";
         sortDirection = "asc";
@@ -142,8 +155,21 @@ public class WorldCupBean implements Serializable {
 
     public void confirmSave() {
 
+        if (Boolean.TRUE.equals(pendingSave.getAudit().getFinished())) {
+            AuditUtils.markFinished(
+                    pendingSave,
+                    pendingSave.getAudit().getFinished(),
+                    "BACKOFFICE_USER"
+            );
+        }
+
+
         service.save(pendingSave);
         pendingSave = null;
+        toastMessageUtil.addMessage(
+                FacesMessage.SEVERITY_INFO,
+                "Successfully saved registry data"
+        );
         loadPage();
     }
 
@@ -174,11 +200,6 @@ public class WorldCupBean implements Serializable {
         this.selectedWorldCup = new WorldCupEntity();
     }
 
-    public void update(WorldCupEntity worldCup) {
-        service.save(worldCup);
-        loadPage();
-    }
-
     public void uploadBanner(WorldCupEntity worldCup) {
         //TODO fix delay of image wen replace banner
 
@@ -203,12 +224,22 @@ public class WorldCupBean implements Serializable {
                                 worldCup,
                                 bytes
                         );
+                service.save(worldCup);
+                toastMessageUtil.addMessage(
+                        FacesMessage.SEVERITY_INFO,
+                        "Successfully saved banner image"
+                );
             } else {
                 media =
                         service.updateBannerImage(
                                 worldCup,
                                 bytes
                         );
+                service.save(worldCup);
+                toastMessageUtil.addMessage(
+                        FacesMessage.SEVERITY_INFO,
+                        "Successfully changed banner image"
+                );
             }
 
             worldCup.setWorldCupBannerMedia(media);
@@ -223,4 +254,5 @@ public class WorldCupBean implements Serializable {
             throw new RuntimeException(e);
         }
     }
+
 }

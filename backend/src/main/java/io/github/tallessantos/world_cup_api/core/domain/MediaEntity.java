@@ -1,6 +1,7 @@
 package io.github.tallessantos.world_cup_api.core.domain;
 
 
+import io.github.tallessantos.world_cup_api.core.domain.metadata.GoalMetadataEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -16,11 +16,13 @@ public interface WorldCupRepository extends JpaRepository<WorldCupEntity, String
                 (:title IS NULL OR LOWER(w.title) LIKE LOWER(CONCAT('%', :title, '%')))
             AND (:status IS NULL OR LOWER(w.status) LIKE LOWER(CONCAT('%', :status, '%')))
             AND (:winner IS NULL OR LOWER(w.winner) LIKE LOWER(CONCAT('%', :winner, '%')))
+            AND (:finished IS NULL OR w.audit.finished = :finished)
             """)
     Page<WorldCupEntity> findFiltered(
             @Param("title") String title,
             @Param("status") String status,
             @Param("winner") String winner,
+            @Param("finished") Boolean finished,
             Pageable pageable
     );
 }

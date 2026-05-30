@@ -1,5 +1,7 @@
 package io.github.tallessantos.world_cup_api.core.domain;
 
+import io.github.tallessantos.world_cup_api.core.domain.metadata.AuditMetadataEntity;
+import io.github.tallessantos.world_cup_api.core.listeners.Auditable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "matches")
-public class MatchEntity {
+public class MatchEntity implements Auditable {
 
     @Id
     private String id;
@@ -37,4 +39,7 @@ public class MatchEntity {
     )
     @JoinColumn(name = "match_id")
     private List<MediaEntity> listOfVideos = new ArrayList<>();
+
+    @Embedded
+    private AuditMetadataEntity audit = new AuditMetadataEntity();
 }

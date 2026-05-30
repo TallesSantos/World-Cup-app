@@ -1,7 +1,7 @@
-package io.github.tallessantos.world_cup_api.backoffice.beans.matches;
+package io.github.tallessantos.world_cup_api.backoffice.views.matches;
 
-import io.github.tallessantos.world_cup_api.backoffice.utils.ScreenMessageUtil;
-import io.github.tallessantos.world_cup_api.core.domain.GoalMetadataEntity;
+import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
+import io.github.tallessantos.world_cup_api.core.domain.metadata.GoalMetadataEntity;
 import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
 import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
 import io.github.tallessantos.world_cup_api.core.domain.MediaPlatform;
@@ -22,7 +22,7 @@ import java.io.Serializable;
 public class MatchBean implements Serializable {
 
     @Autowired
-    private ScreenMessageUtil screenMessageUtil;
+    private ToastMessageUtil toastMessageUtil;
 
     private MatchEntity selectedMatch;
 
@@ -61,7 +61,7 @@ public class MatchBean implements Serializable {
 
         if (invalidData) {
 
-            screenMessageUtil.addMessage(FacesMessage.SEVERITY_ERROR, "Fill all video fields before adding.");
+            toastMessageUtil.addMessage(FacesMessage.SEVERITY_ERROR, "Fill all video fields before adding.");
 
             return;
         }
@@ -88,7 +88,7 @@ public class MatchBean implements Serializable {
 
         service.save(selectedMatch);
 
-        screenMessageUtil.addMessage(
+        toastMessageUtil.addMessage(
                 FacesMessage.SEVERITY_INFO,
                 "Video added successfully."
         );

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:composite="jakarta.faces.composite">
+
+<composite:interface>
+
+    <composite:attribute
+            name="label"/>
+
+    <composite:attribute
+            name="value"/>
+
+</composite:interface>
+
+<composite:implementation>
+
+    <h:outputText
+            value="#{cc.attrs.label}"/>
+
+    <h:selectOneMenu
+            value="#{cc.attrs.value}">
+
+        <f:selectItem
+                itemLabel="All"
+                itemValue="#{null}"/>
+
+        <f:selectItem
+                itemLabel="Open"
+                itemValue="false"/>
+
+        <f:selectItem
+                itemLabel="Finished"
+                itemValue="true"/>
+
+    </h:selectOneMenu>
+
+</composite:implementation>
+
+</html>

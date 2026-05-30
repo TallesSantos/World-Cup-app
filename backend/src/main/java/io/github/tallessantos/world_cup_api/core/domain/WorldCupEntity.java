@@ -1,5 +1,7 @@
 package io.github.tallessantos.world_cup_api.core.domain;
 
+import io.github.tallessantos.world_cup_api.core.domain.metadata.AuditMetadataEntity;
+import io.github.tallessantos.world_cup_api.core.listeners.Auditable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "world_cups")
-public class WorldCupEntity {
+public class WorldCupEntity implements Auditable {
 
     @Id
     private String id;
@@ -32,4 +34,7 @@ public class WorldCupEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "world_cup_banner_media_id")
     private MediaEntity worldCupBannerMedia;
+
+    @Embedded
+    private AuditMetadataEntity audit = new AuditMetadataEntity();
 }

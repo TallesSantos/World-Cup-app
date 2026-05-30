@@ -1,4 +1,4 @@
-package io.github.tallessantos.world_cup_api.backoffice.beans.matches;
+package io.github.tallessantos.world_cup_api.backoffice.views.matches;
 
 import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
 import io.github.tallessantos.world_cup_api.core.service.MatchService;

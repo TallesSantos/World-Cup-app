@@ -6,6 +6,15 @@
 
 <h:head>
     <title>World Cups</title>
+    <style>
+
+        .finished-row {
+
+            background:#dff5df;
+
+        }
+
+    </style>
 </h:head>
 
 <h:body>
@@ -14,6 +23,8 @@
 
     <h:form id="worldCupForm"
             enctype="multipart/form-data">
+
+        <app:toastMessages/>
 
         <h2>Filters</h2>
 
@@ -44,6 +55,10 @@
 
                 <f:selectItem itemValue="winner"
                               itemLabel="Winner" />
+
+                <app:filterSelect
+                        label="Finished:"
+                        value="#{worldCupBean.filterFinished}" />
 
                 <f:selectItem itemValue="matchesPlayed"
                               itemLabel="Matches" />
@@ -91,9 +106,14 @@
         <h:dataTable value="#{worldCupBean.worldCups}"
                      var="worldCup"
                      border="1"
-                     cellpadding="6">
+                     cellpadding="6"
+                     rowClasses="">
 
-            <h:column>
+            <f:attribute
+                    name="rowStyleClass"
+                    value="#{worldCup.audit.finished ? 'finished-row' : ''}" />
+
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(worldCup)}">
 
                 <f:facet name="header">
                     Banner
@@ -172,7 +192,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(worldCup)}">
 
                 <f:facet name="header">
                     Title
@@ -182,7 +202,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(worldCup)}">
 
                 <f:facet name="header">
                     Status
@@ -192,7 +212,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(worldCup)}">
 
                 <f:facet name="header">
                     Hosts
@@ -202,7 +222,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(worldCup)}">
 
                 <f:facet name="header">
                     Winner
@@ -212,7 +232,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(worldCup)}">
 
                 <f:facet name="header">
                     Matches
@@ -221,8 +241,33 @@
                 <h:inputText value="#{worldCup.matchesPlayed}" />
 
             </h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(worldCup)}">
 
-            <h:column>
+                <f:facet name="header">
+                    Completed
+                </f:facet>
+
+                <h:selectOneRadio
+                        value="#{worldCup.audit.finished}"
+                        layout="lineDirection">
+
+                    <f:selectItem
+                            itemValue="false"
+                            itemLabel="Open"/>
+
+                    <f:selectItem
+                            itemValue="true"
+                            itemLabel="Finished"/>
+
+                    <f:ajax
+                            execute="@this"
+                            render="@this"/>
+
+                </h:selectOneRadio>
+
+            </h:column>
+
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(worldCup)}">
 
                 <f:facet name="header">
                     Actions

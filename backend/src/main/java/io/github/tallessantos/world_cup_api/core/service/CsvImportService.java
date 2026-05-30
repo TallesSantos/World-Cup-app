@@ -15,9 +15,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CsvImportService implements CommandLineRunner {
+
+    private static final String CREATED_BY_NAME = "csv_import_automation";
 
     private final CsvDataSource csvDataSource;
     private final WorldCupRepository worldCupRepository;
@@ -42,14 +47,34 @@ public class CsvImportService implements CommandLineRunner {
             return;
         }
 
-        worldCupRepository.saveAll(csvDataSource.loadWorldCups().stream().map(this::toWorldCupEntity).toList());
-        matchRepository.saveAll(csvDataSource.loadMatches().stream().map(this::toMatchEntity).toList());
-        playerRepository.saveAll(csvDataSource.loadPlayers().stream().map(this::toPlayerAppearanceEntity).toList());
+        List<WorldCupEntity> listWorldCups = new ArrayList<>();
+        for (WorldCupCsvRow entity : csvDataSource.loadWorldCups()) {
+            WorldCupEntity worldCupEntity = toWorldCupEntity(CREATED_BY_NAME, entity);
+            listWorldCups.add(worldCupEntity);
+        }
+        worldCupRepository.saveAll(listWorldCups);
+
+        List<MatchEntity> listMatches = new ArrayList<>();
+        for (MatchCsvRow entity : csvDataSource.loadMatches()) {
+            MatchEntity worldCupEntity = toMatchEntity(CREATED_BY_NAME, entity);
+            listMatches.add(worldCupEntity);
+        }
+        matchRepository.saveAll(listMatches);
+
+        List<PlayerAppearanceEntity> listPlayerAppearenceEntity = new ArrayList<>();
+        for (PlayerCsvRow entity : csvDataSource.loadPlayers()) {
+            PlayerAppearanceEntity playerEntity = toPlayerAppearanceEntity(CREATED_BY_NAME, entity);
+            listPlayerAppearenceEntity.add(playerEntity);
+        }
+        playerRepository.saveAll(listPlayerAppearenceEntity);
     }
 
-    private WorldCupEntity toWorldCupEntity(WorldCupCsvRow row) {
+    private WorldCupEntity toWorldCupEntity(String createdBy, WorldCupCsvRow row) {
+
         int year = row.year();
         WorldCupEntity entity = new WorldCupEntity();
+        entity.getAudit().setCreatedBy(createdBy);
+        entity.getAudit().setCreatedAt(LocalDateTime.now());
         entity.setId("world-cup-" + year);
         entity.setTitle("FIFA World Cup " + row.country() + " " + year);
         entity.setStatus(resolveStatus(year));
@@ -68,8 +93,10 @@ public class CsvImportService implements CommandLineRunner {
         return entity;
     }
 
-    private MatchEntity toMatchEntity(MatchCsvRow row) {
+    private MatchEntity toMatchEntity(String createdBy, MatchCsvRow row) {
         MatchEntity entity = new MatchEntity();
+        entity.getAudit().setCreatedBy(createdBy);
+        entity.getAudit().setCreatedAt(LocalDateTime.now());
         entity.setId(row.matchId());
         entity.setWorldCupId("world-cup-" + row.year());
         entity.setKickoffAt(CsvSupport.parseMatchDateTime(row.datetime()));
@@ -88,8 +115,10 @@ public class CsvImportService implements CommandLineRunner {
         return entity;
     }
 
-    private PlayerAppearanceEntity toPlayerAppearanceEntity(PlayerCsvRow row) {
+    private PlayerAppearanceEntity toPlayerAppearanceEntity(String createdBy, PlayerCsvRow row) {
         PlayerAppearanceEntity entity = new PlayerAppearanceEntity();
+        entity.getAudit().setCreatedBy(createdBy);
+        entity.getAudit().setCreatedAt(LocalDateTime.now());
         entity.setMatchId(row.matchId());
         entity.setTeamInitials(row.teamInitials());
         entity.setCoachName(row.coachName());

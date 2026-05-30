@@ -5,7 +5,7 @@ import jakarta.faces.context.FacesContext;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ScreenMessageUtil {
+public class ToastMessageUtil {
 
     public void addMessage(FacesMessage.Severity severity, String message) {
         FacesMessage facesMessage = new FacesMessage(severity,
