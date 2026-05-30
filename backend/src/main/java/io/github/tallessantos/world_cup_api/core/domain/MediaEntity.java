@@ -15,6 +15,8 @@ public class MediaEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    private String title;
+
     private String fullStoragePath;
 
     private String storagePath;
@@ -26,8 +28,36 @@ public class MediaEntity {
     @Enumerated(EnumType.STRING)
     private MediaContentType mediaContentType;
 
-    private MediaPlataform mediaPlataform;
+    @Enumerated(EnumType.STRING)
+    private MediaPlatform mediaPlatform;
 
-    private String youtubeKey;
+    private String youtubeVideoId;
+
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "goal_metadata_id")
+    private GoalMetadataEntity goalMetadata;
+
+    public String getYoutubeUrl() {
+
+        if (youtubeVideoId == null) {
+            return "";
+        }
+
+        return "https://youtube.com/watch?v=" +
+                youtubeVideoId;
+    }
+
+    public String getYoutubeEmbedUrl() {
+
+        if (youtubeVideoId == null) {
+            return "";
+        }
+
+        return "https://www.youtube.com/embed/" +
+                youtubeVideoId;
+    }
 
 }

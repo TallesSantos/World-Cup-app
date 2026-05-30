@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:cc="jakarta.faces.composite">
+
+<cc:interface/>
+
+<cc:implementation>
+
+    <h:panelGroup
+            id="toastContainer"
+            layout="block"
+            style="
+                position:fixed;
+                top:20px;
+                right:20px;
+                z-index:99999;
+                width:320px;
+            ">
+
+        <h:messages
+                globalOnly="true"
+                layout="table"
+                infoClass="toast-info"
+                errorClass="toast-error"
+                warnClass="toast-warn"/>
+
+    </h:panelGroup>
+
+    <script>
+
+        setTimeout(function () {
+
+            const toast =
+                document.getElementById(
+                    "#{cc.clientId}:toastContainer"
+                );
+
+            if(toast){
+
+                toast.style.transition =
+                    "opacity .4s";
+
+                toast.style.opacity = 0;
+
+                setTimeout(
+                    () => toast.innerHTML = "",
+                    400
+                );
+
+            }
+
+        },3000);
+
+    </script>
+
+    <style>
+        .toast-info{
+
+        background:#1d4ed8;
+
+        color:white;
+
+        padding:14px;
+
+        border-radius:6px;
+
+        margin-bottom:10px;
+
+        box-shadow:
+            0 2px 12px
+            rgba(0,0,0,.25);
+
+    }
+
+    .toast-error{
+
+        background:#dc2626;
+
+        color:white;
+
+        padding:14px;
+
+        border-radius:6px;
+
+        margin-bottom:10px;
+
+        box-shadow:
+            0 2px 12px
+            rgba(0,0,0,.25);
+
+    }
+
+    .toast-warn{
+
+        background:#d97706;
+
+        color:white;
+
+        padding:14px;
+
+        border-radius:6px;
+
+        margin-bottom:10px;
+
+        box-shadow:
+            0 2px 12px
+            rgba(0,0,0,.25);
+
+    }
+    </style>
+
+</cc:implementation>
+
+</html>

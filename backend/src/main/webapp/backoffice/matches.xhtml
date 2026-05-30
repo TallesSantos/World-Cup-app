@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core"
-      xmlns:app="http://xmlns.jcp.org/jsf/composite/components">
+      xmlns:app="http://xmlns.jcp.org/jsf/composite/components"
+>
 
 <h:head>
     <title>Matches</title>
@@ -13,6 +14,8 @@
     <h1>Matches</h1>
 
     <h:form id="matchesForm">
+
+        <app:toastMessages/>
 
         <h2>Filters</h2>
 
@@ -94,6 +97,37 @@
                      var="match"
                      border="1"
                      cellpadding="6">
+
+            <h:column>
+
+                <f:facet name="header">
+                    Videos
+                </f:facet>
+
+                <h:panelGroup
+                        layout="block"
+                        style="
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+            align-items:center;">
+
+                    <h:outputText
+                            value="#{match.listOfVideos.size()} videos"/>
+
+                    <h:commandButton
+                            value="Manage"
+                            action="#{matchBean.openManageVideos(match)}">
+
+                        <f:ajax
+                                execute="@this"
+                                render=":matchesForm:manageVideosDialog"/>
+
+                    </h:commandButton>
+
+                </h:panelGroup>
+
+            </h:column>
 
             <h:column>
 
@@ -266,6 +300,14 @@
                 </h:commandButton>
 
             </h:panelGroup>
+
+        </h:panelGroup>
+
+        <h:panelGroup id="manageVideosDialog">
+
+            <app:manageVideos
+                    bean="#{matchBean}"
+                    renderTarget=":matchesForm"/>
 
         </h:panelGroup>
 

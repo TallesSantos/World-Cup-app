@@ -1,4 +1,4 @@
-package io.github.tallessantos.world_cup_api.backoffice.beans;
+package io.github.tallessantos.world_cup_api.backoffice.beans.matches;
 
 import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
 import io.github.tallessantos.world_cup_api.core.service.MatchService;
@@ -171,24 +171,7 @@ public class MatchesBean implements Serializable {
 
     public void askSave(MatchEntity match) {
 
-        MatchEntity copy = new MatchEntity();
-        copy.setId(match.getId());
-        copy.setWorldCupId(match.getWorldCupId());
-        copy.setKickoffAt(match.getKickoffAt());
-        copy.setStage(match.getStage());
-        copy.setStadium(match.getStadium());
-        copy.setCity(match.getCity());
-        copy.setHomeTeamName(match.getHomeTeamName());
-        copy.setHomeTeamInitials(match.getHomeTeamInitials());
-        copy.setHomeTeamGoals(match.getHomeTeamGoals());
-        copy.setAwayTeamGoals(match.getAwayTeamGoals());
-        copy.setAwayTeamName(match.getAwayTeamName());
-        copy.setAwayTeamInitials(match.getAwayTeamInitials());
-        copy.setWinConditions(match.getWinConditions());
-        copy.setAttendance(match.getAttendance());
-        copy.setReferee(match.getReferee());
-
-        this.pendingSave = copy;
+        this.pendingSave = match;
     }
 
     public void confirmSave() {

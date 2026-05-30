@@ -1,12 +1,12 @@
 package io.github.tallessantos.world_cup_api.core.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,4 +30,11 @@ public class MatchEntity {
     private String winConditions;
     private Integer attendance;
     private String referee;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "match_id")
+    private List<MediaEntity> listOfVideos = new ArrayList<>();
 }

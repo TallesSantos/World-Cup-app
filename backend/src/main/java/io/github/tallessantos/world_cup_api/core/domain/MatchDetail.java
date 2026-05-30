@@ -20,6 +20,6 @@ public record MatchDetail(
         List<ComparativeStatistic> comparativeStatistics,
         List<PlayerReference> homeTeamMatchPlayers,
         List<PlayerReference> visitingTeamMatchPlayers,
-        List<MatchVideo> matchVideos
+        List<MediaEntity> matchVideos
 ) {
 }

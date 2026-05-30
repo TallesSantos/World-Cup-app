@@ -1,11 +1,6 @@
 package io.github.tallessantos.world_cup_api.api.dto;
 
-import io.github.tallessantos.world_cup_api.core.domain.ComparativeStatistic;
-import io.github.tallessantos.world_cup_api.core.domain.MatchDetail;
-import io.github.tallessantos.world_cup_api.core.domain.MatchVideo;
-import io.github.tallessantos.world_cup_api.core.domain.PlayerReference;
-import io.github.tallessantos.world_cup_api.core.domain.StatisticItem;
-import io.github.tallessantos.world_cup_api.core.domain.TeamReference;
+import io.github.tallessantos.world_cup_api.core.domain.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,7 +22,7 @@ public record MatchDetailResponse(
         List<ComparativeStatistic> comparativeStatistics,
         List<PlayerReference> homeTeamMatchPlayers,
         List<PlayerReference> visitingTeamMatchPlayers,
-        List<MatchVideo> matchVideos
+        List<MediaEntity> matchVideos
 ) {
     public static MatchDetailResponse from(MatchDetail matchDetail) {
         return new MatchDetailResponse(

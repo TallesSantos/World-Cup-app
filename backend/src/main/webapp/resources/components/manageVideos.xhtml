@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:cc="jakarta.faces.composite"
+      xmlns:ui="jakarta.faces.facelets">
+
+<cc:interface>
+
+    <cc:attribute
+            name="bean"
+            required="true"/>
+
+    <cc:attribute
+            name="renderTarget"
+            required="true"/>
+
+</cc:interface>
+
+<cc:implementation>
+
+    <h:panelGroup
+            rendered="#{not empty cc.attrs.bean.selectedMatch}">
+
+        <!-- BACKDROP -->
+
+        <div style="
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,.55);
+            z-index:998;
+        ">
+
+        </div>
+
+        <!-- MODAL -->
+
+        <h:panelGroup
+                layout="block"
+                style="
+                position:fixed;
+                top:50%;
+                left:50%;
+                transform:translate(-50%,-50%);
+                background:white;
+                z-index:999;
+
+                width:800px;
+                max-width:90vw;
+
+                max-height:85vh;
+                overflow:auto;
+
+                padding:25px;
+                border-radius:6px;
+                ">
+
+            <h2>Manage Videos</h2>
+
+            <!-- MATCH INFO -->
+
+            <div style="
+                    padding:12px;
+                    border:1px solid #ddd;
+                    margin-bottom:20px;
+            ">
+
+                <b>
+
+                    #{cc.attrs.bean.selectedMatch.homeTeamName}
+
+                    x
+
+                    #{cc.attrs.bean.selectedMatch.awayTeamName}
+
+                </b>
+
+                <br/>
+
+                Score:
+
+                #{cc.attrs.bean.selectedMatch.homeTeamGoals}
+
+                x
+
+                #{cc.attrs.bean.selectedMatch.awayTeamGoals}
+
+                <br/>
+
+                Stage:
+
+                #{cc.attrs.bean.selectedMatch.stage}
+
+                <br/>
+
+                City:
+
+                #{cc.attrs.bean.selectedMatch.city}
+
+            </div>
+
+
+            <!-- ADD VIDEO -->
+
+            <h:panelGrid columns="2">
+
+                <h:outputText value="Title"/>
+
+                <h:inputText
+                        value="#{cc.attrs.bean.newVideoTitle}"/>
+
+
+                <h:outputText value="Youtube URL"/>
+
+                <h:inputText
+                        value="#{cc.attrs.bean.newYoutubeUrl}"/>
+
+
+                <h:outputText value="Goal Player"/>
+
+                <h:inputText
+                        value="#{cc.attrs.bean.goalPlayer}"/>
+
+
+                <h:outputText value="Goal Scored By"/>
+
+                <h:selectOneMenu
+                        value="#{cc.attrs.bean.goalScoredByTeam}">
+
+                    <f:selectItem
+                            itemLabel="Select team"
+                            itemValue=""/>
+
+                    <f:selectItem
+                            itemLabel="#{cc.attrs.bean.selectedMatch.homeTeamName}"
+                            itemValue="HOME"/>
+
+                    <f:selectItem
+                            itemLabel="#{cc.attrs.bean.selectedMatch.awayTeamName}"
+                            itemValue="AWAY"/>
+
+                </h:selectOneMenu>
+
+            </h:panelGrid>
+
+            <br/>
+
+            <h:commandButton
+                    value="Add Video"
+                    action="#{cc.attrs.bean.addVideo}">
+
+                <f:ajax
+                        execute="@form"
+                        render="@form #{cc.attrs.renderTarget}"/>
+
+            </h:commandButton>
+
+            <hr/>
+
+            <!-- LIST -->
+
+            <ui:repeat
+                    value="#{cc.attrs.bean.selectedMatch.listOfVideos}"
+                    var="video">
+
+                <div style="
+                    border:1px solid #ccc;
+                    padding:15px;
+                    margin-bottom:20px;
+                ">
+
+                    <b>
+
+                        #{video.title}
+
+                    </b>
+
+                    <br/>
+
+                    Player:
+
+                    #{video.goalMetadata.playerName}
+
+                    <br/>
+
+                    Team:
+
+                    #{video.goalMetadata.playerNationalTeam}
+
+                    <br/>
+
+                    Against:
+
+                    #{video.goalMetadata.againstNationalTeam}
+
+                    <br/><br/>
+
+                    <h:outputLink
+                            value="#{video.youtubeUrl}"
+                            target="_blank">
+
+                        Open Youtube
+
+                    </h:outputLink>
+
+                    <br/><br/>
+
+                    <iframe
+                            width="420"
+                            height="236"
+                            src="#{video.youtubeEmbedUrl}"
+                            allowfullscreen="allowfullscreen">
+
+                    </iframe>
+
+                    <br/><br/>
+
+                    <h:commandButton
+                            value="Delete"
+                            action="#{cc.attrs.bean.deleteVideo(
+                                    cc.attrs.bean.selectedMatch,
+                                    video
+                            )}">
+
+                        <f:ajax
+                                execute="@this"
+                                render="#{cc.attrs.renderTarget}"/>
+
+                    </h:commandButton>
+
+                </div>
+
+            </ui:repeat>
+
+            <h:commandButton
+                    value="Close"
+                    action="#{cc.attrs.bean.closeManageVideos}">
+
+                <f:ajax
+                        execute="@this"
+                        render="#{cc.attrs.renderTarget}"/>
+
+            </h:commandButton>
+
+        </h:panelGroup>
+
+    </h:panelGroup>
+
+</cc:implementation>
+
+</html>

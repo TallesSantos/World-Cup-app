@@ -221,7 +221,7 @@ public class WorldCupService {
 
         mediaEntity.setMediaContentType(MediaContentType.WORLD_CUP_BANNER);
 
-        mediaEntity.setMediaPlataform(MediaPlataform.RESOURCE_SERVER);
+        mediaEntity.setMediaPlatform(MediaPlatform.RESOURCE_SERVER);
 
         mediaEntity.setFullStoragePath(savedPath);
 

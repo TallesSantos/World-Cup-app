@@ -1,5 +1,5 @@
 package io.github.tallessantos.world_cup_api.core.domain;
 
-public enum MediaPlataform {
+public enum MediaPlatform {
     RESOURCE_SERVER, YOUTUBE
 }
