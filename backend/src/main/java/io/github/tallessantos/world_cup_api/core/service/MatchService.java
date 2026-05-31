@@ -7,7 +7,7 @@ import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
 import io.github.tallessantos.world_cup_api.core.domain.PlayerReference;
 import io.github.tallessantos.world_cup_api.core.domain.StatisticItem;
 import io.github.tallessantos.world_cup_api.core.domain.TeamReference;
-import io.github.tallessantos.world_cup_api.infra.repository.PlayerRepository;
+import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,18 +26,18 @@ import java.util.Map;
 public class MatchService {
 
     private final MatchRepository matchRepository;
-    private final PlayerRepository playerRepository;
+    private final PlayerAppearanceRepository playerAppearanceRepository;
 
-    public MatchService(MatchRepository matchRepository, PlayerRepository playerRepository) {
+    public MatchService(MatchRepository matchRepository, PlayerAppearanceRepository playerAppearanceRepository) {
         this.matchRepository = matchRepository;
-        this.playerRepository = playerRepository;
+        this.playerAppearanceRepository = playerAppearanceRepository;
     }
 
     public MatchDetail getMatchById(String id) {
         MatchEntity match = matchRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Match not found: " + id));
 
-        List<PlayerAppearanceEntity> players = playerRepository.findByMatchId(id);
+        List<PlayerAppearanceEntity> players = playerAppearanceRepository.findByMatchId(id);
 
         return new MatchDetail(
                 match.getId(),

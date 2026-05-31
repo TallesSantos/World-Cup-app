@@ -1,12 +1,13 @@
 package io.github.tallessantos.world_cup_api.core.service;
 
+import io.github.tallessantos.world_cup_api.infra.repository.CountryRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
 import io.github.tallessantos.world_cup_api.core.domain.CountryDetail;
 import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
 import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
 import io.github.tallessantos.world_cup_api.core.domain.PlayerReference;
 import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
-import io.github.tallessantos.world_cup_api.infra.repository.PlayerRepository;
+import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
 import org.springframework.http.HttpStatus;
@@ -26,17 +27,20 @@ import java.util.stream.Stream;
 public class CountryService {
 
     private final MatchRepository matchRepository;
-    private final PlayerRepository playerRepository;
+    private final PlayerAppearanceRepository playerAppearanceRepository;
     private final WorldCupRepository worldCupRepository;
+    private final CountryRepository countryRepository;
 
     public CountryService(
             MatchRepository matchRepository,
-            PlayerRepository playerRepository,
-            WorldCupRepository worldCupRepository
+            PlayerAppearanceRepository playerAppearanceRepository,
+            WorldCupRepository worldCupRepository,
+            CountryRepository countryRepository
     ) {
         this.matchRepository = matchRepository;
-        this.playerRepository = playerRepository;
+        this.playerAppearanceRepository = playerAppearanceRepository;
         this.worldCupRepository = worldCupRepository;
+        this.countryRepository = countryRepository;
     }
 
     public CountryDetail getCountryById(String id) {
@@ -48,7 +52,7 @@ public class CountryService {
 
         List<MatchEntity> countryMatches = matchRepository.findByHomeTeamInitialsOrAwayTeamInitials(lookup.fifaCode(), lookup.fifaCode());
         List<String> matchIds = countryMatches.stream().map(MatchEntity::getId).toList();
-        List<PlayerAppearanceEntity> countryPlayers = playerRepository.findByTeamInitials(lookup.fifaCode());
+        List<PlayerAppearanceEntity> countryPlayers = playerAppearanceRepository.findByTeamInitials(lookup.fifaCode());
         List<WorldCupEntity> worldCups = worldCupRepository.findAll();
 
         Set<Integer> years = countryMatches.stream()

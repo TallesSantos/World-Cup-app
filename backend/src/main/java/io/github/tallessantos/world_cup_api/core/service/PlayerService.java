@@ -5,7 +5,7 @@ import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
 import io.github.tallessantos.world_cup_api.core.domain.PlayerDetail;
 import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.PlayerRepository;
+import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
 import org.springframework.data.domain.Page;
@@ -22,18 +22,18 @@ import java.util.stream.Collectors;
 @Service
 public class PlayerService {
 
-    private final PlayerRepository playerRepository;
+    private final PlayerAppearanceRepository playerAppearanceRepository;
     private final MatchRepository matchRepository;
     private final WorldCupRepository worldCupRepository;
 
-    public PlayerService(PlayerRepository playerRepository, MatchRepository matchRepository, WorldCupRepository worldCupRepository) {
-        this.playerRepository = playerRepository;
+    public PlayerService(PlayerAppearanceRepository playerAppearanceRepository, MatchRepository matchRepository, WorldCupRepository worldCupRepository) {
+        this.playerAppearanceRepository = playerAppearanceRepository;
         this.matchRepository = matchRepository;
         this.worldCupRepository = worldCupRepository;
     }
 
     public PlayerDetail getPlayerById(String id) {
-        List<PlayerAppearanceEntity> appearances = playerRepository.findAll().stream()
+        List<PlayerAppearanceEntity> appearances = playerAppearanceRepository.findAll().stream()
                 .filter(player -> CsvSupport.playerId(player.getTeamInitials(), player.getPlayerName()).equals(id))
                 .toList();
 
@@ -216,18 +216,18 @@ public class PlayerService {
     }
 
     public List<PlayerAppearanceEntity> findAll() {
-        return playerRepository.findAll();
+        return playerAppearanceRepository.findAll();
     }
 
 
     public List<PlayerAppearanceEntity> findPage(int page, int size) {
-        return playerRepository.findAll(
+        return playerAppearanceRepository.findAll(
                 PageRequest.of(page, size)
         ).getContent();
     }
 
     public void save(PlayerAppearanceEntity pendingSave) {
-        playerRepository.save(pendingSave);
+        playerAppearanceRepository.save(pendingSave);
     }
 
     public Page<PlayerAppearanceEntity> findPageFiltered(
@@ -246,7 +246,7 @@ public class PlayerService {
 
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        return playerRepository.findFiltered(
+        return playerAppearanceRepository.findFiltered(
                 playerName,
                 team,
                 position,

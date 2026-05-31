@@ -1,25 +1,23 @@
 package io.github.tallessantos.world_cup_api.core.service;
 
-import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
-import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
-import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
-import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.PlayerRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
+import io.github.tallessantos.world_cup_api.core.domain.*;
+import io.github.tallessantos.world_cup_api.infra.repository.*;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvDataSource;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.MatchCsvRow;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.PlayerCsvRow;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.WorldCupCsvRow;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
+@Slf4j
 public class CsvImportService implements CommandLineRunner {
 
     private static final String CREATED_BY_NAME = "csv_import_automation";
@@ -28,17 +26,23 @@ public class CsvImportService implements CommandLineRunner {
     private final WorldCupRepository worldCupRepository;
     private final MatchRepository matchRepository;
     private final PlayerRepository playerRepository;
+    private final PlayerAppearanceRepository playerAppearanceRepository;
+    private final CountryRepository countryRepository;
 
     public CsvImportService(
             CsvDataSource csvDataSource,
             WorldCupRepository worldCupRepository,
             MatchRepository matchRepository,
-            PlayerRepository playerRepository
+            PlayerAppearanceRepository playerAppearanceRepository,
+            PlayerRepository playerRepository,
+            CountryRepository countryRepository
     ) {
         this.csvDataSource = csvDataSource;
         this.worldCupRepository = worldCupRepository;
         this.matchRepository = matchRepository;
+        this.playerAppearanceRepository = playerAppearanceRepository;
         this.playerRepository = playerRepository;
+        this.countryRepository = countryRepository;
     }
 
     @Override
@@ -61,12 +65,58 @@ public class CsvImportService implements CommandLineRunner {
         }
         matchRepository.saveAll(listMatches);
 
+        Map<String, CountryEntity> countries = new HashMap<>();
+
+        for(MatchEntity match: listMatches){
+
+            if(countries.get(match.getHomeTeamName()) == null){
+               CountryEntity entity = populateCountryEntity(match);
+               countries.put(match.getHomeTeamName(), entity);
+            }
+            if(countries.get(match.getAwayTeamName()) == null){
+                CountryEntity entity = populateCountryEntity(match);
+                countries.put(match.getAwayTeamName(), entity);
+            }
+        }
+        countryRepository.saveAll(countries.values());
+
         List<PlayerAppearanceEntity> listPlayerAppearenceEntity = new ArrayList<>();
         for (PlayerCsvRow entity : csvDataSource.loadPlayers()) {
             PlayerAppearanceEntity playerEntity = toPlayerAppearanceEntity(CREATED_BY_NAME, entity);
             listPlayerAppearenceEntity.add(playerEntity);
         }
-        playerRepository.saveAll(listPlayerAppearenceEntity);
+        playerAppearanceRepository.saveAll(listPlayerAppearenceEntity);
+
+        List<PlayerCsvRow> allRows = csvDataSource.loadPlayers();
+        Map<String, PlayerEntity> playerMap = new LinkedHashMap<>();
+
+        for (PlayerCsvRow row : allRows) {
+            String id = CsvSupport.playerId(row.teamInitials(), row.playerName());
+            PlayerEntity entity = playerMap.computeIfAbsent(id, _id -> {
+                PlayerEntity e = new PlayerEntity();
+                e.getAudit().setCreatedBy(CREATED_BY_NAME);
+                e.getAudit().setCreatedAt(LocalDateTime.now());
+                return e;
+            });
+            // Sobrescreve sempre: garante que a última aparição no CSV
+            // (normalmente a mais recente) define os dados canônicos.
+            entity.setPlayerName(row.playerName());
+            entity.setPlayerName(CsvSupport.toDisplayName(row.playerName()));
+            entity.setTeamInitials(row.teamInitials());
+            entity.setPosition(row.position());
+            entity.setCommonShirtNumber(row.shirtNumber());
+        }
+
+        playerRepository.saveAll(playerMap.values());
+    }
+
+    private CountryEntity populateCountryEntity(MatchEntity match) {
+        CountryEntity entity = new CountryEntity();
+        entity.getAudit().setCreatedBy(CREATED_BY_NAME);
+        entity.getAudit().setCreatedAt(LocalDateTime.now());
+        entity.setName(match.getHomeTeamName());
+        entity.setInitials(match.getHomeTeamInitials());
+        return entity;
     }
 
     private WorldCupEntity toWorldCupEntity(String createdBy, WorldCupCsvRow row) {
