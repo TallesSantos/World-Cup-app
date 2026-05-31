@@ -21,7 +21,8 @@
 
     <h1>Players</h1>
 
-    <h:form id="playersForm">
+    <h:form id="playersForm"
+            enctype="multipart/form-data">
 
         <app:toastMessages/>
 
@@ -40,6 +41,10 @@
             <app:filterField
                     label="Position:"
                     value="#{playersBean.filterPosition}"/>
+
+            <app:filterSelect
+                    label="Finished:"
+                    value="#{playersBean.filterFinished}" />
 
             <h:outputText value="Sort Field:"/>
 
@@ -92,6 +97,88 @@
             <f:attribute
                     name="rowStyleClass"
                     value="#{player.audit.finished ? 'finished-row' : ''}"/>
+
+            <h:column
+                    styleClass="#{auditViewHelper.resolveRowClass(player)}">
+
+                <f:facet name="header">
+
+                    Profile Image
+
+                </f:facet>
+
+                <h:panelGroup
+                        layout="block"
+                        style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                min-width:220px;
+            ">
+
+                    <!-- upload -->
+
+                    <h:panelGroup
+                            layout="block"
+                            style="
+                    display:flex;
+                    flex-direction:column;
+                    gap:4px;
+                ">
+
+                        <h:inputFile
+                                value="#{playersBean.uploadedProfiles[player.id]}"/>
+
+                        <h:commandButton
+                                value="#{empty player.profileImage ? 'Add Image' : 'Replace Image'}"
+                                action="#{playersBean.uploadProfileImage(player)}">
+
+                            <f:ajax
+                                    execute="@form"
+                                    render="@form"/>
+
+                        </h:commandButton>
+
+                    </h:panelGroup>
+
+                    <!-- preview -->
+
+                    <h:panelGroup
+                            rendered="#{not empty player.profileImage}">
+
+                        <h:graphicImage
+                                value="#{'http://localhost:8081'.concat(player.profileImage.fullResourcePath)}"
+                                height="80"
+                                width="80"
+                                style="
+                        border:1px solid gray;
+                        object-fit:cover;
+                    "/>
+
+                    </h:panelGroup>
+
+                    <!-- placeholder -->
+
+                    <h:panelGroup
+                            rendered="#{empty player.profileImage}"
+                            layout="block"
+                            style="
+                    width:80px;
+                    height:80px;
+                    border:1px dashed gray;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                ">
+
+                        <h:outputText value="No image"/>
+
+                    </h:panelGroup>
+
+                </h:panelGroup>
+
+            </h:column>
 
 
 

@@ -1,10 +1,9 @@
 package io.github.tallessantos.world_cup_api.core.service;
 
+import io.github.tallessantos.world_cup_api.core.config.AppCommonConfigurationVariables;
 import io.github.tallessantos.world_cup_api.core.domain.*;
-import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.PlayerRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
+import io.github.tallessantos.world_cup_api.core.exception.BusinessException;
+import io.github.tallessantos.world_cup_api.infra.repository.*;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,12 +23,18 @@ public class PlayerService {
     private final MatchRepository matchRepository;
     private final WorldCupRepository worldCupRepository;
     private final PlayerRepository playerRepository;
+    private final MediaStorageService mediaStorageService;
+    private final MediaRespository mediaRespository;
+    private final AppCommonConfigurationVariables appCommonConfigurationVariables;
 
-    public PlayerService(PlayerAppearanceRepository playerAppearanceRepository, MatchRepository matchRepository, WorldCupRepository worldCupRepository, PlayerRepository playerRepository) {
+    public PlayerService(PlayerAppearanceRepository playerAppearanceRepository, MatchRepository matchRepository, WorldCupRepository worldCupRepository, PlayerRepository playerRepository, MediaStorageService mediaStorageService, MediaRespository mediaRespository, AppCommonConfigurationVariables appCommonConfigurationVariables) {
         this.playerAppearanceRepository = playerAppearanceRepository;
         this.matchRepository = matchRepository;
         this.worldCupRepository = worldCupRepository;
         this.playerRepository = playerRepository;
+        this.mediaStorageService=mediaStorageService;
+        this.mediaRespository = mediaRespository;
+        this.appCommonConfigurationVariables = appCommonConfigurationVariables;
     }
 
     public PlayerDetail getPlayerById(String id) {
@@ -236,6 +241,7 @@ public class PlayerService {
             String playerName,
             String team,
             String position,
+            Boolean finished,
             String sortField,
             String sortDirection
     ) {
@@ -250,9 +256,53 @@ public class PlayerService {
                 playerName,
                 team,
                 position,
+                finished,
                 pageable
 
         );
+    }
+
+    public MediaEntity saveProfileImage(PlayerEntity entity, byte[] image) {
+
+        //TODO add audit columns
+
+        String pathToFile = "/players/profile-image/" + entity.getId() + ".jpeg";
+
+        String savedPath = mediaStorageService
+                .saveImageInStoragePassingPathAndByteArray(appCommonConfigurationVariables.getStoragePath() + pathToFile, image);
+
+        MediaEntity mediaEntity = new MediaEntity();
+
+        mediaEntity.setMediaContentType(MediaContentType.WORLD_CUP_BANNER);
+
+        mediaEntity.setMediaPlatform(MediaPlatform.RESOURCE_SERVER);
+
+        mediaEntity.setFullStoragePath(savedPath);
+
+        mediaEntity.setStoragePath(appCommonConfigurationVariables.getStoragePath());
+
+        mediaEntity.setResourcePath(appCommonConfigurationVariables.getResourcePath().replace("/**", ""));
+
+        mediaEntity.setFullResourcePath(appCommonConfigurationVariables.getResourcePath().replace("/**", "") + pathToFile);
+
+        mediaRespository.saveAndFlush(mediaEntity);
+
+        entity.setProfileImage(mediaEntity);
+
+        playerRepository.save(entity);
+
+        return mediaEntity;
+    }
+
+    public MediaEntity updateProfileImage(PlayerEntity entity, byte[] image) {
+        //TODO add audit columns
+
+        String fullStoragePath =  entity.getProfileImage().getFullStoragePath();
+        if(appCommonConfigurationVariables.getStoragePath() == null) {
+            throw new BusinessException("Error try update image");
+        }
+        mediaStorageService.replaceImageInStoragePassingPathAndByteArray(fullStoragePath, image);
+        return entity.getProfileImage();
     }
 
 

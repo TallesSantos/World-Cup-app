@@ -2,6 +2,7 @@ package io.github.tallessantos.world_cup_api.backoffice.views;
 
 import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
+import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
 import io.github.tallessantos.world_cup_api.core.domain.PlayerEntity;
 import io.github.tallessantos.world_cup_api.core.service.PlayerService;
 import jakarta.annotation.PostConstruct;
@@ -12,6 +13,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import jakarta.servlet.http.Part;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -34,6 +38,10 @@ public class PlayersView implements Serializable {
     private PlayerEntity selectedPlayer = new PlayerEntity();
 
     @Getter
+    private Map<Long, Part> uploadedProfiles =
+            new HashMap<>();
+
+    @Getter
     @Setter
     private PlayerEntity pendingSave;
 
@@ -48,6 +56,10 @@ public class PlayersView implements Serializable {
     @Getter
     @Setter
     private String filterPosition;
+
+    @Getter
+    @Setter
+    private Boolean filterFinished;
 
     @Getter
     @Setter
@@ -90,6 +102,7 @@ public class PlayersView implements Serializable {
                 filterPlayerName,
                 filterTeam,
                 filterPosition,
+                filterFinished,
                 sortField,
                 sortDirection
         );
@@ -196,5 +209,74 @@ public class PlayersView implements Serializable {
 
         pendingSave = null;
         loadPage();
+    }
+
+    public void uploadProfileImage(
+            PlayerEntity player
+    ) {
+
+        Part uploadedProfile =
+                uploadedProfiles.get(
+                        player.getId()
+                );
+
+        if (uploadedProfile == null) {
+
+            return;
+        }
+
+        try {
+
+            byte[] bytes =
+                    uploadedProfile
+                            .getInputStream()
+                            .readAllBytes();
+
+            MediaEntity media;
+
+            if (player.getProfileImage() == null) {
+
+                media =
+                        service.saveProfileImage(
+                                player,
+                                bytes
+                        );
+
+            } else {
+
+                media =
+                        service.updateProfileImage(
+                                player,
+                                bytes
+                        );
+
+            }
+
+            player.setProfileImage(
+                    media
+            );
+
+            service.save(
+                    player
+            );
+
+            uploadedProfiles.remove(
+                    player.getId()
+            );
+
+            toastMessageUtil.addMessage(
+                    FacesMessage.SEVERITY_INFO,
+                    "Profile image saved"
+            );
+
+            loadPage();
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(
+                    e
+            );
+        }
+
     }
 }
