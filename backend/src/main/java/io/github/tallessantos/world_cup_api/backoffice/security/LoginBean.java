@@ -1,5 +1,6 @@
 package io.github.tallessantos.world_cup_api.backoffice.security;
 
+import io.github.tallessantos.world_cup_api.backoffice.services.AuthService;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
@@ -7,6 +8,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 @Named
 @ViewScoped
@@ -18,27 +21,27 @@ public class LoginBean {
 
     private String password;
 
+    @Autowired
+    private AuthService authService;
+
     @Inject
     private SessionBean sessionBean;
 
-    public String login(){
+    public String redirectIfAuthenticated() {
+        if (sessionBean.isAuthenticated()) {
+            return "/backoffice/index.xhtml?faces-redirect=true";
+        }
+        return null;
+    }
 
-        String expectedUser="admin";
+    public String login() {
 
-        String expectedPassword="123";
-
-        if(
-                expectedUser.equals(username)
-                        &&
-                        expectedPassword.equals(password)
-        ){
+        if (authService.login(username, password)) {
 
             sessionBean.setAuthenticated(true);
-
             sessionBean.setUsername(username);
 
             return "/backoffice/index.xhtml?faces-redirect=true";
-
         }
 
         FacesContext.getCurrentInstance()
@@ -46,13 +49,14 @@ public class LoginBean {
                         null,
                         new FacesMessage(
                                 FacesMessage.SEVERITY_ERROR,
-                                "Invalid credentials",
+                                "Usuário ou senha inválidos.",
                                 null
                         )
                 );
 
+        // Limpa a senha após falha — não deixa no ViewState
+        password = null;
+
         return null;
-
     }
-
 }

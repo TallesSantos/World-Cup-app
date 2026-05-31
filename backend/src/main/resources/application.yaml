@@ -40,3 +40,7 @@ app:
     storage:
       path: 'D:/storage'
 
+  backoffice:
+    username: "admin"
+    password: "123"
+

@@ -1,15 +1,15 @@
 package io.github.tallessantos.world_cup_api.backoffice.security;
 
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serializable;
 
 @Named
-@SessionScoped
+@SessionScope
 @Getter
 @Setter
 public class SessionBean implements Serializable {
@@ -18,18 +18,35 @@ public class SessionBean implements Serializable {
 
     private String username;
 
+    public void setAuthenticated(boolean authenticated) {
+        this.authenticated = authenticated;
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        if (ctx != null) {
+            Object sessionObj = ctx
+                    .getExternalContext()
+                    .getSession(true); // cria sessão se não existir
+
+            if (sessionObj instanceof jakarta.servlet.http.HttpSession httpSession) {
+                if (authenticated) {
+                    httpSession.setAttribute("authenticated", Boolean.TRUE);
+                } else {
+                    httpSession.removeAttribute("authenticated");
+                }
+            }
+        }
+    }
+
     public String logout() {
 
-        authenticated=false;
+        authenticated = false;
+        username = null;
 
-        username=null;
-
-        FacesContext
-                .getCurrentInstance()
-                .getExternalContext()
-                .invalidateSession();
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        if (ctx != null) {
+            ctx.getExternalContext().invalidateSession();
+        }
 
         return "/backoffice/login.xhtml?faces-redirect=true";
     }
-
 }

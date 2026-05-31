@@ -1,7 +1,6 @@
 package io.github.tallessantos.world_cup_api.backoffice.security;
 
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-@WebFilter("*.xhtml")
 public class AuthFilter implements Filter {
 
     @Override
@@ -31,15 +29,19 @@ public class AuthFilter implements Filter {
 
         boolean logged =
                 session != null &&
-                        session.getAttribute("authenticated") != null;
+                        Boolean.TRUE.equals(
+                                session.getAttribute("authenticated")
+                        );
 
-        String path =
-                req.getRequestURI();
+        String uri = req.getRequestURI();
 
-        boolean loginPage =
-                path.contains("login.xhtml");
+        // Libera a página de login e os recursos estáticos do JSF
+        // (ex: /javax.faces.resource/...) para não quebrar CSS/JS do login
+        boolean isPublic =
+                uri.contains("login.xhtml") ||
+                        uri.contains("javax.faces.resource");
 
-        if (!logged && !loginPage) {
+        if (!logged && !isPublic) {
 
             res.sendRedirect(
                     req.getContextPath()
@@ -47,14 +49,8 @@ public class AuthFilter implements Filter {
             );
 
             return;
-
         }
 
-        chain.doFilter(
-                request,
-                response
-        );
-
+        chain.doFilter(request, response);
     }
-
 }
