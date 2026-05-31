@@ -1,10 +1,11 @@
 package io.github.tallessantos.world_cup_api.backoffice.views.helpers;
 
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
-import io.github.tallessantos.world_cup_api.core.domain.metadata.GoalMetadataEntity;
 import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
 import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
 import io.github.tallessantos.world_cup_api.core.domain.MediaPlatform;
+import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
+import io.github.tallessantos.world_cup_api.core.domain.metadata.GoalMetadataEntity;
 import io.github.tallessantos.world_cup_api.core.service.MatchService;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
@@ -14,6 +15,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 
 @Named("matchBean")
 @ViewScoped
@@ -42,6 +45,16 @@ public class AddVideoView implements Serializable {
 
     public AddVideoView(MatchService service) {
         this.service = service;
+    }
+
+    public List<PlayerAppearanceEntity> getAvailablePlayers() {
+
+        if (selectedMatch == null) {
+            return Collections.emptyList();
+        }
+
+        return service.getPlayerByMatchId(selectedMatch.getId());
+
     }
 
     public void openManageVideos(MatchEntity match) {

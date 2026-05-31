@@ -3,14 +3,110 @@
       xmlns:h="jakarta.faces.html">
 
 <h:head>
+
     <title>Admin Manager</title>
+
 </h:head>
 
 <h:body>
 
-    <h1>JSF funcionando</h1>
+    <div style="
+width:100%;
+display:flex;
+justify-content:center;
+margin-top:30px;
+">
 
-    <h:outputText value="Painel administrativo carregado com sucesso!" />
+        <div style="
+    width:900px;
+    ">
+
+            <!-- LOGO -->
+
+            <div style="
+        display:flex;
+        justify-content:center;
+        margin-bottom:30px;
+        ">
+
+                <img src="#{resource['images:logo.png']}"
+                     style="
+                 max-width:250px;
+                 "/>
+
+            </div>
+
+            <!-- HEADER -->
+
+            <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px;
+        border:1px solid #DDD;
+        margin-bottom:20px;
+        ">
+
+                <div>
+
+                    Logged as:
+
+                    <b>
+
+                        #{sessionBean.username}
+
+                    </b>
+
+                </div>
+
+                <h:form>
+
+                    <h:commandButton
+                            value="Logout"
+                            action="#{sessionBean.logout}"/>
+
+                </h:form>
+
+            </div>
+
+
+            <!-- ROTAS -->
+
+            <div style="
+        display:flex;
+        gap:10px;
+        margin-bottom:30px;
+        ">
+
+                <h:button
+                        value="World Cups"
+                        outcome="/world-cups.xhtml"/>
+
+                <h:button
+                        value="Matches"
+                        outcome="/matches.xhtml"/>
+
+                <h:button
+                        value="Players"
+                        outcome="/players.xhtml"/>
+
+            </div>
+
+
+            <!-- CONTEUDO -->
+
+            <div style="
+        border:1px solid #DDD;
+        padding:20px;
+        ">
+
+                Painel administrativo carregado.
+
+            </div>
+
+        </div>
+
+    </div>
 
 </h:body>
 

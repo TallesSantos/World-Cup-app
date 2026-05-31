@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+
+<h:head>
+
+    <title>Login</title>
+
+</h:head>
+
+<h:body>
+
+    <h1>
+
+        Backoffice Login
+
+    </h1>
+
+    <h:form>
+
+        <h:messages/>
+
+        <h:panelGrid columns="2">
+
+            <h:outputText value="User Name"/>
+
+            <h:inputText
+                    value="#{loginBean.username}"
+                    required="true"/>
+
+
+            <h:outputText value="Password"/>
+
+            <h:inputSecret
+                    value="#{loginBean.password}"
+                    required="true"/>
+
+        </h:panelGrid>
+
+        <br/>
+
+        <h:commandButton
+                value="Login"
+                action="#{loginBean.login}"/>
+
+    </h:form>
+
+</h:body>
+
+</html>

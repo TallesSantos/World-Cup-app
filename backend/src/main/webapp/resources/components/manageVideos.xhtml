@@ -103,46 +103,120 @@
 
             <!-- ADD VIDEO -->
 
-            <h:panelGrid columns="2">
+            <h:panelGrid
+                    columns="2"
+                    columnClasses="form-column,helper-column"
+                    style="width:100%;vertical-align:top;">
 
-                <h:outputText value="Title"/>
+                <!-- FORM -->
 
-                <h:inputText
-                        value="#{cc.attrs.bean.newVideoTitle}"/>
+                <h:panelGroup layout="block">
 
+                    <h:panelGrid columns="2">
 
-                <h:outputText value="Youtube URL"/>
+                        <h:outputText value="Title"/>
 
-                <h:inputText
-                        value="#{cc.attrs.bean.newYoutubeUrl}"/>
-
-
-                <h:outputText value="Goal Player"/>
-
-                <h:inputText
-                        value="#{cc.attrs.bean.goalPlayer}"/>
+                        <h:inputText
+                                value="#{cc.attrs.bean.newVideoTitle}"/>
 
 
-                <h:outputText value="Goal Scored By"/>
+                        <h:outputText value="Youtube URL"/>
 
-                <h:selectOneMenu
-                        value="#{cc.attrs.bean.goalScoredByTeam}">
+                        <h:inputText
+                                value="#{cc.attrs.bean.newYoutubeUrl}"/>
 
-                    <f:selectItem
-                            itemLabel="Select team"
-                            itemValue=""/>
+                        <h:outputText value="Team"/>
 
-                    <f:selectItem
-                            itemLabel="#{cc.attrs.bean.selectedMatch.homeTeamName}"
-                            itemValue="HOME"/>
+                        <h:selectOneMenu
+                                value="#{cc.attrs.bean.goalScoredByTeam}">
 
-                    <f:selectItem
-                            itemLabel="#{cc.attrs.bean.selectedMatch.awayTeamName}"
-                            itemValue="AWAY"/>
+                            <f:selectItem
+                                    itemLabel="Select team"
+                                    itemValue=""/>
 
-                </h:selectOneMenu>
+                            <f:selectItem
+                                    itemLabel="#{cc.attrs.bean.selectedMatch.homeTeamName}"
+                                    itemValue="HOME"/>
+
+                            <f:selectItem
+                                    itemLabel="#{cc.attrs.bean.selectedMatch.awayTeamName}"
+                                    itemValue="AWAY"/>
+
+                            <f:ajax
+                                    execute="@this"
+                                    render="playersHelper"/>
+
+                        </h:selectOneMenu>
+
+                        <h:outputText value="Player"/>
+
+                        <h:inputText value="#{cc.attrs.bean.goalPlayer}"/>
+
+                    </h:panelGrid>
+
+                </h:panelGroup>
+
+
+                <!-- PLAYER HELPER -->
+
+                <h:panelGroup
+                        id="playersHelper"
+                        layout="block"
+                        style="
+                border:1px solid #ddd;
+                padding:12px;
+                min-width:260px;
+                max-height:240px;
+                overflow:auto;
+                margin-left:20px;
+            ">
+
+                    <b>
+
+                        Available Players
+
+                    </b>
+
+                    <br/>
+                    <br/>
+
+                    <ui:repeat
+                            value="#{cc.attrs.bean.availablePlayers}"
+                            var="player">
+
+                        <div style="
+                    padding:4px 0;
+                    border-bottom:1px solid #eee;">
+
+                            [#{player.teamInitials}]
+                            #{player.playerName} - n° #{player.shirtNumber}
+
+                        </div>
+
+                    </ui:repeat>
+
+                    <h:panelGroup
+                            rendered="#{empty cc.attrs.bean.availablePlayers}">
+
+                        Select HOME or AWAY
+
+                    </h:panelGroup>
+
+                </h:panelGroup>
 
             </h:panelGrid>
+
+            <br/>
+
+            <h:commandButton
+                    value="Add Video"
+                    action="#{cc.attrs.bean.addVideo}">
+
+                <f:ajax
+                        execute="@form"
+                        render="@form #{cc.attrs.renderTarget}"/>
+
+            </h:commandButton>
 
             <br/>
 

@@ -167,4 +167,8 @@ public class MatchService {
 
         );
     }
+
+    public List<PlayerAppearanceEntity> getPlayerByMatchId(String id) {
+        return playerAppearanceRepository.findByMatchId(id);
+    }
 }
