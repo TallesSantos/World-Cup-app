@@ -1,35 +1,41 @@
 package io.github.tallessantos.world_cup_api.backoffice.views;
 
-import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
+import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
+import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
+import io.github.tallessantos.world_cup_api.core.domain.PlayerEntity;
 import io.github.tallessantos.world_cup_api.core.service.PlayerService;
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-@Named("playerBean")
+@Named("playersBean")
 @ViewScoped
 public class PlayersView implements Serializable {
+
+    @Autowired
+    private ToastMessageUtil toastMessageUtil;
 
     private PlayerService service;
 
     @Getter
-    private List<PlayerAppearanceEntity> players;
+    private List<PlayerEntity> players;
 
     @Getter
     @Setter
-    private PlayerAppearanceEntity selectedPlayer =
-            new PlayerAppearanceEntity();
+    private PlayerEntity selectedPlayer = new PlayerEntity();
 
     @Getter
     @Setter
-    private PlayerAppearanceEntity pendingSave;
+    private PlayerEntity pendingSave;
 
     @Getter
     @Setter
@@ -78,7 +84,7 @@ public class PlayersView implements Serializable {
 
     public void loadPage() {
 
-        Page<PlayerAppearanceEntity> page = service.findPageFiltered(
+        Page<PlayerEntity> page = service.findPageFiltered(
                 currentPage,
                 pageSize,
                 filterPlayerName,
@@ -145,7 +151,7 @@ public class PlayersView implements Serializable {
         loadPage();
     }
 
-    public void selectPlayer(PlayerAppearanceEntity player) {
+    public void selectPlayer(PlayerEntity player) {
 
         this.selectedPlayer = player;
     }
@@ -153,31 +159,36 @@ public class PlayersView implements Serializable {
     public void clearSelection() {
 
         this.selectedPlayer =
-                new PlayerAppearanceEntity();
+                new PlayerEntity();
     }
 
-    public void askSave(PlayerAppearanceEntity player) {
+    public void askSave(PlayerEntity player) {
 
-        PlayerAppearanceEntity copy = new PlayerAppearanceEntity();
-
-        copy.setId(player.getId());
-        copy.setMatchId(player.getMatchId());
-        copy.setPlayerName(player.getPlayerName());
-        copy.setTeamInitials(player.getTeamInitials());
-        copy.setPosition(player.getPosition());
-        copy.setShirtNumber(player.getShirtNumber());
-        copy.setEvent(player.getEvent());
-        copy.setLineup(player.getLineup());
-        copy.setCoachName(player.getCoachName());
-
-        this.pendingSave = copy;
-
+        this.pendingSave = player;
     }
 
     public void confirmSave() {
 
+        if (Boolean.TRUE.equals(
+                pendingSave.getAudit().getFinished()
+        )) {
+
+            AuditUtils.markFinished(
+                    pendingSave,
+                    pendingSave.getAudit().getFinished(),
+                    "BACKOFFICE_USER"
+            );
+        }
+
         service.save(pendingSave);
+
         pendingSave = null;
+
+        toastMessageUtil.addMessage(
+                FacesMessage.SEVERITY_INFO,
+                "Successfully saved registry data"
+        );
+
         loadPage();
     }
 

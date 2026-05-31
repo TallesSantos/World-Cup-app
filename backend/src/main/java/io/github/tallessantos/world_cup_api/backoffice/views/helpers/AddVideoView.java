@@ -1,4 +1,4 @@
-package io.github.tallessantos.world_cup_api.backoffice.views.matches;
+package io.github.tallessantos.world_cup_api.backoffice.views.helpers;
 
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.metadata.GoalMetadataEntity;
@@ -19,7 +19,7 @@ import java.io.Serializable;
 @ViewScoped
 @Getter
 @Setter
-public class MatchView implements Serializable {
+public class AddVideoView implements Serializable {
 
     @Autowired
     private ToastMessageUtil toastMessageUtil;
@@ -40,7 +40,7 @@ public class MatchView implements Serializable {
 
     private final MatchService service;
 
-    public MatchView(MatchService service) {
+    public AddVideoView(MatchService service) {
         this.service = service;
     }
 

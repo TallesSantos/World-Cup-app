@@ -1,4 +1,4 @@
-package io.github.tallessantos.world_cup_api.backoffice.views.matches;
+package io.github.tallessantos.world_cup_api.backoffice.views;
 
 import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;

@@ -1,11 +1,9 @@
 package io.github.tallessantos.world_cup_api.core.service;
 
-import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
-import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
-import io.github.tallessantos.world_cup_api.core.domain.PlayerDetail;
-import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
+import io.github.tallessantos.world_cup_api.core.domain.*;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
+import io.github.tallessantos.world_cup_api.infra.repository.PlayerRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
 import org.springframework.data.domain.Page;
@@ -25,11 +23,13 @@ public class PlayerService {
     private final PlayerAppearanceRepository playerAppearanceRepository;
     private final MatchRepository matchRepository;
     private final WorldCupRepository worldCupRepository;
+    private final PlayerRepository playerRepository;
 
-    public PlayerService(PlayerAppearanceRepository playerAppearanceRepository, MatchRepository matchRepository, WorldCupRepository worldCupRepository) {
+    public PlayerService(PlayerAppearanceRepository playerAppearanceRepository, MatchRepository matchRepository, WorldCupRepository worldCupRepository, PlayerRepository playerRepository) {
         this.playerAppearanceRepository = playerAppearanceRepository;
         this.matchRepository = matchRepository;
         this.worldCupRepository = worldCupRepository;
+        this.playerRepository = playerRepository;
     }
 
     public PlayerDetail getPlayerById(String id) {
@@ -226,11 +226,11 @@ public class PlayerService {
         ).getContent();
     }
 
-    public void save(PlayerAppearanceEntity pendingSave) {
-        playerAppearanceRepository.save(pendingSave);
+    public void save(PlayerEntity pendingSave) {
+        playerRepository.save(pendingSave);
     }
 
-    public Page<PlayerAppearanceEntity> findPageFiltered(
+    public Page<PlayerEntity> findPageFiltered(
             int page,
             int size,
             String playerName,
@@ -246,7 +246,7 @@ public class PlayerService {
 
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        return playerAppearanceRepository.findFiltered(
+        return playerRepository.findFiltered(
                 playerName,
                 team,
                 position,

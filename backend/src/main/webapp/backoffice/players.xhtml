@@ -6,6 +6,15 @@
 
 <h:head>
     <title>Players</title>
+    <style>
+
+        .finished-row {
+
+            background:#dff5df;
+
+        }
+
+    </style>
 </h:head>
 
 <h:body>
@@ -13,6 +22,8 @@
     <h1>Players</h1>
 
     <h:form id="playersForm">
+
+        <app:toastMessages/>
 
         <h2>Filters</h2>
 
@@ -31,22 +42,6 @@
                     value="#{playersBean.filterPosition}"/>
 
             <h:outputText value="Sort Field:"/>
-
-            <h:selectOneMenu value="#{playersBean.sortField}">
-
-                <f:selectItem itemValue="playerName"
-                              itemLabel="Player"/>
-
-                <f:selectItem itemValue="teamInitials"
-                              itemLabel="Team"/>
-
-                <f:selectItem itemValue="position"
-                              itemLabel="Position"/>
-
-                <f:selectItem itemValue="shirtNumber"
-                              itemLabel="Shirt"/>
-
-            </h:selectOneMenu>
 
             <h:outputText value="Sort Direction:"/>
 
@@ -89,15 +84,18 @@
                      border="1"
                      cellpadding="6">
 
-            <h:column>
+            <f:attribute
+                    name="rowStyleClass"
+                    value="#{player.audit.finished ? 'finished-row' : ''}"/>
 
-                <f:facet name="header">Match ID</f:facet>
 
-                <h:inputText value="#{player.matchId}"/>
+            <f:attribute
+                    name="rowStyleClass"
+                    value="#{player.audit.finished ? 'finished-row' : ''}"/>
 
-            </h:column>
 
-            <h:column>
+
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(player)}">
 
                 <f:facet name="header">Player</f:facet>
 
@@ -105,7 +103,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(player)}">
 
                 <f:facet name="header">Team</f:facet>
 
@@ -113,7 +111,7 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(player)}">
 
                 <f:facet name="header">Position</f:facet>
 
@@ -121,21 +119,65 @@
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(player)}">
 
-                <f:facet name="header">Shirt</f:facet>
+                <f:facet name="header">Common Shirt</f:facet>
 
-                <h:inputText value="#{player.shirtNumber}"/>
+                <h:inputText value="#{player.commonShirtNumber}"/>
+
+            </h:column>
+
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(player)}">
+
+                <f:facet name="header">
+                    Birth Date
+                </f:facet>
+
+                <h:inputText
+                        value="#{player.birthDate}"/>
 
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(player)}">
 
-                <f:facet name="header">Event</f:facet>
+                <f:facet name="header">
+                    Death Date
+                </f:facet>
 
-                <h:inputText value="#{player.event}"/>
+                <h:inputText
+                        value="#{player.deathDate}"/>
 
             </h:column>
+
+            <h:column
+                    styleClass="#{auditViewHelper.resolveRowClass(player)}">
+
+                <f:facet name="header">
+
+                    Completed
+
+                </f:facet>
+
+                <h:selectOneRadio
+                        value="#{player.audit.finished}"
+                        layout="lineDirection">
+
+                    <f:selectItem
+                            itemValue="false"
+                            itemLabel="Open"/>
+
+                    <f:selectItem
+                            itemValue="true"
+                            itemLabel="Finished"/>
+
+                    <f:ajax
+                            execute="@this"
+                            render="@this"/>
+
+                </h:selectOneRadio>
+
+            </h:column>
+
 
             <h:column>
 
@@ -173,70 +215,6 @@
                 message="Save changes?"
                 confirmAction="#{playersBean.confirmSave}"
                 cancelAction="#{playersBean.cancelSave}"/>
-
-        <h:panelGroup id="playersDetails">
-
-            <h:panelGroup
-                    rendered="#{not empty playersBean.selectedPlayer.id}">
-
-                <hr/>
-
-                <h2>
-                    #{playersBean.selectedPlayer.playerName}
-                </h2>
-
-                <h:panelGrid columns="2" cellpadding="5">
-
-                    <h:outputText value="ID:"/>
-                    <h:outputText
-                            value="#{playersBean.selectedPlayer.id}"/>
-
-                    <h:outputText value="Match ID:"/>
-                    <h:outputText
-                            value="#{playersBean.selectedPlayer.matchId}"/>
-
-                    <h:outputText value="Player Name:"/>
-                    <h:outputText
-                            value="#{playersBean.selectedPlayer.playerName}"/>
-
-                    <h:outputText value="Team Initials:"/>
-                    <h:outputText
-                            value="#{playersBean.selectedPlayer.teamInitials}"/>
-
-                    <h:outputText value="Coach Name:"/>
-                    <h:outputText
-                            value="#{playersBean.selectedPlayer.coachName}"/>
-
-                    <h:outputText value="Lineup:"/>
-                    <h:outputText
-                            value="#{playersBean.selectedPlayer.lineup}"/>
-
-                    <h:outputText value="Shirt Number:"/>
-                    <h:outputText
-                            value="#{playersBean.selectedPlayer.shirtNumber}"/>
-
-                    <h:outputText value="Position:"/>
-                    <h:outputText
-                            value="#{playersBean.selectedPlayer.position}"/>
-
-                    <h:outputText value="Event:"/>
-                    <h:outputText
-                            value="#{playersBean.selectedPlayer.event}"/>
-
-                </h:panelGrid>
-
-                <br/>
-
-                <h:commandButton value="Clear Selection"
-                                 action="#{playersBean.clearSelection}">
-
-                    <f:ajax render="playersDetails"/>
-
-                </h:commandButton>
-
-            </h:panelGroup>
-
-        </h:panelGroup>
 
     </h:form>
 

@@ -25,7 +25,7 @@ public class PlayerEntity implements Auditable {
 
     private String birthDate;
 
-    private String deathData;
+    private String deathDate;
 
     private String commonShirtNumber;
 
