@@ -119,6 +119,7 @@ public class PlayersView implements Serializable {
 
         hasNextPage = players.size() == pageSize;
     }
+
     public void filter() {
 
         currentPage = 0;

@@ -2,11 +2,7 @@ package io.github.tallessantos.world_cup_api.core.service;
 
 import io.github.tallessantos.world_cup_api.core.domain.*;
 import io.github.tallessantos.world_cup_api.infra.repository.*;
-import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvDataSource;
-import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
-import io.github.tallessantos.world_cup_api.infra.repository.csv.MatchCsvRow;
-import io.github.tallessantos.world_cup_api.infra.repository.csv.PlayerCsvRow;
-import io.github.tallessantos.world_cup_api.infra.repository.csv.WorldCupCsvRow;
+import io.github.tallessantos.world_cup_api.infra.repository.csv.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -14,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -67,18 +62,22 @@ public class CsvImportService implements CommandLineRunner {
 
         Map<String, CountryEntity> countries = new HashMap<>();
 
-        for(MatchEntity match: listMatches){
+        for (MatchCsvRow match : csvDataSource.loadMatches()) {
 
-            if(countries.get(match.getHomeTeamName()) == null){
-               CountryEntity entity = populateCountryEntity(match);
-               countries.put(match.getHomeTeamName(), entity);
-            }
-            if(countries.get(match.getAwayTeamName()) == null){
+            if (countries.get(match.homeTeamName().trim()) == null) {
                 CountryEntity entity = populateCountryEntity(match);
-                countries.put(match.getAwayTeamName(), entity);
+                entity.setName(match.homeTeamName().trim());
+                entity.setInitials(match.homeTeamInitials().trim());
+                countries.put(match.homeTeamName().trim(), entity);
+            }
+            if (countries.get(match.awayTeamName().trim()) == null) {
+                CountryEntity entity = populateCountryEntity(match);
+                entity.setName(match.homeTeamName().trim());
+                entity.setInitials(match.awayTeamInitials().trim());
+                countries.put(match.awayTeamName().trim(), entity);
             }
         }
-        countryRepository.saveAll(countries.values());
+        countryRepository.saveAll(new HashSet<>(countries.values()));
 
         List<PlayerAppearanceEntity> listPlayerAppearenceEntity = new ArrayList<>();
         for (PlayerCsvRow entity : csvDataSource.loadPlayers()) {
@@ -105,17 +104,21 @@ public class CsvImportService implements CommandLineRunner {
             entity.setTeamInitials(row.teamInitials());
             entity.setPosition(row.position());
             entity.setCommonShirtNumber(row.shirtNumber());
+            try {
+                CountryEntity countryEntity = countryRepository.findAllByInitials(row.teamInitials().trim()).getFirst();
+                entity.setCountryEntity(countryEntity);
+            } catch (Exception e) {
+                log.warn("not possible add country entity into player: {}", row);
+            }
         }
 
         playerRepository.saveAll(playerMap.values());
     }
 
-    private CountryEntity populateCountryEntity(MatchEntity match) {
+    private CountryEntity populateCountryEntity(MatchCsvRow match) {
         CountryEntity entity = new CountryEntity();
         entity.getAudit().setCreatedBy(CREATED_BY_NAME);
         entity.getAudit().setCreatedAt(LocalDateTime.now());
-        entity.setName(match.getHomeTeamName());
-        entity.setInitials(match.getHomeTeamInitials());
         return entity;
     }
 

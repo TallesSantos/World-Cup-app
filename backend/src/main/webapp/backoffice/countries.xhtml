@@ -1,73 +1,288 @@
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core"
-      xmlns:ui="jakarta.faces.facelets">
+      xmlns:app="http://xmlns.jcp.org/jsf/composite/components">
 
 <h:head>
+
     <title>Countries</title>
+
+    <style>
+
+        .finished-row{
+
+            background:#dff5df;
+
+        }
+
+    </style>
+
 </h:head>
 
 <h:body>
 
     <h1>Countries</h1>
 
-    <h:form id="countriesForm">
+    <h:form id="countriesForm"
+            enctype="multipart/form-data">
+
+        <app:toastMessages/>
+
+        <h2>Filters</h2>
+
+        <h:panelGrid columns="2"
+                     cellpadding="5">
+
+            <app:filterField
+                    label="Country:"
+                    value="#{countriesBean.filterCountryName}"/>
+
+            <app:filterField
+                    label="Fifa Code:"
+                    value="#{countriesBean.filterFifaCode}"/>
+
+            <h:outputText value="Confederation:"/>
+
+            <h:selectOneMenu value="#{countriesBean.filterCountryConfederationType}">
+
+                <f:selectItem
+                        itemLabel="Any Confederation"
+                        itemValue="#{null}" />
+
+                <f:selectItems
+                        value="#{countriesBean.countryConfederations}"
+                        var="conf"
+                        itemValue="#{conf}"
+                        itemLabel="#{conf.displayName}" />
+
+            </h:selectOneMenu>
+
+            <app:filterSelect
+                    label="Finished:"
+                    value="#{countriesBean.filterFinished}"/>
+
+            <h:outputText value="Sort Direction:"/>
+
+            <h:selectOneMenu
+                    value="#{countriesBean.sortDirection}">
+
+                <f:selectItem itemValue="asc"
+                              itemLabel="Ascending"/>
+
+                <f:selectItem itemValue="desc"
+                              itemLabel="Descending"/>
+
+            </h:selectOneMenu>
+
+        </h:panelGrid>
+
+        <br/>
+
+        <h:commandButton value="Apply Filters"
+                         action="#{countriesBean.filter}">
+
+        </h:commandButton>
+
+        <h:commandButton value="Clear Filters"
+                         action="#{countriesBean.clearFilters}">
+
+        </h:commandButton>
+
+        <br/>
+        <br/>
 
         <h:dataTable value="#{countriesBean.countries}"
                      var="country"
                      border="1"
                      cellpadding="6">
 
-            <h:column>
-                <f:facet name="header">Flag</f:facet>
+            <f:attribute
+                    name="rowStyleClass"
+                    value="#{country.audit.finished ? 'finished-row' : ''}"/>
 
-                <h:graphicImage value="#{country.flagUrl()}"
-                                width="48"
-                                height="32" />
+            <!-- FLAG -->
+
+            <h:column
+                    styleClass="#{auditViewHelper.resolveRowClass(country)}">
+
+                <f:facet name="header">
+
+                    Country Flag
+
+                </f:facet>
+
+                <h:panelGroup
+                        layout="block"
+                        style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                min-width:220px;
+            ">
+
+                    <!-- upload -->
+
+                    <h:panelGroup
+                            layout="block"
+                            style="
+                    display:flex;
+                    flex-direction:column;
+                    gap:4px;
+                ">
+
+                        <h:inputFile
+                                value="#{countriesBean.uploadedFlags[country.id]}"/>
+
+                        <h:commandButton
+                                value="#{empty country.countryFlagImage ? 'Add Flag' : 'Replace Flag'}"
+                                action="#{countriesBean.uploadFlag(country)}">
+
+                            <f:ajax
+                                    execute="@form"
+                                    render="@form"/>
+
+                        </h:commandButton>
+
+                    </h:panelGroup>
+
+                    <!-- preview -->
+
+                    <h:panelGroup
+                            rendered="#{not empty country.countryFlagImage}">
+
+                        <h:graphicImage
+                                value="#{'http://localhost:8081'.concat(country.countryFlagImage.fullResourcePath)}"
+                                height="80"
+                                width="80"
+                                style="
+                        border:1px solid gray;
+                        object-fit:cover;
+                    "/>
+
+                    </h:panelGroup>
+
+                    <!-- placeholder -->
+
+                    <h:panelGroup
+                            rendered="#{empty country.countryFlagImage}"
+                            layout="block"
+                            style="
+                    width:80px;
+                    height:80px;
+                    border:1px dashed gray;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                ">
+
+                        <h:outputText value="No image"/>
+
+                    </h:panelGroup>
+
+                </h:panelGroup>
+
             </h:column>
 
-            <h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(country)}">
+
                 <f:facet name="header">Name</f:facet>
-                #{country.name()}
+
+                <h:inputText value="#{country.name}"/>
+
             </h:column>
 
-            <h:column>
-                <f:facet name="header">FIFA Code</f:facet>
-                #{country.fifaCode()}
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(country)}">
+
+                <f:facet name="header">Initials</f:facet>
+
+                <h:inputText value="#{country.initials}"/>
+
             </h:column>
 
-            <h:column>
-                <f:facet name="header">Confederation</f:facet>
-                #{country.confederation()}
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(country)}">
+
+                <f:facet name="header">Fifa Code</f:facet>
+
+                <h:inputText value="#{country.fifaCode}"/>
+
             </h:column>
 
-            <h:column>
-                <f:facet name="header">Coach</f:facet>
-                #{country.coach()}
-            </h:column>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(country)}">
 
-            <h:column>
                 <f:facet name="header">Ranking</f:facet>
-                #{country.fifaRanking()}
+
+                <h:inputText value="#{country.fifaRanking}"/>
+
             </h:column>
 
-            <h:column>
-                <f:facet name="header">World Cups</f:facet>
-                #{country.titles().worldCups()}
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(country)}">
+
+                <f:facet name="header">
+                    Confederation
+                </f:facet>
+
+                <h:selectOneMenu value="#{country.confederation}">
+
+                    <!-- opção null -->
+                    <f:selectItem
+                            itemLabel="Select Confederation"
+                            itemValue="#{null}"
+                            noSelectionOption="true"/>
+
+                    <!-- enum -->
+                    <f:selectItems
+                            value="#{countriesBean.countryConfederations}"
+                            var="conf"
+                            itemValue="#{conf}"
+                            itemLabel="#{conf.displayName}"/>
+
+                </h:selectOneMenu>
+
             </h:column>
 
-            <h:column>
-                <f:facet name="header">Best Finish</f:facet>
-                #{country.bestWorldCupFinish()}
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(country)}">
+
+                <f:facet name="header">
+
+                    Completed
+
+                </f:facet>
+
+                <h:selectOneRadio
+                        value="#{country.audit.finished}"
+                        layout="lineDirection">
+
+                    <f:selectItem itemValue="false"
+                                  itemLabel="Open"/>
+
+                    <f:selectItem itemValue="true"
+                                  itemLabel="Finished"/>
+
+                </h:selectOneRadio>
+
             </h:column>
 
-            <h:column>
-                <f:facet name="header">Actions</f:facet>
+            <h:column styleClass="#{auditViewHelper.resolveRowClass(country)}">
 
-                <h:commandButton value="Details"
-                                 action="#{countriesBean.selectCountry(country)}">
-                    <f:ajax render="countryDetails"/>
+                <f:facet name="header">
+
+                    Actions
+
+                </f:facet>
+
+                <h:commandButton
+                        value="Save"
+                        action="#{countriesBean.askSave(country)}">
+                </h:commandButton>
+
+                <h:commandButton value="Details [TODO]"
+                                 action="#{worldCupBean.selectWorldCup(worldCup)}">
+
+                    <f:ajax render="worldCupDetails" />
+
                 </h:commandButton>
 
             </h:column>
@@ -76,154 +291,14 @@
 
         <br/>
 
-        <h:panelGroup id="countryDetails">
+        <app:pagination bean="#{countriesBean}"/>
 
-            <h:panelGroup rendered="#{not empty countriesBean.selectedCountry}">
-
-                <hr/>
-
-                <h2>
-                    #{countriesBean.selectedCountry.name()}
-                </h2>
-
-                <h:graphicImage value="#{countriesBean.selectedCountry.flagUrl()}"
-                                width="120"
-                                height="80"/>
-
-                <br/><br/>
-
-                <h:panelGrid columns="2" cellpadding="5">
-
-                    <h:outputText value="FIFA Code:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.fifaCode()}"/>
-
-                    <h:outputText value="Confederation:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.confederation()}"/>
-
-                    <h:outputText value="Coach:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.coach()}"/>
-
-                    <h:outputText value="FIFA Ranking:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.fifaRanking()}"/>
-
-                    <h:outputText value="World Cup Appearances:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.worldCupAppearances()}"/>
-
-                    <h:outputText value="Best World Cup Finish:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.bestWorldCupFinish()}"/>
-
-                </h:panelGrid>
-
-                <br/>
-
-                <h3>Titles</h3>
-
-                <h:panelGrid columns="2" cellpadding="5">
-
-                    <h:outputText value="World Cups:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.titles().worldCups()}"/>
-
-                    <h:outputText value="Continental Cups:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.titles().continentalCups()}"/>
-
-                    <h:outputText value="Confederations Cup:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.titles().confederationsCup()}"/>
-
-                    <h:outputText value="Olympic Gold Medals:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.titles().olympicGoldMedals()}"/>
-
-                </h:panelGrid>
-
-                <br/>
-
-                <h3>All Time Statistics</h3>
-
-                <h:panelGrid columns="2" cellpadding="5">
-
-                    <h:outputText value="Matches:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().matches()}"/>
-
-                    <h:outputText value="Wins:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().wins()}"/>
-
-                    <h:outputText value="Draws:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().draws()}"/>
-
-                    <h:outputText value="Losses:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().losses()}"/>
-
-                    <h:outputText value="Goals Scored:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().goalsScored()}"/>
-
-                    <h:outputText value="Goals Conceded:"/>
-                    <h:outputText value="#{countriesBean.selectedCountry.allTimeStatistics().goalsConceded()}"/>
-
-                </h:panelGrid>
-
-                <br/>
-
-                <h3>Legendary Players</h3>
-
-                <ui:repeat value="#{countriesBean.selectedCountry.legendaryPlayers()}"
-                           var="player">
-
-                    <div>
-                        #{player.name()}
-                    </div>
-
-                </ui:repeat>
-
-                <br/>
-
-                <h3>World Cup History</h3>
-
-                <h:dataTable value="#{countriesBean.selectedCountry.worldCupHistory()}"
-                             var="history"
-                             border="1"
-                             cellpadding="5">
-
-                    <h:column>
-                        <f:facet name="header">Year</f:facet>
-                        #{history.worldCupYear()}
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Host</f:facet>
-                        #{history.hostCountry()}
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Position</f:facet>
-                        #{history.finalPosition()}
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Coach</f:facet>
-                        #{history.coach()}
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Top Scorer</f:facet>
-                        #{history.topScorer().player().name()}
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Goals</f:facet>
-                        #{history.topScorer().goals()}
-                    </h:column>
-
-                </h:dataTable>
-
-                <br/>
-
-                <h:commandButton value="Clear Selection"
-                                 action="#{countriesBean.clearSelection}">
-                    <f:ajax render="countryDetails"/>
-                </h:commandButton>
-
-            </h:panelGroup>
-
-        </h:panelGroup>
+        <app:confirmDialog
+                visible="#{not empty countriesBean.pendingSave}"
+                title="Confirm update"
+                message="Save changes?"
+                confirmAction="#{countriesBean.confirmSave}"
+                cancelAction="#{countriesBean.cancelSave}"/>
 
     </h:form>
 

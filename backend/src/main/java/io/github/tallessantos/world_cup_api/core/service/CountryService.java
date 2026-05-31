@@ -1,25 +1,19 @@
 package io.github.tallessantos.world_cup_api.core.service;
 
-import io.github.tallessantos.world_cup_api.infra.repository.CountryRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
-import io.github.tallessantos.world_cup_api.core.domain.CountryDetail;
-import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
-import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
-import io.github.tallessantos.world_cup_api.core.domain.PlayerReference;
-import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
-import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
+import io.github.tallessantos.world_cup_api.core.config.AppCommonConfigurationVariables;
+import io.github.tallessantos.world_cup_api.core.domain.*;
+import io.github.tallessantos.world_cup_api.core.exception.BusinessException;
+import io.github.tallessantos.world_cup_api.infra.repository.*;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,17 +24,26 @@ public class CountryService {
     private final PlayerAppearanceRepository playerAppearanceRepository;
     private final WorldCupRepository worldCupRepository;
     private final CountryRepository countryRepository;
+    private final MediaStorageService mediaStorageService;
+    private final MediaRespository mediaRespository;
+    private final AppCommonConfigurationVariables appCommonConfigurationVariables;
 
     public CountryService(
             MatchRepository matchRepository,
             PlayerAppearanceRepository playerAppearanceRepository,
             WorldCupRepository worldCupRepository,
-            CountryRepository countryRepository
-    ) {
+            CountryRepository countryRepository,
+            MediaStorageService mediaStorageService,
+            MediaRespository mediaRespository,
+            AppCommonConfigurationVariables appCommonConfigurationVariables
+            ) {
         this.matchRepository = matchRepository;
         this.playerAppearanceRepository = playerAppearanceRepository;
         this.worldCupRepository = worldCupRepository;
         this.countryRepository = countryRepository;
+        this.mediaStorageService = mediaStorageService;
+        this.mediaRespository = mediaRespository;
+        this.appCommonConfigurationVariables = appCommonConfigurationVariables;
     }
 
     public CountryDetail getCountryById(String id) {
@@ -336,6 +339,70 @@ public class CountryService {
         return List.of(BRASIL_MOCK);
     }
 
+    public Page<CountryEntity> findPageFiltered(int currentPage, int pageSize, String filterCountryName, String filterFifaCode, CountryConfederationType filterCountryConfederationType, Boolean filterFinished, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase("desc")
+                ? Sort.by(sortField).descending()
+                : Sort.by(sortField).ascending();
+
+        Pageable pageable = PageRequest.of(currentPage, pageSize, sort);
+
+        return countryRepository.findFiltered(
+                filterCountryName != null && filterCountryName.isEmpty() ? null: filterCountryName,
+                filterFifaCode != null && filterFifaCode.isEmpty() ? null : filterFifaCode,
+                filterCountryConfederationType,
+                filterFinished,
+                pageable
+        );
+
+    }
+
+    public void save(CountryEntity pendingSave) {
+        countryRepository.save(pendingSave);
+    }
+
+    public MediaEntity saveFlagImage(CountryEntity entity, byte[] image) {
+
+        //TODO add audit columns
+
+        String pathToFile = "/players/profile-image/" + entity.getId() + ".jpeg";
+
+        String savedPath = mediaStorageService
+                .saveImageInStoragePassingPathAndByteArray(appCommonConfigurationVariables.getStoragePath() + pathToFile, image);
+
+        MediaEntity mediaEntity = new MediaEntity();
+
+        mediaEntity.setMediaContentType(MediaContentType.WORLD_CUP_BANNER);
+
+        mediaEntity.setMediaPlatform(MediaPlatform.RESOURCE_SERVER);
+
+        mediaEntity.setFullStoragePath(savedPath);
+
+        mediaEntity.setStoragePath(appCommonConfigurationVariables.getStoragePath());
+
+        mediaEntity.setResourcePath(appCommonConfigurationVariables.getResourcePath().replace("/**", ""));
+
+        mediaEntity.setFullResourcePath(appCommonConfigurationVariables.getResourcePath().replace("/**", "") + pathToFile);
+
+        mediaRespository.saveAndFlush(mediaEntity);
+
+        entity.setCountryFlagImage(mediaEntity);
+
+        countryRepository.save(entity);
+
+        return mediaEntity;
+    }
+
+    public MediaEntity updateFlagImage(CountryEntity entity, byte[] image) {
+        //TODO add audit columns
+
+        String fullStoragePath =  entity.getCountryFlagImage().getFullStoragePath();
+        if(appCommonConfigurationVariables.getStoragePath() == null) {
+            throw new BusinessException("Error try update image");
+        }
+        mediaStorageService.replaceImageInStoragePassingPathAndByteArray(fullStoragePath, image);
+        return entity.getCountryFlagImage();
+    }
+
     private record CountryLookup(String id, String name, String fifaCode) {
     }
 
@@ -371,22 +438,22 @@ public class CountryService {
             ),
             new CountryDetail.AllTimeSquad(
                     List.of(
-                            new PlayerReference("vinicius-jr", "Vinícius Júnior", "11","Forward" ),
+                            new PlayerReference("vinicius-jr", "Vinícius Júnior", "11", "Forward"),
                             new PlayerReference("rodrygo", "Rodrygo", "12", "Forward"),
-                            new PlayerReference("marquinhos", "Marquinhos", "13","Defender")
+                            new PlayerReference("marquinhos", "Marquinhos", "13", "Defender")
                     ),
                     List.of(
-                            new PlayerReference("pele", "Pelé","10", "Forward"),
-                            new PlayerReference("ronaldo", "Ronaldo", "9","Forward"),
-                            new PlayerReference("romario", "Romário", "9","Forward"),
-                            new PlayerReference("zico", "Zico", "10","Midfielder"),
+                            new PlayerReference("pele", "Pelé", "10", "Forward"),
+                            new PlayerReference("ronaldo", "Ronaldo", "9", "Forward"),
+                            new PlayerReference("romario", "Romário", "9", "Forward"),
+                            new PlayerReference("zico", "Zico", "10", "Midfielder"),
                             new PlayerReference("cafu", "Cafu", "2", "Defender")
                     )
             ),
             List.of(
-                    new PlayerReference("pele", "Pelé","10", "Forward"),
-                    new PlayerReference("garrincha", "Garrincha","10", "Winger"),
-                    new PlayerReference("ronaldo", "Ronaldo", "09","Forward"),
+                    new PlayerReference("pele", "Pelé", "10", "Forward"),
+                    new PlayerReference("garrincha", "Garrincha", "10", "Winger"),
+                    new PlayerReference("ronaldo", "Ronaldo", "09", "Forward"),
                     new PlayerReference("ronaldinho", "Ronaldinho", "10", "Midfielder")
             ),
             List.of(
@@ -420,9 +487,9 @@ public class CountryService {
                                     8
                             ),
                             List.of(
-                                    new PlayerReference("ronaldo", "Ronaldo","09", "Forward"),
-                                    new PlayerReference("rivaldo", "Rivaldo","11", "Midfielder"),
-                                    new PlayerReference("ronaldinho", "Ronaldinho","10", "Midfielder")
+                                    new PlayerReference("ronaldo", "Ronaldo", "09", "Forward"),
+                                    new PlayerReference("rivaldo", "Rivaldo", "11", "Midfielder"),
+                                    new PlayerReference("ronaldinho", "Ronaldinho", "10", "Midfielder")
                             )
                     ),
                     new CountryDetail.CountryWorldCupHistory(
@@ -456,8 +523,8 @@ public class CountryService {
                             ),
                             List.of(
                                     new PlayerReference("romario", "Romário", "09", "Forward"),
-                                    new PlayerReference("bebeto", "Bebeto", "09","Forward"),
-                                    new PlayerReference("dunga", "Dunga", "04","Midfielder")
+                                    new PlayerReference("bebeto", "Bebeto", "09", "Forward"),
+                                    new PlayerReference("dunga", "Dunga", "04", "Midfielder")
                             )
                     )
             )
