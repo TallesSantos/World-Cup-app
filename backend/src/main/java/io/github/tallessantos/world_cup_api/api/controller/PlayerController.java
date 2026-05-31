@@ -1,7 +1,7 @@
 package io.github.tallessantos.world_cup_api.api.controller;
 
 import io.github.tallessantos.world_cup_api.api.dto.PlayerDetailResponse;
-import io.github.tallessantos.world_cup_api.core.service.PlayerService;
+import io.github.tallessantos.world_cup_api.api.service.PlayerApiService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +13,14 @@ import static io.github.tallessantos.world_cup_api.api.config.ApiPathConfig.ENDP
 @RequestMapping(ENDPOINT_PREFIX + "/players")
 public class PlayerController {
 
-    private final PlayerService playerService;
+    private final PlayerApiService playerApiService;
 
-    public PlayerController(PlayerService playerService) {
-        this.playerService = playerService;
+    public PlayerController(PlayerApiService playerApiService) {
+        this.playerApiService = playerApiService;
     }
 
     @GetMapping("/{id}")
     public PlayerDetailResponse getById(@PathVariable String id) {
-        return PlayerDetailResponse.from(playerService.getPlayerById(id));
+        return PlayerDetailResponse.from(playerApiService.getPlayerById(id));
     }
 }

@@ -3,7 +3,7 @@ package io.github.tallessantos.world_cup_api.backoffice.views;
 import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
-import io.github.tallessantos.world_cup_api.core.service.MatchService;
+import io.github.tallessantos.world_cup_api.backoffice.services.MatchBackofficeService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
@@ -96,9 +96,9 @@ public class MatchesView implements Serializable {
         return date.format(DATE_FORMATTER);
     }
 
-    private final MatchService service;
+    private final MatchBackofficeService service;
 
-    public MatchesView(MatchService service) {
+    public MatchesView(MatchBackofficeService service) {
         this.service = service;
     }
 

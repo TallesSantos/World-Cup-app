@@ -1,16 +1,10 @@
-package io.github.tallessantos.world_cup_api.core.service;
+package io.github.tallessantos.world_cup_api.api.service;
 
-import io.github.tallessantos.world_cup_api.core.config.AppCommonConfigurationVariables;
 import io.github.tallessantos.world_cup_api.core.domain.*;
-import io.github.tallessantos.world_cup_api.core.exception.BusinessException;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.MediaRespository;
 import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,21 +14,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class WorldCupService {
+public class WorldCupApiService {
 
     private final WorldCupRepository worldCupRepository;
     private final MatchRepository matchRepository;
-    private final MediaStorageService mediaStorageService;
-    private final MediaRespository mediaRespository;
-    private final AppCommonConfigurationVariables appCommonConfigurationVariables;
 
-    public WorldCupService(WorldCupRepository worldCupRepository, MatchRepository matchRepository, MediaStorageService mediaStorageService,
-                           MediaRespository mediaRespository, AppCommonConfigurationVariables appCommonConfigurationVariables) {
+    public WorldCupApiService(WorldCupRepository worldCupRepository, MatchRepository matchRepository) {
         this.worldCupRepository = worldCupRepository;
         this.matchRepository = matchRepository;
-        this.mediaStorageService = mediaStorageService;
-        this.mediaRespository = mediaRespository;
-        this.appCommonConfigurationVariables = appCommonConfigurationVariables;
     }
 
     public List<WorldCup> listWorldCups() {
@@ -198,80 +185,6 @@ public class WorldCupService {
         return worldCupRepository.findAll(
                 PageRequest.of(page, size)
         ).getContent();
-    }
-
-    public void save(WorldCupEntity worldCup) {
-        worldCupRepository.save(worldCup);
-    }
-
-    public MediaEntity saveBannerImage(WorldCupEntity entity, byte[] image) {
-
-        //TODO add audit columns
-
-        String pathToFile = "/world-cups/banners/" + entity.getId() + ".jpeg";
-
-        String savedPath = mediaStorageService
-                .saveImageInStoragePassingPathAndByteArray(appCommonConfigurationVariables.getStoragePath() + pathToFile, image);
-
-        MediaEntity mediaEntity = new MediaEntity();
-
-        mediaEntity.setMediaContentType(MediaContentType.WORLD_CUP_BANNER);
-
-        mediaEntity.setMediaPlatform(MediaPlatform.RESOURCE_SERVER);
-
-        mediaEntity.setFullStoragePath(savedPath);
-
-        mediaEntity.setStoragePath(appCommonConfigurationVariables.getStoragePath());
-
-        mediaEntity.setResourcePath(appCommonConfigurationVariables.getResourcePath().replace("/**", ""));
-
-        mediaEntity.setFullResourcePath(appCommonConfigurationVariables.getResourcePath().replace("/**", "") + pathToFile);
-
-        mediaRespository.saveAndFlush(mediaEntity);
-
-        entity.setWorldCupBannerMedia(mediaEntity);
-
-        worldCupRepository.save(entity);
-
-        return mediaEntity;
-    }
-
-    public MediaEntity updateBannerImage(WorldCupEntity entity, byte[] image){
-
-        //TODO add audit columns
-
-        String fullStoragePath =  entity.getWorldCupBannerMedia().getFullStoragePath();
-        if(appCommonConfigurationVariables.getStoragePath() == null) {
-            throw new BusinessException("Error try update image");
-        }
-        mediaStorageService.replaceImageInStoragePassingPathAndByteArray(fullStoragePath, image);
-        return entity.getWorldCupBannerMedia();
-    }
-
-    public Page<WorldCupEntity> findPageFiltered(
-            int page,
-            int size,
-            String title,
-            String status,
-            String winner,
-            Boolean finished,
-            String sortField,
-            String sortDirection
-    ) {
-
-        Sort sort = sortDirection.equalsIgnoreCase("desc")
-                ? Sort.by(sortField).descending()
-                : Sort.by(sortField).ascending();
-
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        return worldCupRepository.findFiltered(
-                title,
-                status,
-                winner,
-                finished,
-                pageable
-        );
     }
 
     private static final class TeamStats {

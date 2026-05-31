@@ -6,7 +6,7 @@ import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
 import io.github.tallessantos.world_cup_api.core.domain.MediaPlatform;
 import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
 import io.github.tallessantos.world_cup_api.core.domain.metadata.GoalMetadataEntity;
-import io.github.tallessantos.world_cup_api.core.service.MatchService;
+import io.github.tallessantos.world_cup_api.api.service.MatchApiService;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -41,9 +41,9 @@ public class AddVideoView implements Serializable {
 
     private String goalScoredByTeam;
 
-    private final MatchService service;
+    private final MatchApiService service;
 
-    public AddVideoView(MatchService service) {
+    public AddVideoView(MatchApiService service) {
         this.service = service;
     }
 

@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 @Repository
-public class FileSistemRepositoryImpl implements FileSystemRepository {
+public class FileSystemRepositoryImpl implements FileSystemRepository {
 
     @Override
     public String saveFile(String path, byte[] document) {

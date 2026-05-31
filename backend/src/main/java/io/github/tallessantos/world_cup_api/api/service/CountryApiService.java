@@ -1,14 +1,11 @@
-package io.github.tallessantos.world_cup_api.core.service;
+package io.github.tallessantos.world_cup_api.api.service;
 
-import io.github.tallessantos.world_cup_api.core.config.AppCommonConfigurationVariables;
 import io.github.tallessantos.world_cup_api.core.domain.*;
-import io.github.tallessantos.world_cup_api.core.exception.BusinessException;
-import io.github.tallessantos.world_cup_api.infra.repository.*;
+import io.github.tallessantos.world_cup_api.infra.repository.CountryRepository;
+import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
+import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
+import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,32 +15,23 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class CountryService {
+public class CountryApiService {
 
     private final MatchRepository matchRepository;
     private final PlayerAppearanceRepository playerAppearanceRepository;
     private final WorldCupRepository worldCupRepository;
     private final CountryRepository countryRepository;
-    private final MediaStorageService mediaStorageService;
-    private final MediaRespository mediaRespository;
-    private final AppCommonConfigurationVariables appCommonConfigurationVariables;
 
-    public CountryService(
+    public CountryApiService(
             MatchRepository matchRepository,
             PlayerAppearanceRepository playerAppearanceRepository,
             WorldCupRepository worldCupRepository,
-            CountryRepository countryRepository,
-            MediaStorageService mediaStorageService,
-            MediaRespository mediaRespository,
-            AppCommonConfigurationVariables appCommonConfigurationVariables
-            ) {
+            CountryRepository countryRepository
+    ) {
         this.matchRepository = matchRepository;
         this.playerAppearanceRepository = playerAppearanceRepository;
         this.worldCupRepository = worldCupRepository;
         this.countryRepository = countryRepository;
-        this.mediaStorageService = mediaStorageService;
-        this.mediaRespository = mediaRespository;
-        this.appCommonConfigurationVariables = appCommonConfigurationVariables;
     }
 
     public CountryDetail getCountryById(String id) {
@@ -339,68 +327,8 @@ public class CountryService {
         return List.of(BRASIL_MOCK);
     }
 
-    public Page<CountryEntity> findPageFiltered(int currentPage, int pageSize, String filterCountryName, String filterFifaCode, CountryConfederationType filterCountryConfederationType, Boolean filterFinished, String sortField, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase("desc")
-                ? Sort.by(sortField).descending()
-                : Sort.by(sortField).ascending();
-
-        Pageable pageable = PageRequest.of(currentPage, pageSize, sort);
-
-        return countryRepository.findFiltered(
-                filterCountryName != null && filterCountryName.isEmpty() ? null: filterCountryName,
-                filterFifaCode != null && filterFifaCode.isEmpty() ? null : filterFifaCode,
-                filterCountryConfederationType,
-                filterFinished,
-                pageable
-        );
-
-    }
-
     public void save(CountryEntity pendingSave) {
         countryRepository.save(pendingSave);
-    }
-
-    public MediaEntity saveFlagImage(CountryEntity entity, byte[] image) {
-
-        //TODO add audit columns
-
-        String pathToFile = "/players/profile-image/" + entity.getId() + ".jpeg";
-
-        String savedPath = mediaStorageService
-                .saveImageInStoragePassingPathAndByteArray(appCommonConfigurationVariables.getStoragePath() + pathToFile, image);
-
-        MediaEntity mediaEntity = new MediaEntity();
-
-        mediaEntity.setMediaContentType(MediaContentType.WORLD_CUP_BANNER);
-
-        mediaEntity.setMediaPlatform(MediaPlatform.RESOURCE_SERVER);
-
-        mediaEntity.setFullStoragePath(savedPath);
-
-        mediaEntity.setStoragePath(appCommonConfigurationVariables.getStoragePath());
-
-        mediaEntity.setResourcePath(appCommonConfigurationVariables.getResourcePath().replace("/**", ""));
-
-        mediaEntity.setFullResourcePath(appCommonConfigurationVariables.getResourcePath().replace("/**", "") + pathToFile);
-
-        mediaRespository.saveAndFlush(mediaEntity);
-
-        entity.setCountryFlagImage(mediaEntity);
-
-        countryRepository.save(entity);
-
-        return mediaEntity;
-    }
-
-    public MediaEntity updateFlagImage(CountryEntity entity, byte[] image) {
-        //TODO add audit columns
-
-        String fullStoragePath =  entity.getCountryFlagImage().getFullStoragePath();
-        if(appCommonConfigurationVariables.getStoragePath() == null) {
-            throw new BusinessException("Error try update image");
-        }
-        mediaStorageService.replaceImageInStoragePassingPathAndByteArray(fullStoragePath, image);
-        return entity.getCountryFlagImage();
     }
 
     private record CountryLookup(String id, String name, String fifaCode) {

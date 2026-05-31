@@ -4,7 +4,7 @@ import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
 import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
-import io.github.tallessantos.world_cup_api.core.service.WorldCupService;
+import io.github.tallessantos.world_cup_api.backoffice.services.WorldCupBackofficeService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
@@ -14,6 +14,7 @@ import jakarta.servlet.http.Part;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
@@ -30,7 +31,7 @@ public class WorldCupView implements Serializable {
     private ToastMessageUtil toastMessageUtil;
 
     @Inject
-    private WorldCupService service;
+    private WorldCupBackofficeService service;
 
     @Getter
     @Setter

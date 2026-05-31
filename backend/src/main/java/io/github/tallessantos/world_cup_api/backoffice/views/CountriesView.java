@@ -5,7 +5,7 @@ import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.CountryConfederationType;
 import io.github.tallessantos.world_cup_api.core.domain.CountryEntity;
 import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
-import io.github.tallessantos.world_cup_api.core.service.CountryService;
+import io.github.tallessantos.world_cup_api.backoffice.services.CountryBackofficeService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
@@ -27,7 +27,7 @@ import java.util.Map;
 public class CountriesView implements Serializable {
 
     @Inject
-    private CountryService service;
+    private CountryBackofficeService service;
 
     @Inject
     private ToastMessageUtil toastMessageUtil;

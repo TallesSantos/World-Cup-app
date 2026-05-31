@@ -1,18 +1,9 @@
-package io.github.tallessantos.world_cup_api.core.service;
+package io.github.tallessantos.world_cup_api.api.service;
 
+import io.github.tallessantos.world_cup_api.core.domain.*;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
-import io.github.tallessantos.world_cup_api.core.domain.MatchDetail;
-import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
-import io.github.tallessantos.world_cup_api.core.domain.PlayerAppearanceEntity;
-import io.github.tallessantos.world_cup_api.core.domain.PlayerReference;
-import io.github.tallessantos.world_cup_api.core.domain.StatisticItem;
-import io.github.tallessantos.world_cup_api.core.domain.TeamReference;
 import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class MatchService {
+public class MatchApiService {
 
     private final MatchRepository matchRepository;
     private final PlayerAppearanceRepository playerAppearanceRepository;
 
-    public MatchService(MatchRepository matchRepository, PlayerAppearanceRepository playerAppearanceRepository) {
+    public MatchApiService(MatchRepository matchRepository, PlayerAppearanceRepository playerAppearanceRepository) {
         this.matchRepository = matchRepository;
         this.playerAppearanceRepository = playerAppearanceRepository;
     }
@@ -132,40 +123,8 @@ public class MatchService {
         return cleaned.isBlank() ? "Unknown" : cleaned;
     }
 
-    public List<MatchEntity> findAll() {
-        return matchRepository.findAll();
-    }
-
     public void save(MatchEntity pendingSave) {
         matchRepository.save(pendingSave);
-    }
-
-    public Page<MatchEntity> findFiltered(String filterStage,
-                                          String filterCity,
-                                          String filterHomeTeam,
-                                          String filterAwayTeam,
-                                          Boolean filterFinished,
-                                          int page,
-                                          int size,
-                                          String sortField,
-                                          String sortDirection) {
-
-
-        Sort sort = sortDirection.equalsIgnoreCase("desc")
-                ? Sort.by(sortField).descending()
-                : Sort.by(sortField).ascending();
-
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        return matchRepository.findFiltered(
-                filterStage,
-                filterCity,
-                filterHomeTeam,
-                filterAwayTeam,
-                filterFinished,
-                pageable
-
-        );
     }
 
     public List<PlayerAppearanceEntity> getPlayerByMatchId(String id) {

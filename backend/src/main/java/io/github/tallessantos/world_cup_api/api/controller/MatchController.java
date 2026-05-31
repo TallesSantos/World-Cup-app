@@ -1,7 +1,7 @@
 package io.github.tallessantos.world_cup_api.api.controller;
 
 import io.github.tallessantos.world_cup_api.api.dto.MatchDetailResponse;
-import io.github.tallessantos.world_cup_api.core.service.MatchService;
+import io.github.tallessantos.world_cup_api.api.service.MatchApiService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +13,14 @@ import static io.github.tallessantos.world_cup_api.api.config.ApiPathConfig.ENDP
 @RequestMapping(ENDPOINT_PREFIX + "/matches")
 public class MatchController {
 
-    private final MatchService matchService;
+    private final MatchApiService matchApiService;
 
-    public MatchController(MatchService matchService) {
-        this.matchService = matchService;
+    public MatchController(MatchApiService matchApiService) {
+        this.matchApiService = matchApiService;
     }
 
     @GetMapping("/{id}")
     public MatchDetailResponse getById(@PathVariable String id) {
-        return MatchDetailResponse.from(matchService.getMatchById(id));
+        return MatchDetailResponse.from(matchApiService.getMatchById(id));
     }
 }

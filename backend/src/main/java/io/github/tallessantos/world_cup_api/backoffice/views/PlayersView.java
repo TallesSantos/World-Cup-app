@@ -4,7 +4,7 @@ import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
 import io.github.tallessantos.world_cup_api.core.domain.PlayerEntity;
-import io.github.tallessantos.world_cup_api.core.service.PlayerService;
+import io.github.tallessantos.world_cup_api.backoffice.services.PlayerBackofficeService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
@@ -28,7 +28,7 @@ public class PlayersView implements Serializable {
     @Autowired
     private ToastMessageUtil toastMessageUtil;
 
-    private PlayerService service;
+    private PlayerBackofficeService service;
 
     @Getter
     private List<PlayerEntity> players;
@@ -85,7 +85,7 @@ public class PlayersView implements Serializable {
     @Getter
     private int totalPages;
 
-    public PlayersView(PlayerService service) {
+    public PlayersView(PlayerBackofficeService service) {
         this.service = service;
     }
 
