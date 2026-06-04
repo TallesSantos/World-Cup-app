@@ -1,10 +1,11 @@
 package io.github.tallessantos.world_cup_api.backoffice.views;
 
+import io.github.tallessantos.world_cup_api.backoffice.security.SessionBean;
+import io.github.tallessantos.world_cup_api.backoffice.services.WorldCupBackofficeService;
 import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
 import io.github.tallessantos.world_cup_api.core.domain.WorldCupEntity;
-import io.github.tallessantos.world_cup_api.backoffice.services.WorldCupBackofficeService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
@@ -13,8 +14,8 @@ import jakarta.inject.Named;
 import jakarta.servlet.http.Part;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
@@ -32,6 +33,9 @@ public class WorldCupView implements Serializable {
 
     @Inject
     private WorldCupBackofficeService service;
+
+    @Inject
+    private SessionBean sessionBean;
 
     @Getter
     @Setter
@@ -160,7 +164,7 @@ public class WorldCupView implements Serializable {
             AuditUtils.markFinished(
                     pendingSave,
                     pendingSave.getAudit().getFinished(),
-                    "BACKOFFICE_USER"
+                    sessionBean.getUsername() != null? sessionBean.getUsername() : "anonymous"
             );
         }
 

@@ -7,6 +7,10 @@
 
 <h:head>
 
+    <h:outputStylesheet name="theme.css"
+                        library="primefaces-#{themeBean.theme}" />
+
+
     <title>Countries</title>
 
     <style>
@@ -25,7 +29,7 @@
 
     <h1>Countries</h1>
 
-    <h:button value="&#8592; Back" outcome="/backoffice/index.xhtml" style="margin-bottom:16px;"/>
+    <app:headerPanel/>
 
     <h:form id="countriesForm"
             enctype="multipart/form-data">
@@ -156,7 +160,7 @@
                             rendered="#{not empty country.countryFlagImage}">
 
                         <h:graphicImage
-                                value="#{'http://localhost:8081'.concat(country.countryFlagImage.fullResourcePath)}"
+                                value="#{sessionBean.baseUrl.concat(country.countryFlagImage.fullResourcePath)}"
                                 height="80"
                                 width="80"
                                 style="

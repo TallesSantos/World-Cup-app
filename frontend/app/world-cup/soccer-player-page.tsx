@@ -1,6 +1,7 @@
 import { ThemedText } from "@/src/components/common/themed-text";
 import { ThemedView } from "@/src/components/common/themed-view";
 import { DetailedSoccerPlayer } from "@/src/schemas/world-cup/soccer-player-schema";
+import { API_CONFIG } from "@/src/services/api-services/api-config";
 import { playerApiClient } from "@/src/services/api-services/player-api-client";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -53,20 +54,21 @@ export default function PlayerPage() {
                                     gap: 12,
                                 }}
                             >
-                                <Image
-                                    source={{
-                                        uri: playerData.profileImageUrl,
-                                    }}
-                                    style={{
-                                        width: 120,
-                                        height: 120,
-                                        borderRadius: 60,
-                                    }}
-                                />
+
 
                                 <ThemedText type="title">
                                     {playerData.name}
                                 </ThemedText>
+
+                                <Image
+                                    source={playerData.profileImageUrl ? {
+                                        uri: API_CONFIG.resource_base_url
+                                            + playerData.profileImageUrl
+
+                                    } : require("@/assets/images/not-found.png")}
+                                    resizeMode="cover"
+                                    style={styles.reactLogo}
+                                />
 
                                 <ThemedText>
                                     {playerData.position} • #{playerData.number}

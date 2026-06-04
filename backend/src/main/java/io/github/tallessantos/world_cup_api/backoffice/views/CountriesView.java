@@ -1,5 +1,6 @@
 package io.github.tallessantos.world_cup_api.backoffice.views;
 
+import io.github.tallessantos.world_cup_api.backoffice.security.SessionBean;
 import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.CountryConfederationType;
@@ -28,6 +29,9 @@ public class CountriesView implements Serializable {
 
     @Inject
     private CountryBackofficeService service;
+
+    @Inject
+    private SessionBean sessionBean;
 
     @Inject
     private ToastMessageUtil toastMessageUtil;
@@ -221,7 +225,7 @@ public class CountriesView implements Serializable {
             AuditUtils.markFinished(
                     pendingSave,
                     true,
-                    "BACKOFFICE_USER"
+                    sessionBean.getUsername() != null? sessionBean.getUsername() : "anonymous"
             );
         }
 

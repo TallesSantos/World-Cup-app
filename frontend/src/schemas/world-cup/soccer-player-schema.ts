@@ -25,7 +25,7 @@ export interface DetailedSoccerPlayer extends SoccerPlayer {
 
     nickname?: string | null;
 
-    profileImageUrl: string;
+    profileImageUrl: string | null;
 
     country: string;
 

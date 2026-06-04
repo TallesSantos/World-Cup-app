@@ -17,7 +17,7 @@ export default function GroupStageMatches({ data }: { data: WorldCupStageGroup[]
 
                         return (
                             <ThemedText key={index + team.id}><CountryLink country={team}>
-                                <ThemedText type="link"> <CountryIcon /> |{team.endRatingPoint}pt</ThemedText>
+                                <ThemedText type="link"> <CountryIcon country={team} /> |{team.endRatingPoint}pt</ThemedText>
                             </CountryLink>|</ThemedText>
                         )
                     })}

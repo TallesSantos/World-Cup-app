@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:app="http://xmlns.jcp.org/jsf/composite/components"
+>
 
 <h:head>
+
+    <h:outputStylesheet name="theme.css"
+                        library="primefaces-#{themeBean.theme}" />
 
     <title>Admin Manager</title>
 
@@ -58,6 +63,8 @@ margin-top:30px;
                     </b>
 
                 </div>
+
+                <app:headerPanel hideBackButton="true"/>
 
                 <h:form>
 

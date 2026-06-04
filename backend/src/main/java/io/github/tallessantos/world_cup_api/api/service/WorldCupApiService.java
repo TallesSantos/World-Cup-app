@@ -1,5 +1,6 @@
 package io.github.tallessantos.world_cup_api.api.service;
 
+import io.github.tallessantos.world_cup_api.api.dto.WorldCupSummaryResponse;
 import io.github.tallessantos.world_cup_api.core.domain.*;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
@@ -26,7 +27,12 @@ public class WorldCupApiService {
 
     public List<WorldCup> listWorldCups() {
         return worldCupRepository.findAll().stream()
-                .map(this::toSummary)
+                .map(worldCupEntity -> {
+
+                    WorldCup sumary =  this.toSummary(worldCupEntity);
+                    return sumary;
+
+                })
                 .sorted(Comparator.comparing(WorldCup::startDate).reversed())
                 .toList();
     }
@@ -61,7 +67,9 @@ public class WorldCupApiService {
                 entity.getStartDate(),
                 entity.getEndDate(),
                 splitHostCountries(entity.getHostCountriesRaw()),
-                entity.getImgBannerUrl()
+                entity.getWorldCupBannerMedia() != null ?
+                        entity.getWorldCupBannerMedia().getFullResourcePath():
+                        "NULL"
         );
     }
 

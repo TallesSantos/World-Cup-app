@@ -1,5 +1,6 @@
 package io.github.tallessantos.world_cup_api.backoffice.views;
 
+import io.github.tallessantos.world_cup_api.backoffice.security.SessionBean;
 import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.MediaEntity;
@@ -8,6 +9,7 @@ import io.github.tallessantos.world_cup_api.backoffice.services.PlayerBackoffice
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +29,9 @@ public class PlayersView implements Serializable {
 
     @Autowired
     private ToastMessageUtil toastMessageUtil;
+
+    @Inject
+    private SessionBean sessionBean;
 
     private PlayerBackofficeService service;
 
@@ -190,7 +195,7 @@ public class PlayersView implements Serializable {
             AuditUtils.markFinished(
                     pendingSave,
                     pendingSave.getAudit().getFinished(),
-                    "BACKOFFICE_USER"
+                    sessionBean.getUsername() != null? sessionBean.getUsername() : "anonymous"
             );
         }
 

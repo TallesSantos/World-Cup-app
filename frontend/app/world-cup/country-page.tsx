@@ -1,6 +1,6 @@
 import { ThemedText } from "@/src/components/common/themed-text";
 import { ThemedView } from "@/src/components/common/themed-view";
-import CountryLink from "@/src/components/links/country-link";
+import CountryIcon from "@/src/components/icons/country-icon";
 import SoccerPlayerLink from "@/src/components/links/soccer-player-link";
 import { WorldCupDetailedContry } from "@/src/schemas/world-cup/country-schema";
 import { worldCupApiClient } from "@/src/services/api-services/world-cup-api-client";
@@ -41,9 +41,11 @@ export default function ContryPage() {
                 </ThemedView>
 
                 : <ThemedView style={[styles.titleContainer, styles.flexBox, { flexWrap: "wrap" }]} >
-                    <CountryLink country={countryData}>
-                        <ThemedText type="title"> {countryData.name}</ThemedText>
-                    </CountryLink>
+                    <ThemedText type="title">
+                        <CountryIcon country={countryData} />
+                        {countryData.name}
+                    </ThemedText>
+
                     <ThemedView
                         style={{
                             padding: 16,

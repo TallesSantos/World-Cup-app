@@ -36,6 +36,7 @@ export interface CountryTitles {
 export interface WordlCupCountry {
     id: string;
     name: string;
+    flagImageUrl: string | null;
     endRatingPoint: string;
 }
 

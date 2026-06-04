@@ -1,5 +1,6 @@
 package io.github.tallessantos.world_cup_api.backoffice.views;
 
+import io.github.tallessantos.world_cup_api.backoffice.security.SessionBean;
 import io.github.tallessantos.world_cup_api.backoffice.utils.AuditUtils;
 import io.github.tallessantos.world_cup_api.backoffice.utils.ToastMessageUtil;
 import io.github.tallessantos.world_cup_api.core.domain.MatchEntity;
@@ -7,6 +8,7 @@ import io.github.tallessantos.world_cup_api.backoffice.services.MatchBackofficeS
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +30,8 @@ public class MatchesView implements Serializable {
 
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
+    @Inject
+    private SessionBean sessionBean;
 
     @Getter
     private List<MatchEntity> matches;
@@ -196,7 +199,7 @@ public class MatchesView implements Serializable {
             AuditUtils.markFinished(
                     pendingSave,
                     true,
-                    "BACKOFFICE_USER"
+                    sessionBean.getUsername() != null? sessionBean.getUsername() : "anonymous"
             );
 
         }

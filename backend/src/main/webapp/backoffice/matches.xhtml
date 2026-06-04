@@ -6,6 +6,10 @@
 >
 
 <h:head>
+
+    <h:outputStylesheet name="theme.css"
+                        library="primefaces-#{themeBean.theme}" />
+
     <title>Matches</title>
     <style>
 
@@ -22,7 +26,7 @@
 
     <h1>Matches</h1>
 
-    <h:button value="&#8592; Back" outcome="/backoffice/index.xhtml" style="margin-bottom:16px;"/>
+    <app:headerPanel/>
 
     <h:form id="matchesForm">
 

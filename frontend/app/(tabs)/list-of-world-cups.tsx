@@ -2,6 +2,7 @@ import ParallaxScrollView from "@/src/components/common/parallax-scroll-view";
 import { ThemedText } from "@/src/components/common/themed-text";
 import WorldCupLink from "@/src/components/links/world-cup-link";
 import { WorldCup } from "@/src/schemas/world-cup/world-cup-tornment-schemas";
+import { API_CONFIG } from "@/src/services/api-services/api-config";
 import { worldCupApiClient } from "@/src/services/api-services/world-cup-api-client";
 import { useEffect, useState } from "react";
 import { Image, StyleSheet } from "react-native";
@@ -36,7 +37,7 @@ export default function ListOfWorldCupsPage() {
         {!wordlCupsData
             ? <ThemedText type="title">Loading...</ThemedText>
 
-            : wordlCupsData.map((worldCup) => {
+            : wordlCupsData.map((worldCup: WorldCup) => {
                 return (
 
                     <ParallaxScrollView key={worldCup.id}
@@ -44,7 +45,7 @@ export default function ListOfWorldCupsPage() {
                         headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
                         headerImage={
                             <Image
-                                source={require("@/assets/images/world-cup-2022-banner.jpg")}
+                                source={worldCup.imgBannerUrl ? { uri: API_CONFIG.resource_base_url + worldCup.imgBannerUrl } : require("@/assets/images/not-found.png")}
                                 resizeMode="cover"
                                 style={styles.reactLogo}
                             />

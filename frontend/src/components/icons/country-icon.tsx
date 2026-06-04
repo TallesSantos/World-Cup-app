@@ -1,10 +1,17 @@
+import { WordlCupCountry, WorldCupDetailedContry } from "@/src/schemas/world-cup/country-schema";
+import { API_CONFIG } from "@/src/services/api-services/api-config";
 import { Image } from "react-native";
 
-export default function CountryIcon() {
+export default function CountryIcon({ country }: { country: WordlCupCountry | WorldCupDetailedContry }) {
 
     return (<Image
 
-        source={{ uri: "https://s2-ge.glbimg.com/KpaEnXfwp_De1z7R6Yhn0wFKY74=/0x0:675x824/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2019/m/d/rn1G6RR3ACwATFaAMetw/d3vbl5jx4aafnci.jpg" }}
+        source={country.flagImageUrl ? {
+            uri: API_CONFIG.resource_base_url
+                + country.flagImageUrl
+
+        } : require("@/assets/images/not-found.png")}
+
         style={{
             width: 32,
             height: 24,
