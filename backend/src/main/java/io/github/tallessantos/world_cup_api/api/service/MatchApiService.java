@@ -48,7 +48,7 @@ public class MatchApiService {
                 List.of(),
                 buildTeamPlayers(players, match.getHomeTeamInitials()),
                 buildTeamPlayers(players, match.getAwayTeamInitials()),
-                List.of()
+                match.getListOfVideos()
         );
     }
 
