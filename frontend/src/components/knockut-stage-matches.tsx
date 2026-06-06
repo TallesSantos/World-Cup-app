@@ -68,6 +68,10 @@ export default function KnockoutStageMatches({ data }: { data: KnockoutStage }) 
 
             {round === "grandFinal" &&
                 <ThemedView>
+                    <ThemedText>Third place:</ThemedText>
+                    <MatchLink match={data.thirdPlaceMatch} />
+
+                    <ThemedText>Final:</ThemedText>
                     <MatchLink match={data.finalMatch} />
                 </ThemedView>
             }

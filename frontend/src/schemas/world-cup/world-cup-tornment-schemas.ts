@@ -47,7 +47,9 @@ export interface WorldCupStageGroup {
 
 export interface KnockoutStage {
 
+
     finalMatch: WorldCupMatches
+    thirdPlaceMatch: WorldCupMatches,
     semiFinals: {
         match1: WorldCupMatches,
         match2: WorldCupMatches,

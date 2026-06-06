@@ -30,7 +30,7 @@ export default function PlayerPage() {
                     alignItems: "center",
                     justifyContent: "center",
                     padding: 16,
-                    paddingTop: 48,
+                    paddingTop: 152,
                     width: "100%",
                     gap: 12,
                 }
@@ -67,7 +67,7 @@ export default function PlayerPage() {
 
                                     } : require("@/assets/images/not-found.png")}
                                     resizeMode="cover"
-                                    style={styles.reactLogo}
+                                    style={[styles.reactLogo]}
                                 />
 
                                 <ThemedText>
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
     },
 
     reactLogo: {
-        height: 178,
+        height: 220,
         width: 290,
         bottom: 0,
         left: 0,

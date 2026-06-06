@@ -70,5 +70,5 @@ public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
             Pageable pageable
     );
 
-    Optional<PlayerEntity> findByPlayerName(String playerName);
+Optional<PlayerEntity> findByPlayerNameIgnoreCaseAndTeamInitialsIgnoreCase(String playerName, String teamInitials);
 }

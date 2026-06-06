@@ -44,8 +44,7 @@ public class PlayerApiService {
         String country = resolveCountryName(latest.getTeamInitials(), matches);
         CareerTotals totals = calculateCareerTotals(appearances);
 
-        //TODO
-        Optional<PlayerEntity> entity = playerRepository.findByPlayerName(latest.getPlayerName());
+        Optional<PlayerEntity> entity = playerRepository.findByPlayerNameIgnoreCaseAndTeamInitialsIgnoreCase(latest.getPlayerName(), latest.getTeamInitials());
         String pathImage = null;
         if(entity.isPresent() && entity.get().getProfileImage() != null){
             pathImage = entity.get().getProfileImage().getFullResourcePath();

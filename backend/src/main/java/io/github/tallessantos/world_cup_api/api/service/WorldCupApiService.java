@@ -5,7 +5,6 @@ import io.github.tallessantos.world_cup_api.infra.repository.CountryRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
-import org.hibernate.internal.util.collections.IdentityMap;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,7 @@ public class WorldCupApiService {
         return worldCupRepository.findAll().stream()
                 .map(worldCupEntity -> {
 
-                    WorldCup sumary =  this.toSummary(worldCupEntity);
+                    WorldCup sumary = this.toSummary(worldCupEntity);
                     return sumary;
 
                 })
@@ -72,7 +71,7 @@ public class WorldCupApiService {
                 entity.getEndDate(),
                 splitHostCountries(entity.getHostCountriesRaw()),
                 entity.getWorldCupBannerMedia() != null ?
-                        entity.getWorldCupBannerMedia().getFullResourcePath():
+                        entity.getWorldCupBannerMedia().getFullResourcePath() :
                         "NULL"
         );
     }
@@ -123,16 +122,16 @@ public class WorldCupApiService {
         List<TeamReference> teams = new ArrayList<>();
         for (int index = 0; index < ordered.size(); index++) {
             String[] parts = ordered.get(index).getKey().split("\\|", 2);
+
+            String initials = parts[0];
+            String name = parts[1];
+
             TeamStats stats = ordered.get(index).getValue();
-            String id = CsvSupport.slugify(parts[1]);
-            Optional<CountryEntity> entity = countryRepository.findByInitials(parts[1]);
+            String id = CsvSupport.slugify(name);
 
-            String imagePath = null;
-            if(entity.isPresent() && entity.get().getCountryFlagImage() != null){
-                imagePath = entity.get().getCountryFlagImage().getFullResourcePath();
-            }
+            String imagePath = populateCountryImage(initials);
 
-            teams.add(new TeamReference(id, parts[1], parts[0], imagePath, stats.points, index + 1, null, null));
+            teams.add(new TeamReference(id, name, initials, imagePath, stats.points, index + 1, null, null));
         }
 
         return teams;
@@ -162,7 +161,7 @@ public class WorldCupApiService {
                 .map(this::toMatchSummary)
                 .toList();
         MatchSummary thirdPlaceMatch = matches.stream()
-                .filter(match -> match.getStage().equals("Match for third place"))
+                .filter(match -> match.getStage().contains("third"))
                 .findFirst()
                 .map(this::toMatchSummary)
                 .orElse(null);
@@ -194,14 +193,20 @@ public class WorldCupApiService {
     private TeamReference toTeamReference(String teamName, String initials) {
         String id = CsvSupport.slugify(teamName);
 
-        Optional<CountryEntity> entity = countryRepository.findByInitials(initials);
-        String imagePath = null;
 
-        if(entity.isPresent() && entity.get().getCountryFlagImage() != null){
-            imagePath = entity.get().getCountryFlagImage().getFullResourcePath();
-        }
+        String imagePath = populateCountryImage(initials);
 
         return new TeamReference(id, teamName, initials, imagePath, null, null, null, null);
+    }
+
+    private String populateCountryImage(String initials) {
+        Optional<CountryEntity> entity = countryRepository.findByInitials(initials);
+        if (entity.isPresent()
+                && entity.get().getCountryFlagImage() != null
+                && entity.get().getCountryFlagImage().getFullResourcePath() != null) {
+            return entity.get().getCountryFlagImage().getFullResourcePath();
+        }
+        return null;
     }
 
     public List<WorldCupEntity> findAll() {

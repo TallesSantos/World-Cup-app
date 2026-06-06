@@ -37,7 +37,7 @@ export interface WordlCupCountry {
     id: string;
     name: string;
     flagUrl: string | null;
-    endRatingPoint: string;
+    points: string;
 }
 
 export interface WorldCupDetailedContry

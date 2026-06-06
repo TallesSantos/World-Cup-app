@@ -21,10 +21,11 @@ public class AuthService implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        /*
         BackofficeUserEntity entity = new BackofficeUserEntity();
         entity.setUsername("admin");
         entity.setPassword("123");
         entity.setNickname("Admin_user");
-        repository.save(entity);
+        repository.save(entity);*/
     }
 }

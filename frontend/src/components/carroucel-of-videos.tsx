@@ -2,12 +2,13 @@ import { VideoView, useVideoPlayer } from "expo-video";
 import { Dimensions, FlatList } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { MatchVideo } from "../schemas/world-cup/match-schema";
+import { ThemedText } from "./common/themed-text";
 import { ThemedView } from "./common/themed-view";
 
 const { width } = Dimensions.get("window");
 
-export function VideoItem({ url }: { url: string }) {
-    const player = useVideoPlayer(url, (player) => {
+export function VideoItem({ mediaEntity }: { mediaEntity: MatchVideo }) {
+    const player = useVideoPlayer(mediaEntity.fullResourcePath, (player) => {
         player.loop = true;
     });
 
@@ -22,13 +23,13 @@ export function VideoItem({ url }: { url: string }) {
         />
     );
 }
-export function YoutubeVideoItem({ url: key }: { url: string }) {
+export function YoutubeVideoItem({ mediaEntity }: { mediaEntity: MatchVideo }) {
     return (
         <YoutubePlayer
             height={300}
             width={350}
             play={false}
-            videoId={key}
+            videoId={mediaEntity.youtubeVideoId}
         />
     )
 }
@@ -39,7 +40,7 @@ export default function VideoCarousel({ data }: { data: MatchVideo[] }) {
             data={data}
             horizontal
             pagingEnabled
-            keyExtractor={(item) => item.title}
+            keyExtractor={(item, index) => index + Date.now() + item.title}
             renderItem={({ item }) => {
 
                 return (
@@ -51,12 +52,16 @@ export default function VideoCarousel({ data }: { data: MatchVideo[] }) {
                         padding: 16,
 
                     }}>
-                        {item.plataform === 'resource-server' &&
-                            <VideoItem url={item.url} />
+                        <ThemedText> Title: {item.title != null ? item.title : "Dont have title"}
+                        </ThemedText>
+                        <ThemedText> Score player: {item.goalMetadata?.playerName != null ? item.goalMetadata?.playerName : "Dont have scored player"}
+                        </ThemedText>
+                        {item.mediaPlatform === 'LOCAL' &&
+                            <VideoItem mediaEntity={item} />
                         }
 
-                        {item.plataform === 'youtube' &&
-                            <YoutubeVideoItem url={item.url} />
+                        {item.mediaPlatform === 'YOUTUBE' &&
+                            <YoutubeVideoItem mediaEntity={item} />
                         }
                     </ThemedView>
                 )
