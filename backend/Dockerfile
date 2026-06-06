@@ -8,6 +8,7 @@ COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
 COPY src ./src
+COPY data ./data
 
 RUN mvn clean package -Dmaven.test.skip=true -B
 
@@ -18,6 +19,12 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 COPY --from=build /app/target/*.war app.war
+
+# cria diretórios necessários
+RUN mkdir -p /app/data /app/storage
+
+# copia arquivos de dados
+COPY --from=build /app/data /app/data
 
 EXPOSE 8091
 
