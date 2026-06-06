@@ -33,15 +33,15 @@ app:
     players-image: '${APP_PLAYERS_IMAGE_PATH:-/players_image}'
 
   data:
-    world-cups-path: '${APP_DATA_WORLDCUPS_PATH:-./data/WorldCups.csv}'
-    world-cups-matches-path: '${APP_DATA_MATCHES_PATH:-./data/WorldCupMatches.csv}'
-    world-cups-players-path: '${APP_DATA_PLAYERS_PATH:-./data/WorldCupPlayers.csv}'
+    world-cups-path: '${APP_DATA_WORLDCUPS_PATH:-./app/data/WorldCups.csv}'
+    world-cups-matches-path: '${APP_DATA_MATCHES_PATH:-./app/data/WorldCupMatches.csv}'
+    world-cups-players-path: '${APP_DATA_PLAYERS_PATH:-./app/data/WorldCupPlayers.csv}'
 
   resource:
     server-side-pattern-path: '/storage/**'
     storage:
-      path: '${APP_STORAGE_PATH:-D:/storage}'
+      path: '${APP_STORAGE_PATH:/app/storage}'
 
   backoffice:
-    username: "${APP_BACKOFFICE_USERNAME:-admin}"
-    password: "${APP_BACKOFFICE_PASSWORD:-123}"
+    username: "${APP_BACKOFFICE_USERNAME:admin}"
+    password: "${APP_BACKOFFICE_PASSWORD:123}"
