@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:14
+    container_name: world_cup_db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-world_cup}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    ports:
+      - "${DB_PORT:-5442}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: ./backend
+    container_name: world_cup_app
+    ports:
+      - "${APP_PORT:-8091}:8091"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-world_cup}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-postgres}
+      APP_BACKOFFICE_USERNAME: ${BACKOFFICE_USERNAME:-admin}
+      APP_BACKOFFICE_PASSWORD: ${BACKOFFICE_PASSWORD:-123}
+      APP_STORAGE_PATH: ${APP_STORAGE_PATH:-/app/storage}
+      APP_DATA_WORLDCUPS_PATH: ${APP_DATA_WORLDCUPS_PATH:-/app/data/WorldCups.csv}
+      APP_DATA_MATCHES_PATH: ${APP_DATA_MATCHES_PATH:-/app/data/WorldCupMatches.csv}
+      APP_DATA_PLAYERS_PATH: ${APP_DATA_PLAYERS_PATH:-/app/data/WorldCupPlayers.csv}
+    volumes:
+      - ${LOCAL_STORAGE_PATH:-./storage}:/app/storage
+      - ${LOCAL_DATA_PATH:-./data}:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

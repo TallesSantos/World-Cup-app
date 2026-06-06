@@ -7,17 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
-
 public interface WorldCupRepository extends JpaRepository<WorldCupEntity, Long> {
 
     @Query("""
             SELECT w
             FROM WorldCupEntity w
             WHERE
-                (:title IS NULL OR LOWER(w.title) LIKE LOWER(CONCAT('%', :title, '%')))
-            AND (:status IS NULL OR LOWER(w.status) LIKE LOWER(CONCAT('%', :status, '%')))
-            AND (:winner IS NULL OR LOWER(w.winner) LIKE LOWER(CONCAT('%', :winner, '%')))
+                (:title IS NULL OR LOWER(w.title) LIKE LOWER(CONCAT('%', CAST(:title AS string), '%')))
+            AND (:status IS NULL OR LOWER(w.status) LIKE LOWER(CONCAT('%', CAST(:status AS string), '%')))
+            AND (:winner IS NULL OR LOWER(w.winner) LIKE LOWER(CONCAT('%', CAST(:winner AS string), '%')))
             AND (:finished IS NULL OR w.audit.finished = :finished)
             """)
     Page<WorldCupEntity> findFiltered(

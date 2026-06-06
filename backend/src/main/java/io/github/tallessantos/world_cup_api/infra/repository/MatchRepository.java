@@ -11,18 +11,19 @@ import java.util.List;
 
 public interface MatchRepository extends JpaRepository<MatchEntity, String> {
     List<MatchEntity> findByWorldCupId(String worldCupId);
+
     List<MatchEntity> findByHomeTeamInitialsOrAwayTeamInitials(String homeTeamInitials, String awayTeamInitials);
 
     @Query("""
-    SELECT m
-    FROM MatchEntity m
-    WHERE
-        (:stage IS NULL OR LOWER(m.stage) LIKE LOWER(CONCAT('%', :stage, '%')))
-    AND (:city IS NULL OR LOWER(m.city) LIKE LOWER(CONCAT('%', :city, '%')))
-    AND (:homeTeamName IS NULL OR LOWER(m.homeTeamName) LIKE LOWER(CONCAT('%', :homeTeamName, '%')))
-    AND (:awayTeamName IS NULL OR LOWER(m.awayTeamName) LIKE LOWER(CONCAT('%', :awayTeamName, '%')))
-     AND (:finished IS NULL OR m.audit.finished = :finished)
-    """)
+            SELECT m
+            FROM MatchEntity m
+            WHERE
+            (:stage IS NULL OR LOWER(CAST(m.stage AS string)) LIKE LOWER(CONCAT('%', CAST(:stage AS string), '%')))
+            AND (:city IS NULL OR LOWER(CAST(m.city AS string)) LIKE LOWER(CONCAT('%', CAST(:city AS string), '%')))
+            AND (:homeTeamName IS NULL OR LOWER(CAST(m.homeTeamName AS string)) LIKE LOWER(CONCAT('%', CAST(:homeTeamName AS string), '%')))
+            AND (:awayTeamName IS NULL OR LOWER(CAST(m.awayTeamName AS string)) LIKE LOWER(CONCAT('%', CAST(:awayTeamName AS string), '%')))
+            AND (:finished IS NULL OR m.audit.finished = :finished)
+            """)
     Page<MatchEntity> findFiltered(
             @Param("stage") String stage,
             @Param("city") String city,

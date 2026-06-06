@@ -19,16 +19,21 @@ public class PlayerEntity implements Auditable {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "player_name")
     private String playerName;
 
     private String position;
 
+    @Column(name = "birth_date")
     private String birthDate;
 
+    @Column(name = "death_date")
     private String deathDate;
 
+    @Column(name = "common_shirt_number")
     private String commonShirtNumber;
 
+    @Column(name = "team_initials")
     private String teamInitials;
 
     @ManyToOne

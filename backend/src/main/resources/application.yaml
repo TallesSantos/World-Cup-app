@@ -1,47 +1,47 @@
 server:
-  port: 8081
+  port: ${APP_PORT:-8091}
 
 joinfaces:
   primefaces:
     theme: saga
-
   faces:
-    project-stage: development
+    project-stage: ${FACES_PROJECT_STAGE:-development}
+
 spring:
   application:
     name: 'World Cup api'
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/worldcupdb
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/worldcupdb}
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: 12345
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:12345}
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${JPA_DDL_AUTO:-update}
     show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
 app:
   world-cups:
-    banners-path: '/worldcups_banners'
+    banners-path: '${APP_WORLDCUPS_BANNERS_PATH:-/worldcups_banners}'
 
   players:
-    players-image: '/players_image'
+    players-image: '${APP_PLAYERS_IMAGE_PATH:-/players_image}'
 
   data:
-    world-cups-path: './data/WorldCups.csv'
-    world-cups-matches-path: './data/WorldCupMatches.csv'
-    world-cups-players-path: './data/WorldCupPlayers.csv'
+    world-cups-path: '${APP_DATA_WORLDCUPS_PATH:-./data/WorldCups.csv}'
+    world-cups-matches-path: '${APP_DATA_MATCHES_PATH:-./data/WorldCupMatches.csv}'
+    world-cups-players-path: '${APP_DATA_PLAYERS_PATH:-./data/WorldCupPlayers.csv}'
 
   resource:
     server-side-pattern-path: '/storage/**'
     storage:
-      path: 'D:/storage'
+      path: '${APP_STORAGE_PATH:-D:/storage}'
 
   backoffice:
-    username: "admin"
-    password: "123"
-
+    username: "${APP_BACKOFFICE_USERNAME:-admin}"
+    password: "${APP_BACKOFFICE_PASSWORD:-123}"

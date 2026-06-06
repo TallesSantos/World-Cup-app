@@ -18,12 +18,17 @@ public interface PlayerAppearanceRepository extends JpaRepository<PlayerAppearan
     List<PlayerAppearanceEntity> findByTeamInitials(String teamInitials);
 
     @Query("""
-            SELECT p
-            FROM PlayerAppearanceEntity p
-            WHERE
-                (:playerName IS NULL OR LOWER(p.playerName) LIKE LOWER(CONCAT('%', :playerName, '%')))
-            AND (:teamInitials IS NULL OR LOWER(p.teamInitials) LIKE LOWER(CONCAT('%', :teamInitials, '%')))
-            AND (:position IS NULL OR LOWER(p.position) LIKE LOWER(CONCAT('%', :position, '%')))
+                SELECT p
+                FROM PlayerAppearanceEntity p
+                WHERE
+                    (:playerName IS NULL OR LOWER(CAST(p.playerName AS string))
+                        LIKE LOWER(CONCAT('%', CAST(:playerName AS string), '%')))
+
+                AND (:teamInitials IS NULL OR LOWER(CAST(p.teamInitials AS string))
+                        LIKE LOWER(CONCAT('%', CAST(:teamInitials AS string), '%')))
+
+                AND (:position IS NULL OR LOWER(CAST(p.position AS string))
+                        LIKE LOWER(CONCAT('%', CAST(:position AS string), '%')))
             """)
     Page<PlayerAppearanceEntity> findFiltered(
             @Param("playerName") String playerName,

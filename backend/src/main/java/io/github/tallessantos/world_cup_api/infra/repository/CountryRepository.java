@@ -20,56 +20,19 @@ public interface CountryRepository
     );
 
     @Query("""
-
-    SELECT c
-
-    FROM CountryEntity c
-
-    WHERE
-        (
-            :filterCountryName IS NULL
-            OR
-            LOWER(c.name)
-            LIKE LOWER(
-                CONCAT(
-                    '%',
-                    :filterCountryName,
-                    '%'
-                )
-            )
-        )
-
-    AND
-        (
-            :filterFifaCode IS NULL
-            OR
-            LOWER(c.fifaCode)
-            LIKE LOWER(
-                CONCAT(
-                    '%',
-                    :filterFifaCode,
-                    '%'
-                )
-            )
-        )
-
-    AND
-        (
-            :filterConfederation IS NULL
-            OR
-            c.confederation =
-            :filterConfederation
-        )
-
-    AND
-        (
-            :filterFinished IS NULL
-            OR
-            c.audit.finished =
-            :filterFinished
-        )
-
-""")
+            SELECT c
+            FROM CountryEntity c
+            WHERE
+            (:filterCountryName IS NULL OR LOWER(CAST(c.name AS string))
+                LIKE LOWER(CONCAT('%', CAST(:filterCountryName AS string), '%')))
+            AND
+            (:filterFifaCode IS NULL OR LOWER(CAST(c.fifaCode AS string))
+                LIKE LOWER(CONCAT('%', CAST(:filterFifaCode AS string), '%')))
+            AND
+            (:filterConfederation IS NULL OR c.confederation = :filterConfederation)
+            AND
+            (:filterFinished IS NULL OR c.audit.finished = :filterFinished)
+            """)
     Page<CountryEntity> findFiltered(
             @Param("filterCountryName")
             String filterCountryName,

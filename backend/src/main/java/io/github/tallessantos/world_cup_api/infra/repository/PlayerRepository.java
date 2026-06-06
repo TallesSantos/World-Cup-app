@@ -12,19 +12,63 @@ import java.util.Optional;
 public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
 
     @Query("""
-            SELECT p
-            FROM PlayerEntity p
-            WHERE
-                (:playerName IS NULL OR LOWER(p.playerName) LIKE LOWER(CONCAT('%', :playerName, '%')))
-            AND (:teamInitials IS NULL OR LOWER(p.teamInitials) LIKE LOWER(CONCAT('%', :teamInitials, '%')))
-            AND (:position IS NULL OR LOWER(p.position) LIKE LOWER(CONCAT('%', :position, '%')))
-            AND (:finished IS NULL OR p.audit.finished = :finished)
+                SELECT p
+                FROM PlayerEntity p
+                WHERE
+
+                    (
+                        COALESCE(:playerName, '') = ''
+                        OR
+                        LOWER(CAST(p.playerName AS string))
+                        LIKE CONCAT(
+                            '%',
+                            LOWER(CAST(:playerName AS string)),
+                            '%'
+                        )
+                    )
+
+                AND
+
+                    (
+                        COALESCE(:teamInitials, '') = ''
+                        OR
+                        LOWER(CAST(p.teamInitials AS string))
+                        LIKE CONCAT(
+                            '%',
+                            LOWER(CAST(:teamInitials AS string)),
+                            '%'
+                        )
+                    )
+
+                AND
+
+                    (
+                        COALESCE(:position, '') = ''
+                        OR
+                        LOWER(CAST(p.position AS string))
+                        LIKE CONCAT(
+                            '%',
+                            LOWER(CAST(:position AS string)),
+                            '%'
+                        )
+                    )
+
+                AND
+
+                    (
+                        :finished IS NULL
+                        OR
+                        p.audit.finished = :finished
+                    )
+
             """)
-    Page<PlayerEntity> findFiltered(@Param("playerName") String playerName,
-                                    @Param("teamInitials") String teamInitials,
-                                    @Param("position") String position,
-                                    @Param("finished") Boolean finished,
-                                    Pageable pageable);
+    Page<PlayerEntity> findFiltered(
+            @Param("playerName") String playerName,
+            @Param("teamInitials") String teamInitials,
+            @Param("position") String position,
+            @Param("finished") Boolean finished,
+            Pageable pageable
+    );
 
     Optional<PlayerEntity> findByPlayerName(String playerName);
 }
