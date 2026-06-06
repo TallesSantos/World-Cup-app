@@ -44,12 +44,18 @@ public class PlayerApiService {
         String country = resolveCountryName(latest.getTeamInitials(), matches);
         CareerTotals totals = calculateCareerTotals(appearances);
 
+        //TODO
+        Optional<PlayerEntity> entity = playerRepository.findByPlayerName(latest.getPlayerName());
+        String pathImage = null;
+        if(entity.isPresent() && entity.get().getProfileImage() != null){
+            pathImage = entity.get().getProfileImage().getFullResourcePath();
+        }
         return new PlayerDetail(
                 id,
                 CsvSupport.toDisplayName(latest.getPlayerName()),
                 CsvSupport.toDisplayName(latest.getPlayerName()),
                 null,
-                "/images/players/" + id + ".jpg",
+                pathImage,
                 normalizeShirtNumber(latest.getShirtNumber()),
                 normalizePosition(latest.getPosition()),
                 country,
@@ -118,7 +124,7 @@ public class PlayerApiService {
                             .filter(player -> findYearByMatchId(player.getMatchId(), matches) == year)
                             .toList();
                     WorldCupEntity worldCup = worldCups.stream()
-                            .filter(item -> parseYear(item.getId()) == year)
+                            .filter(item -> parseYear(item.getReference()) == year)
                             .findFirst()
                             .orElse(null);
                     CareerTotals totals = calculateCareerTotals(byYear);

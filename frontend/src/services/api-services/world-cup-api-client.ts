@@ -16,7 +16,7 @@ async function listWordlCups() {
     return wordlCups;
 }
 
-async function getWolrdlCupById(id: string) {
+async function getWolrdlCupById(id: number) {
     const wordlCupResponse = await fetch(`${API_CONFIG.base_url}/world-cups/${id}`);
     const wordlCup: DetailedWorldCup = await JSON.parse(await wordlCupResponse.text()) as DetailedWorldCup;
     return wordlCup;

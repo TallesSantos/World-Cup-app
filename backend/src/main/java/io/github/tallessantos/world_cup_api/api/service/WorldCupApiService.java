@@ -1,10 +1,11 @@
 package io.github.tallessantos.world_cup_api.api.service;
 
-import io.github.tallessantos.world_cup_api.api.dto.WorldCupSummaryResponse;
 import io.github.tallessantos.world_cup_api.core.domain.*;
+import io.github.tallessantos.world_cup_api.infra.repository.CountryRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
+import org.hibernate.internal.util.collections.IdentityMap;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,13 @@ public class WorldCupApiService {
 
     private final WorldCupRepository worldCupRepository;
     private final MatchRepository matchRepository;
+    private final CountryRepository countryRepository;
 
-    public WorldCupApiService(WorldCupRepository worldCupRepository, MatchRepository matchRepository) {
+    public WorldCupApiService(WorldCupRepository worldCupRepository, MatchRepository matchRepository,
+                              CountryRepository countryRepository) {
         this.worldCupRepository = worldCupRepository;
         this.matchRepository = matchRepository;
+        this.countryRepository = countryRepository;
     }
 
     public List<WorldCup> listWorldCups() {
@@ -37,14 +41,14 @@ public class WorldCupApiService {
                 .toList();
     }
 
-    public WorldCupDetail getWorldCupById(String id) {
+    public WorldCupDetail getWorldCupById(Long id) {
         WorldCupEntity worldCup = worldCupRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "World cup not found: " + id));
 
-        List<MatchEntity> matches = matchRepository.findByWorldCupId(id);
+        List<MatchEntity> matches = matchRepository.findByWorldCupId(worldCup.getReference());
 
         return new WorldCupDetail(
-                worldCup.getId(),
+                worldCup.getReference(),
                 worldCup.getTitle(),
                 WorldCupStatus.valueOf(worldCup.getStatus().toUpperCase()),
                 worldCup.getStartDate(),
@@ -121,7 +125,14 @@ public class WorldCupApiService {
             String[] parts = ordered.get(index).getKey().split("\\|", 2);
             TeamStats stats = ordered.get(index).getValue();
             String id = CsvSupport.slugify(parts[1]);
-            teams.add(new TeamReference(id, parts[1], parts[0], "/images/flags/" + id + ".svg", stats.points, index + 1, null, null));
+            Optional<CountryEntity> entity = countryRepository.findByInitials(parts[1]);
+
+            String imagePath = null;
+            if(entity.isPresent() && entity.get().getCountryFlagImage() != null){
+                imagePath = entity.get().getCountryFlagImage().getFullResourcePath();
+            }
+
+            teams.add(new TeamReference(id, parts[1], parts[0], imagePath, stats.points, index + 1, null, null));
         }
 
         return teams;
@@ -182,7 +193,15 @@ public class WorldCupApiService {
 
     private TeamReference toTeamReference(String teamName, String initials) {
         String id = CsvSupport.slugify(teamName);
-        return new TeamReference(id, teamName, initials, "/images/flags/" + id + ".svg", null, null, null, null);
+
+        Optional<CountryEntity> entity = countryRepository.findByInitials(initials);
+        String imagePath = null;
+
+        if(entity.isPresent() && entity.get().getCountryFlagImage() != null){
+            imagePath = entity.get().getCountryFlagImage().getFullResourcePath();
+        }
+
+        return new TeamReference(id, teamName, initials, imagePath, null, null, null, null);
     }
 
     public List<WorldCupEntity> findAll() {

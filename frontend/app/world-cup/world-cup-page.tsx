@@ -17,7 +17,7 @@ export default function Store() {
     const [openKnockupStageContainer, setOpenKnockupStageContainer] = useState(true);
 
     async function loadPage() {
-        const wordlCupResponse = await worldCupApiClient.getWolrdlCupById(id as string);
+        const wordlCupResponse = await worldCupApiClient.getWolrdlCupById(Number(id));
         setWordCupData(wordlCupResponse)
     }
 
@@ -66,7 +66,7 @@ export default function Store() {
                                     country: {wordlCupData.hostCountries}
                                 </ThemedText>
                                 <ThemedText>
-                                    first place: {wordlCupData.statistics.totalGoals}
+                                    first place: {wordlCupData.statistics?.totalGoals ? wordlCupData.statistics.totalGoals : ""}
                                 </ThemedText>
 
                             </View>

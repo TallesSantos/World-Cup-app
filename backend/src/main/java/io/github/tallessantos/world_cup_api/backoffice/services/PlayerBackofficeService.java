@@ -73,7 +73,7 @@ public class PlayerBackofficeService {
 
         MediaEntity mediaEntity = new MediaEntity();
 
-        mediaEntity.setMediaContentType(MediaContentType.WORLD_CUP_BANNER);
+        mediaEntity.setMediaContentType(MediaContentType.PLAYER_FACE);
 
         mediaEntity.setMediaPlatform(MediaPlatform.RESOURCE_SERVER);
 

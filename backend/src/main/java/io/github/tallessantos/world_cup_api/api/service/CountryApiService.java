@@ -88,7 +88,7 @@ public class CountryApiService {
                 .sorted(Comparator.reverseOrder())
                 .map(year -> {
                     WorldCupEntity worldCup = worldCups.stream()
-                            .filter(item -> parseYear(item.getId()) == year)
+                            .filter(item -> parseYear(item.getReference()) == year)
                             .findFirst()
                             .orElse(null);
 

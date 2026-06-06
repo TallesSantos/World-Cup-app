@@ -37,7 +37,7 @@ export default function ListOfWorldCupsPage() {
         {!wordlCupsData
             ? <ThemedText type="title">Loading...</ThemedText>
 
-            : wordlCupsData.map((worldCup: WorldCup) => {
+            : wordlCupsData?.map((worldCup: WorldCup) => {
                 return (
 
                     <ParallaxScrollView key={worldCup.id}

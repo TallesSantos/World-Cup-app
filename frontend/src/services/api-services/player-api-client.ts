@@ -7,9 +7,11 @@ export const playerApiClient = {
 }
 
 export async function getDetailedPlayerById(id: string) {
+    console.log(id)
     const playerResponse = await fetch(`${API_CONFIG.base_url}/players/${id}`);
+    console.log(playerResponse)
     const player = JSON.parse(await playerResponse.text()) as DetailedSoccerPlayer;
-    console.log(JSON.stringify(player))
+
     return player;
 
 }

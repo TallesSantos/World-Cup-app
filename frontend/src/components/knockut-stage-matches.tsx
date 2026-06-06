@@ -5,10 +5,10 @@ import { ThemedText } from "./common/themed-text";
 import { ThemedView } from "./common/themed-view";
 import MatchLink from "./links/match-link";
 
-type Round = "RoundOf16" | "quarterFinals" | "semiFinals" | "grandFinal"
+type Round = "roundOf16" | "quarterFinals" | "semiFinals" | "grandFinal"
 
 const options = [
-    { label: "16", value: "RoundOf16" },
+    { label: "16", value: "roundOf16" },
     { label: "4", value: "quarterFinals" },
     { label: "semi", value: "semiFinals" },
     { label: "final", value: "grandFinal" },
@@ -16,7 +16,7 @@ const options = [
 
 export default function KnockoutStageMatches({ data }: { data: KnockoutStage }) {
 
-    const [round, setRound] = useState<Round>("RoundOf16");
+    const [round, setRound] = useState<Round>("roundOf16");
     return (
         <ThemedView style={{ gap: 12, marginBottom: 12, flexDirection: "column", justifyContent: "space-between", borderBottomColor: "gray", borderBottomWidth: 1, paddingBottom: 12 }}>
 
@@ -24,7 +24,7 @@ export default function KnockoutStageMatches({ data }: { data: KnockoutStage }) 
                 <ThemedText>Select Knockout stage </ThemedText>
                 <ThemedView style={{ display: "flex", flexDirection: "row", gap: 16 }}>
 
-                    {options.map((option) => (
+                    {options?.map((option) => (
                         <TouchableOpacity
                             key={option.value}
 
@@ -42,7 +42,7 @@ export default function KnockoutStageMatches({ data }: { data: KnockoutStage }) 
                 </ThemedView>
             </ThemedView>
 
-            {round === "RoundOf16" && data.roundOf16.matches.map((match, index) => {
+            {round === "roundOf16" && data?.roundOf16?.matches?.map((match, index) => {
                 return (
                     <ThemedView key={index + match.id}>
                         <MatchLink match={match} />

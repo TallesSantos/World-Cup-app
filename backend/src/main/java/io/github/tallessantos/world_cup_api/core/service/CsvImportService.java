@@ -65,14 +65,14 @@ public class CsvImportService implements CommandLineRunner {
         for (MatchCsvRow match : csvDataSource.loadMatches()) {
 
             if (countries.get(match.homeTeamName().trim()) == null) {
-                CountryEntity entity = populateCountryEntity(match);
+                CountryEntity entity = createCountryEntity();
                 entity.setName(match.homeTeamName().trim());
                 entity.setInitials(match.homeTeamInitials().trim());
                 countries.put(match.homeTeamName().trim(), entity);
             }
             if (countries.get(match.awayTeamName().trim()) == null) {
-                CountryEntity entity = populateCountryEntity(match);
-                entity.setName(match.homeTeamName().trim());
+                CountryEntity entity = createCountryEntity();
+                entity.setName(match.awayTeamName().trim());
                 entity.setInitials(match.awayTeamInitials().trim());
                 countries.put(match.awayTeamName().trim(), entity);
             }
@@ -115,7 +115,7 @@ public class CsvImportService implements CommandLineRunner {
         playerRepository.saveAll(playerMap.values());
     }
 
-    private CountryEntity populateCountryEntity(MatchCsvRow match) {
+    private CountryEntity createCountryEntity() {
         CountryEntity entity = new CountryEntity();
         entity.getAudit().setCreatedBy(CREATED_BY_NAME);
         entity.getAudit().setCreatedAt(LocalDateTime.now());
@@ -128,7 +128,7 @@ public class CsvImportService implements CommandLineRunner {
         WorldCupEntity entity = new WorldCupEntity();
         entity.getAudit().setCreatedBy(createdBy);
         entity.getAudit().setCreatedAt(LocalDateTime.now());
-        entity.setId("world-cup-" + year);
+        entity.setReference("world-cup-" + year);
         entity.setTitle("FIFA World Cup " + row.country() + " " + year);
         entity.setStatus(resolveStatus(year));
         entity.setStartDate(LocalDate.of(year, 6, 1));

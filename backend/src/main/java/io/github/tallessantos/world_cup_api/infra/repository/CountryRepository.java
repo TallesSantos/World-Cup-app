@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CountryRepository
         extends JpaRepository<CountryEntity, Long> {
@@ -85,4 +86,5 @@ public interface CountryRepository
             Pageable pageable
     );
 
+    Optional<CountryEntity> findByInitials(@Param("initials") String initials);
 }

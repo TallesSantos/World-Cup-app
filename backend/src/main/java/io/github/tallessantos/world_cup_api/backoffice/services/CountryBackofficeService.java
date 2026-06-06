@@ -54,14 +54,14 @@ public class CountryBackofficeService {
 
         //TODO add audit columns
 
-        String pathToFile = "/players/profile-image/" + entity.getId() + ".jpeg";
+        String pathToFile = "/country/flag/" + entity.getId() + ".jpeg";
 
         String savedPath = fileSystemStorageService
                 .saveImageInStoragePassingPathAndByteArray(appCommonConfigurationVariables.getStoragePath() + pathToFile, image);
 
         MediaEntity mediaEntity = new MediaEntity();
 
-        mediaEntity.setMediaContentType(MediaContentType.WORLD_CUP_BANNER);
+        mediaEntity.setMediaContentType(MediaContentType.COUNTRY);
 
         mediaEntity.setMediaPlatform(MediaPlatform.RESOURCE_SERVER);
 

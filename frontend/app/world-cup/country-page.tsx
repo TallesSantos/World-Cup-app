@@ -158,7 +158,7 @@ export default function ContryPage() {
                                 Legendary Players
                             </ThemedText>
 
-                            {countryData.legendaryPlayers.map((player) => (
+                            {countryData.legendaryPlayers?.map((player) => (
                                 <ThemedView
                                     key={player.id}
                                     style={{
@@ -192,7 +192,7 @@ export default function ContryPage() {
                                 World Cup History
                             </ThemedText>
 
-                            {countryData.worldCupHistory.map((history) => (
+                            {countryData.worldCupHistory?.map((history) => (
                                 <ThemedView
                                     key={history.worldCupYear}
                                     style={{

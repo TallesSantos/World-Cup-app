@@ -49,7 +49,7 @@ export default function MatchPage() {
                             <View >
                                 <ThemedText type="defaultSemiBold">basic statistics:</ThemedText>
                                 <ThemedView>
-                                    {matchData.basicStatistics.map((item, index) => {
+                                    {matchData.basicStatistics?.map((item, index) => {
                                         return <ThemedText key={index + item.name}> {item.name}: {item.value} </ThemedText>
                                     })}
                                 </ThemedView>
@@ -64,7 +64,7 @@ export default function MatchPage() {
                                     <ThemedText type="title">X</ThemedText>
                                     <ThemedText>{matchData.visitingTeam.name}</ThemedText>
                                 </ThemedView>
-                                {matchData.comparativeStatistics.map((item, index) => {
+                                {matchData.comparativeStatistics?.map((item, index) => {
                                     return <ThemedView key={index + item.name} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                         <ThemedText>{item.name}:</ThemedText>
                                         <ThemedText>{item.homeTeamValue}</ThemedText>
@@ -83,12 +83,12 @@ export default function MatchPage() {
                             </ThemedView>
                             <ThemedView style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                 <ThemedView style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                                    {matchData.homeTeamMatchPlayers.map(player => {
+                                    {matchData.homeTeamMatchPlayers?.map(player => {
                                         return <SoccerPlayerLink player={player} key={player.id}>{player.name}  - {player.number}</SoccerPlayerLink>
                                     })}
                                 </ThemedView>
                                 <ThemedView style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                                    {matchData.visitingTeamMatchPlayers.map(player => {
+                                    {matchData.visitingTeamMatchPlayers?.map(player => {
                                         return <SoccerPlayerLink player={player} key={player.id}>{player.name} - {player.number}</SoccerPlayerLink>
                                     })}
                                 </ThemedView>

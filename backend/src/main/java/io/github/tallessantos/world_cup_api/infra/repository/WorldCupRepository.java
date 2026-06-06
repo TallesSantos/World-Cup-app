@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface WorldCupRepository extends JpaRepository<WorldCupEntity, String> {
+import java.util.Optional;
+
+public interface WorldCupRepository extends JpaRepository<WorldCupEntity, Long> {
 
     @Query("""
             SELECT w

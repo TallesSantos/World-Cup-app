@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record WorldCup(
-        String id,
+        Long id,
         String title,
         WorldCupStatus status,
         LocalDate startDate,

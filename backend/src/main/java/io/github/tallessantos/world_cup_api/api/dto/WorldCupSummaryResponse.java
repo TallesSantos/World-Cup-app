@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 public record WorldCupSummaryResponse(
-        String id,
+        Long id,
         String title,
         String status,
         LocalDate startDate,

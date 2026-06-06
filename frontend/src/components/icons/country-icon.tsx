@@ -6,9 +6,9 @@ export default function CountryIcon({ country }: { country: WordlCupCountry | Wo
 
     return (<Image
 
-        source={country.flagImageUrl ? {
+        source={country.flagUrl ? {
             uri: API_CONFIG.resource_base_url
-                + country.flagImageUrl
+                + country.flagUrl
 
         } : require("@/assets/images/not-found.png")}
 

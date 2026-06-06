@@ -13,9 +13,12 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "world_cups")
 public class WorldCupEntity implements Auditable {
-
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    private String reference;
     private String title;
     private String status;
     private LocalDate startDate;

@@ -10,10 +10,10 @@ export default function GroupStageMatches({ data }: { data: WorldCupStageGroup[]
     return (
         <ThemedView style={{ gap: 12, marginBottom: 12 }}>
 
-            {data.map((group: WorldCupStageGroup, index) => (
+            {data?.map((group: WorldCupStageGroup, index) => (
                 <ThemedView key={index + group.groupName} style={{ flexDirection: "column", justifyContent: "space-between", borderBottomColor: "gray", borderBottomWidth: 1, paddingBottom: 12 }}>
                     <ThemedText>{group.groupName} </ThemedText>
-                    <ThemedView style={{ display: "flex", flexDirection: "row", gap: 8 }}>{group.teams.map(async (team, index) => {
+                    <ThemedView style={{ display: "flex", flexDirection: "row", gap: 8 }}>{group.teams?.map(async (team, index) => {
 
                         return (
                             <ThemedText key={index + team.id}><CountryLink country={team}>
@@ -23,7 +23,7 @@ export default function GroupStageMatches({ data }: { data: WorldCupStageGroup[]
                     })}
                     </ThemedView>
                     <ThemedText>Matches: </ThemedText>
-                    {group.matches.map((match, index) => {
+                    {group.matches?.map((match, index) => {
                         return (
                             <ThemedView key={index + match.id}>
                                 <MatchLink match={match} />

@@ -232,7 +232,7 @@ export default function PlayerPage() {
                                     Clubs History
                                 </ThemedText>
 
-                                {playerData.clubsHistory.map((club, index) => (
+                                {playerData.clubsHistory?.map((club, index) => (
                                     <ThemedView
                                         key={index}
                                         style={{
@@ -271,7 +271,7 @@ export default function PlayerPage() {
                                     World Cup History
                                 </ThemedText>
 
-                                {playerData.worldCupHistory.map((cup, index) => (
+                                {playerData.worldCupHistory?.map((cup, index) => (
                                     <ThemedView
                                         key={index}
                                         style={{
@@ -318,7 +318,7 @@ export default function PlayerPage() {
                                     Awards
                                 </ThemedText>
 
-                                {playerData.awards.map((award, index) => (
+                                {playerData.awards?.map((award, index) => (
                                     <ThemedView
                                         key={index}
                                         style={{
@@ -344,7 +344,7 @@ export default function PlayerPage() {
                                     Injuries History
                                 </ThemedText>
 
-                                {playerData.injuriesHistory.map((injury, index) => (
+                                {playerData.injuriesHistory?.map((injury, index) => (
                                     <ThemedView
                                         key={index}
                                         style={{

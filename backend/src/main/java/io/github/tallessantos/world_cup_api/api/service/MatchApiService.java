@@ -1,6 +1,7 @@
 package io.github.tallessantos.world_cup_api.api.service;
 
 import io.github.tallessantos.world_cup_api.core.domain.*;
+import io.github.tallessantos.world_cup_api.infra.repository.CountryRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
@@ -8,20 +9,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class MatchApiService {
 
     private final MatchRepository matchRepository;
     private final PlayerAppearanceRepository playerAppearanceRepository;
+    private final CountryRepository countryRepository;
 
-    public MatchApiService(MatchRepository matchRepository, PlayerAppearanceRepository playerAppearanceRepository) {
+    public MatchApiService(MatchRepository matchRepository, PlayerAppearanceRepository playerAppearanceRepository,
+                           CountryRepository countryRepository) {
         this.matchRepository = matchRepository;
         this.playerAppearanceRepository = playerAppearanceRepository;
+        this.countryRepository = countryRepository;
     }
 
     public MatchDetail getMatchById(String id) {
@@ -83,7 +84,13 @@ public class MatchApiService {
 
     private TeamReference toTeamReference(String teamName, String initials) {
         String id = CsvSupport.slugify(teamName);
-        return new TeamReference(id, CsvSupport.cleanValue(teamName), initials, "/images/flags/" + id + ".svg", null, null, null, null);
+
+        Optional<CountryEntity> entity = countryRepository.findByInitials(initials);
+        String pathImage = null;
+        if(entity.isPresent() && entity.get().getCountryFlagImage() != null){
+            pathImage = entity.get().getCountryFlagImage().getFullResourcePath();
+        }
+        return new TeamReference(id, CsvSupport.cleanValue(teamName), initials, pathImage, null, null, null, null);
     }
 
     private String normalizeStage(String stage) {

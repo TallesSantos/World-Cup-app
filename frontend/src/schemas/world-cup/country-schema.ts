@@ -36,7 +36,7 @@ export interface CountryTitles {
 export interface WordlCupCountry {
     id: string;
     name: string;
-    flagImageUrl: string | null;
+    flagUrl: string | null;
     endRatingPoint: string;
 }
 
@@ -44,8 +44,6 @@ export interface WorldCupDetailedContry
     extends Omit<WordlCupCountry, "endRatingPoint"> {
 
     fifaCode: string;
-
-    flagUrl: string;
 
     confederation: string;
 

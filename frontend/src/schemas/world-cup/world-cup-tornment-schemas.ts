@@ -2,7 +2,7 @@ import { WordlCupCountry } from "./country-schema";
 import { WorldCupMatches } from "./match-schema";
 
 export interface WorldCup {
-    id: string,
+    id: number,
     title: string,
     imgBannerUrl: string
 }
@@ -28,10 +28,10 @@ export interface DetailedWorldCup extends WorldCup {
     };
 
     statistics: {
-        totalMatches: number;
-        totalGoals: number;
-        attendance: string;
-    };
+        totalMatches: number | null;
+        totalGoals: number | null;
+        attendance: string | null;
+    } | null;
 
     groupStage: WorldCupStageGroup[];
 

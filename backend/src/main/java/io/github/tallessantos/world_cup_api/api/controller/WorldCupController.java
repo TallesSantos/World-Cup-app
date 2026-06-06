@@ -30,7 +30,7 @@ public class WorldCupController {
     }
 
     @GetMapping("/{id}")
-    public WorldCupDetailResponse getById(@PathVariable String id) {
+    public WorldCupDetailResponse getById(@PathVariable Long id) {
         return WorldCupDetailResponse.from(worldCupApiService.getWorldCupById(id));
     }
 }
