@@ -33,7 +33,7 @@ services:
       APP_DATA_PLAYERS_PATH: ${APP_DATA_PLAYERS_PATH:-/app/data/WorldCupPlayers.csv}
     volumes:
       - ${LOCAL_STORAGE_PATH:-./storage}:/app/storage
-      - ${LOCAL_DATA_PATH:-./data}:/app/data
+      - ${LOCAL_DATA_PATH:-./backend/data}:/app/data
     depends_on:
       postgres:
         condition: service_healthy
