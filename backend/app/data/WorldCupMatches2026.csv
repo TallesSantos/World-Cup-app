@@ -1,0 +1,105 @@
+Year,Datetime,Stage,Stadium,City,Home Team Name,Home Team Goals,Away Team Goals,Away Team Name,Win conditions,Attendance,Half-time Home Goals,Half-time Away Goals,Referee,Assistant 1,Assistant 2,RoundID,MatchID,Home Team Initials,Away Team Initials
+2026,11 Jun 2026 - 20:00 ,Group A,Estadio Azteca,Mexico City ,Mexico,TBD,TBD,South Africa, ,0,0,0,TBD,TBD,TBD,270001,500000001,MEX,RSA
+2026,11 Jun 2026 - 22:00 ,Group A,Estadio Akron,Zapopan ,South Korea,TBD,TBD,Czechia, ,0,0,0,TBD,TBD,TBD,270001,500000002,KOR,CZE
+2026,18 Jun 2026 - 21:00 ,Group A,Estadio Akron,Zapopan ,Mexico,TBD,TBD,South Korea, ,0,0,0,TBD,TBD,TBD,270001,500000003,MEX,KOR
+2026,18 Jun 2026 - 12:00 ,Group A,Mercedes-Benz Stadium,Atlanta ,Czechia,TBD,TBD,South Africa, ,0,0,0,TBD,TBD,TBD,270001,500000004,CZE,RSA
+2026,24 Jun 2026 - 21:00 ,Group A,Estadio Azteca,Mexico City ,Czechia,TBD,TBD,Mexico, ,0,0,0,TBD,TBD,TBD,270001,500000005,CZE,MEX
+2026,24 Jun 2026 - 21:00 ,Group A,Estadio BBVA,Monterrey ,South Africa,TBD,TBD,South Korea, ,0,0,0,TBD,TBD,TBD,270001,500000006,RSA,KOR
+2026,12 Jun 2026 - 15:00 ,Group B,BMO Field,Toronto ,Canada,TBD,TBD,Bosnia & Herzegovina, ,0,0,0,TBD,TBD,TBD,270001,500000007,CAN,BIH
+2026,13 Jun 2026 - 15:00 ,Group B,Levi's Stadium,Santa Clara ,Qatar,TBD,TBD,Switzerland, ,0,0,0,TBD,TBD,TBD,270001,500000008,QAT,SUI
+2026,18 Jun 2026 - 18:00 ,Group B,BC Place,Vancouver ,Canada,TBD,TBD,Qatar, ,0,0,0,TBD,TBD,TBD,270001,500000009,CAN,QAT
+2026,18 Jun 2026 - 15:00 ,Group B,SoFi Stadium,Inglewood ,Switzerland,TBD,TBD,Bosnia & Herzegovina, ,0,0,0,TBD,TBD,TBD,270001,500000010,SUI,BIH
+2026,24 Jun 2026 - 15:00 ,Group B,BC Place,Vancouver ,Switzerland,TBD,TBD,Canada, ,0,0,0,TBD,TBD,TBD,270001,500000011,SUI,CAN
+2026,24 Jun 2026 - 15:00 ,Group B,Lumen Field,Seattle ,Bosnia & Herzegovina,TBD,TBD,Qatar, ,0,0,0,TBD,TBD,TBD,270001,500000012,BIH,QAT
+2026,13 Jun 2026 - 18:00 ,Group C,MetLife Stadium,East Rutherford ,Brazil,TBD,TBD,Morocco, ,0,0,0,TBD,TBD,TBD,270001,500000013,BRA,MAR
+2026,13 Jun 2026 - 21:00 ,Group C,Gillette Stadium,Foxborough ,Haiti,TBD,TBD,Scotland, ,0,0,0,TBD,TBD,TBD,270001,500000014,HAI,SCO
+2026,19 Jun 2026 - 18:00 ,Group C,Gillette Stadium,Foxborough ,Scotland,TBD,TBD,Morocco, ,0,0,0,TBD,TBD,TBD,270001,500000015,SCO,MAR
+2026,19 Jun 2026 - 20:30 ,Group C,Lincoln Financial Field,Philadelphia ,Brazil,TBD,TBD,Haiti, ,0,0,0,TBD,TBD,TBD,270001,500000016,BRA,HAI
+2026,24 Jun 2026 - 18:00 ,Group C,Hard Rock Stadium,Miami Gardens ,Scotland,TBD,TBD,Brazil, ,0,0,0,TBD,TBD,TBD,270001,500000017,SCO,BRA
+2026,24 Jun 2026 - 18:00 ,Group C,Mercedes-Benz Stadium,Atlanta ,Morocco,TBD,TBD,Haiti, ,0,0,0,TBD,TBD,TBD,270001,500000018,MAR,HAI
+2026,12 Jun 2026 - 21:00 ,Group D,SoFi Stadium,Inglewood ,USA,TBD,TBD,Paraguay, ,0,0,0,TBD,TBD,TBD,270001,500000019,USA,PAR
+2026,14 Jun 2026 - 00:00 ,Group D,BC Place,Vancouver ,Australia,TBD,TBD,Türkiye, ,0,0,0,TBD,TBD,TBD,270001,500000020,AUS,TUR
+2026,19 Jun 2026 - 15:00 ,Group D,Lumen Field,Seattle ,USA,TBD,TBD,Australia, ,0,0,0,TBD,TBD,TBD,270001,500000021,USA,AUS
+2026,19 Jun 2026 - 23:00 ,Group D,Levi's Stadium,Santa Clara ,Türkiye,TBD,TBD,Paraguay, ,0,0,0,TBD,TBD,TBD,270001,500000022,TUR,PAR
+2026,25 Jun 2026 - 22:00 ,Group D,SoFi Stadium,Inglewood ,Türkiye,TBD,TBD,USA, ,0,0,0,TBD,TBD,TBD,270001,500000023,TUR,USA
+2026,25 Jun 2026 - 22:00 ,Group D,Levi's Stadium,Santa Clara ,Paraguay,TBD,TBD,Australia, ,0,0,0,TBD,TBD,TBD,270001,500000024,PAR,AUS
+2026,14 Jun 2026 - 13:00 ,Group E,NRG Stadium,Houston ,Germany,TBD,TBD,Curaçao, ,0,0,0,TBD,TBD,TBD,270001,500000025,GER,CUW
+2026,14 Jun 2026 - 19:00 ,Group E,Lincoln Financial Field,Philadelphia ,Ivory Coast,TBD,TBD,Ecuador, ,0,0,0,TBD,TBD,TBD,270001,500000026,CIV,ECU
+2026,20 Jun 2026 - 16:00 ,Group E,BMO Field,Toronto ,Germany,TBD,TBD,Ivory Coast, ,0,0,0,TBD,TBD,TBD,270001,500000027,GER,CIV
+2026,20 Jun 2026 - 20:00 ,Group E,Arrowhead Stadium,Kansas City ,Ecuador,TBD,TBD,Curaçao, ,0,0,0,TBD,TBD,TBD,270001,500000028,ECU,CUW
+2026,25 Jun 2026 - 16:00 ,Group E,Lincoln Financial Field,Philadelphia ,Curaçao,TBD,TBD,Ivory Coast, ,0,0,0,TBD,TBD,TBD,270001,500000029,CUW,CIV
+2026,25 Jun 2026 - 16:00 ,Group E,MetLife Stadium,East Rutherford ,Ecuador,TBD,TBD,Germany, ,0,0,0,TBD,TBD,TBD,270001,500000030,ECU,GER
+2026,14 Jun 2026 - 16:00 ,Group F,AT&T Stadium,Arlington ,Netherlands,TBD,TBD,Japan, ,0,0,0,TBD,TBD,TBD,270001,500000031,NED,JPN
+2026,14 Jun 2026 - 22:00 ,Group F,Estadio BBVA,Monterrey ,Sweden,TBD,TBD,Tunisia, ,0,0,0,TBD,TBD,TBD,270001,500000032,SWE,TUN
+2026,20 Jun 2026 - 13:00 ,Group F,NRG Stadium,Houston ,Netherlands,TBD,TBD,Sweden, ,0,0,0,TBD,TBD,TBD,270001,500000033,NED,SWE
+2026,21 Jun 2026 - 00:00 ,Group F,Estadio BBVA,Monterrey ,Tunisia,TBD,TBD,Japan, ,0,0,0,TBD,TBD,TBD,270001,500000034,TUN,JPN
+2026,25 Jun 2026 - 19:00 ,Group F,AT&T Stadium,Arlington ,Japan,TBD,TBD,Sweden, ,0,0,0,TBD,TBD,TBD,270001,500000035,JPN,SWE
+2026,25 Jun 2026 - 19:00 ,Group F,Arrowhead Stadium,Kansas City ,Tunisia,TBD,TBD,Netherlands, ,0,0,0,TBD,TBD,TBD,270001,500000036,TUN,NED
+2026,15 Jun 2026 - 15:00 ,Group G,Lumen Field,Seattle ,Belgium,TBD,TBD,Egypt, ,0,0,0,TBD,TBD,TBD,270001,500000037,BEL,EGY
+2026,15 Jun 2026 - 21:00 ,Group G,SoFi Stadium,Inglewood ,Iran,TBD,TBD,New Zealand, ,0,0,0,TBD,TBD,TBD,270001,500000038,IRN,NZL
+2026,21 Jun 2026 - 15:00 ,Group G,SoFi Stadium,Inglewood ,Belgium,TBD,TBD,Iran, ,0,0,0,TBD,TBD,TBD,270001,500000039,BEL,IRN
+2026,21 Jun 2026 - 21:00 ,Group G,BC Place,Vancouver ,New Zealand,TBD,TBD,Egypt, ,0,0,0,TBD,TBD,TBD,270001,500000040,NZL,EGY
+2026,26 Jun 2026 - 23:00 ,Group G,Lumen Field,Seattle ,Egypt,TBD,TBD,Iran, ,0,0,0,TBD,TBD,TBD,270001,500000041,EGY,IRN
+2026,26 Jun 2026 - 23:00 ,Group G,BC Place,Vancouver ,New Zealand,TBD,TBD,Belgium, ,0,0,0,TBD,TBD,TBD,270001,500000042,NZL,BEL
+2026,15 Jun 2026 - 12:00 ,Group H,Mercedes-Benz Stadium,Atlanta ,Spain,TBD,TBD,Cape Verde, ,0,0,0,TBD,TBD,TBD,270001,500000043,ESP,CPV
+2026,15 Jun 2026 - 18:00 ,Group H,Hard Rock Stadium,Miami Gardens ,Saudi Arabia,TBD,TBD,Uruguay, ,0,0,0,TBD,TBD,TBD,270001,500000044,KSA,URU
+2026,21 Jun 2026 - 12:00 ,Group H,Mercedes-Benz Stadium,Atlanta ,Spain,TBD,TBD,Saudi Arabia, ,0,0,0,TBD,TBD,TBD,270001,500000045,ESP,KSA
+2026,21 Jun 2026 - 18:00 ,Group H,Hard Rock Stadium,Miami Gardens ,Uruguay,TBD,TBD,Cape Verde, ,0,0,0,TBD,TBD,TBD,270001,500000046,URU,CPV
+2026,26 Jun 2026 - 20:00 ,Group H,NRG Stadium,Houston ,Cape Verde,TBD,TBD,Saudi Arabia, ,0,0,0,TBD,TBD,TBD,270001,500000047,CPV,KSA
+2026,26 Jun 2026 - 20:00 ,Group H,Estadio Akron,Zapopan ,Uruguay,TBD,TBD,Spain, ,0,0,0,TBD,TBD,TBD,270001,500000048,URU,ESP
+2026,16 Jun 2026 - 15:00 ,Group I,MetLife Stadium,East Rutherford ,France,TBD,TBD,Senegal, ,0,0,0,TBD,TBD,TBD,270001,500000049,FRA,SEN
+2026,16 Jun 2026 - 18:00 ,Group I,Gillette Stadium,Foxborough ,Iraq,TBD,TBD,Norway, ,0,0,0,TBD,TBD,TBD,270001,500000050,IRQ,NOR
+2026,22 Jun 2026 - 17:00 ,Group I,Lincoln Financial Field,Philadelphia ,France,TBD,TBD,Iraq, ,0,0,0,TBD,TBD,TBD,270001,500000051,FRA,IRQ
+2026,22 Jun 2026 - 20:00 ,Group I,MetLife Stadium,East Rutherford ,Norway,TBD,TBD,Senegal, ,0,0,0,TBD,TBD,TBD,270001,500000052,NOR,SEN
+2026,26 Jun 2026 - 15:00 ,Group I,Gillette Stadium,Foxborough ,Norway,TBD,TBD,France, ,0,0,0,TBD,TBD,TBD,270001,500000053,NOR,FRA
+2026,26 Jun 2026 - 15:00 ,Group I,BMO Field,Toronto ,Senegal,TBD,TBD,Iraq, ,0,0,0,TBD,TBD,TBD,270001,500000054,SEN,IRQ
+2026,16 Jun 2026 - 21:00 ,Group J,Arrowhead Stadium,Kansas City ,Argentina,TBD,TBD,Algeria, ,0,0,0,TBD,TBD,TBD,270001,500000055,ARG,ALG
+2026,17 Jun 2026 - 00:00 ,Group J,Levi's Stadium,Santa Clara ,Austria,TBD,TBD,Jordan, ,0,0,0,TBD,TBD,TBD,270001,500000056,AUT,JOR
+2026,22 Jun 2026 - 13:00 ,Group J,AT&T Stadium,Arlington ,Argentina,TBD,TBD,Austria, ,0,0,0,TBD,TBD,TBD,270001,500000057,ARG,AUT
+2026,22 Jun 2026 - 23:00 ,Group J,Levi's Stadium,Santa Clara ,Jordan,TBD,TBD,Algeria, ,0,0,0,TBD,TBD,TBD,270001,500000058,JOR,ALG
+2026,27 Jun 2026 - 22:00 ,Group J,Arrowhead Stadium,Kansas City ,Algeria,TBD,TBD,Austria, ,0,0,0,TBD,TBD,TBD,270001,500000059,ALG,AUT
+2026,27 Jun 2026 - 22:00 ,Group J,AT&T Stadium,Arlington ,Jordan,TBD,TBD,Argentina, ,0,0,0,TBD,TBD,TBD,270001,500000060,JOR,ARG
+2026,17 Jun 2026 - 13:00 ,Group K,NRG Stadium,Houston ,Portugal,TBD,TBD,DR Congo, ,0,0,0,TBD,TBD,TBD,270001,500000061,POR,COD
+2026,17 Jun 2026 - 22:00 ,Group K,Estadio Azteca,Mexico City ,Uzbekistan,TBD,TBD,Colombia, ,0,0,0,TBD,TBD,TBD,270001,500000062,UZB,COL
+2026,23 Jun 2026 - 13:00 ,Group K,NRG Stadium,Houston ,Portugal,TBD,TBD,Uzbekistan, ,0,0,0,TBD,TBD,TBD,270001,500000063,POR,UZB
+2026,23 Jun 2026 - 22:00 ,Group K,Estadio Akron,Zapopan ,Colombia,TBD,TBD,DR Congo, ,0,0,0,TBD,TBD,TBD,270001,500000064,COL,COD
+2026,27 Jun 2026 - 19:30 ,Group K,Hard Rock Stadium,Miami Gardens ,Colombia,TBD,TBD,Portugal, ,0,0,0,TBD,TBD,TBD,270001,500000065,COL,POR
+2026,27 Jun 2026 - 19:30 ,Group K,Mercedes-Benz Stadium,Atlanta ,DR Congo,TBD,TBD,Uzbekistan, ,0,0,0,TBD,TBD,TBD,270001,500000066,COD,UZB
+2026,17 Jun 2026 - 16:00 ,Group L,AT&T Stadium,Arlington ,England,TBD,TBD,Croatia, ,0,0,0,TBD,TBD,TBD,270001,500000067,ENG,CRO
+2026,17 Jun 2026 - 19:00 ,Group L,BMO Field,Toronto ,Ghana,TBD,TBD,Panama, ,0,0,0,TBD,TBD,TBD,270001,500000068,GHA,PAN
+2026,23 Jun 2026 - 16:00 ,Group L,Gillette Stadium,Foxborough ,England,TBD,TBD,Ghana, ,0,0,0,TBD,TBD,TBD,270001,500000069,ENG,GHA
+2026,23 Jun 2026 - 19:00 ,Group L,BMO Field,Toronto ,Panama,TBD,TBD,Croatia, ,0,0,0,TBD,TBD,TBD,270001,500000070,PAN,CRO
+2026,27 Jun 2026 - 17:00 ,Group L,MetLife Stadium,East Rutherford ,Panama,TBD,TBD,England, ,0,0,0,TBD,TBD,TBD,270001,500000071,PAN,ENG
+2026,27 Jun 2026 - 17:00 ,Group L,Lincoln Financial Field,Philadelphia ,Croatia,TBD,TBD,Ghana, ,0,0,0,TBD,TBD,TBD,270001,500000072,CRO,GHA
+2026,28 Jun 2026 - 15:00 ,Round of 32,SoFi Stadium,Inglewood ,Runner-up Group A,TBD,TBD,Runner-up Group B, ,0,0,0,TBD,TBD,TBD,270002,500000073,TBD,TBD
+2026,29 Jun 2026 - 13:00 ,Round of 32,NRG Stadium,Houston ,Winner Group C,TBD,TBD,Runner-up Group F, ,0,0,0,TBD,TBD,TBD,270002,500000074,TBD,TBD
+2026,29 Jun 2026 - 16:30 ,Round of 32,Gillette Stadium,Foxborough ,Winner Group E,TBD,TBD,Best 3rd (A/B/C/D/F), ,0,0,0,TBD,TBD,TBD,270002,500000075,TBD,TBD
+2026,29 Jun 2026 - 21:00 ,Round of 32,Estadio BBVA,Monterrey ,Winner Group F,TBD,TBD,Runner-up Group C, ,0,0,0,TBD,TBD,TBD,270002,500000076,TBD,TBD
+2026,30 Jun 2026 - 13:00 ,Round of 32,AT&T Stadium,Arlington ,Runner-up Group E,TBD,TBD,Runner-up Group I, ,0,0,0,TBD,TBD,TBD,270002,500000077,TBD,TBD
+2026,30 Jun 2026 - 17:00 ,Round of 32,MetLife Stadium,East Rutherford ,Winner Group I,TBD,TBD,Best 3rd (C/D/F/G/H), ,0,0,0,TBD,TBD,TBD,270002,500000078,TBD,TBD
+2026,30 Jun 2026 - 21:00 ,Round of 32,Estadio Azteca,Mexico City ,Winner Group A,TBD,TBD,Best 3rd (C/E/F/H/I), ,0,0,0,TBD,TBD,TBD,270002,500000079,TBD,TBD
+2026,01 Jul 2026 - 12:00 ,Round of 32,Mercedes-Benz Stadium,Atlanta ,Winner Group L,TBD,TBD,Best 3rd (E/H/I/J/K), ,0,0,0,TBD,TBD,TBD,270002,500000080,TBD,TBD
+2026,01 Jul 2026 - 16:00 ,Round of 32,Lumen Field,Seattle ,Winner Group G,TBD,TBD,Best 3rd (A/E/H/I/J), ,0,0,0,TBD,TBD,TBD,270002,500000081,TBD,TBD
+2026,01 Jul 2026 - 20:00 ,Round of 32,Levi's Stadium,Santa Clara ,Winner Group D,TBD,TBD,Best 3rd (B/E/F/I/J), ,0,0,0,TBD,TBD,TBD,270002,500000082,TBD,TBD
+2026,02 Jul 2026 - 15:00 ,Round of 32,SoFi Stadium,Inglewood ,Winner Group H,TBD,TBD,Runner-up Group J, ,0,0,0,TBD,TBD,TBD,270002,500000083,TBD,TBD
+2026,02 Jul 2026 - 19:00 ,Round of 32,BMO Field,Toronto ,Runner-up Group K,TBD,TBD,Runner-up Group L, ,0,0,0,TBD,TBD,TBD,270002,500000084,TBD,TBD
+2026,02 Jul 2026 - 23:00 ,Round of 32,BC Place,Vancouver ,Winner Group B,TBD,TBD,Best 3rd (E/F/G/I/J), ,0,0,0,TBD,TBD,TBD,270002,500000085,TBD,TBD
+2026,03 Jul 2026 - 14:00 ,Round of 32,AT&T Stadium,Arlington ,Runner-up Group D,TBD,TBD,Runner-up Group G, ,0,0,0,TBD,TBD,TBD,270002,500000086,TBD,TBD
+2026,03 Jul 2026 - 18:00 ,Round of 32,Hard Rock Stadium,Miami Gardens ,Winner Group J,TBD,TBD,Runner-up Group H, ,0,0,0,TBD,TBD,TBD,270002,500000087,TBD,TBD
+2026,03 Jul 2026 - 21:30 ,Round of 32,Arrowhead Stadium,Kansas City ,Winner Group K,TBD,TBD,Best 3rd (D/E/I/J/L), ,0,0,0,TBD,TBD,TBD,270002,500000088,TBD,TBD
+2026,04 Jul 2026 - 13:00 ,Round of 16,NRG Stadium,Houston ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270003,500000089,TBD,TBD
+2026,04 Jul 2026 - 17:00 ,Round of 16,Lincoln Financial Field,Philadelphia ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270003,500000090,TBD,TBD
+2026,05 Jul 2026 - 16:00 ,Round of 16,MetLife Stadium,East Rutherford ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270003,500000091,TBD,TBD
+2026,05 Jul 2026 - 20:00 ,Round of 16,Estadio Azteca,Mexico City ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270003,500000092,TBD,TBD
+2026,06 Jul 2026 - 15:00 ,Round of 16,AT&T Stadium,Arlington ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270003,500000093,TBD,TBD
+2026,06 Jul 2026 - 20:00 ,Round of 16,Lumen Field,Seattle ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270003,500000094,TBD,TBD
+2026,07 Jul 2026 - 12:00 ,Round of 16,Mercedes-Benz Stadium,Atlanta ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270003,500000095,TBD,TBD
+2026,07 Jul 2026 - 16:00 ,Round of 16,BC Place,Vancouver ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270003,500000096,TBD,TBD
+2026,09 Jul 2026 - 16:00 ,Quarter-finals,Gillette Stadium,Foxborough ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270004,500000097,TBD,TBD
+2026,10 Jul 2026 - 15:00 ,Quarter-finals,SoFi Stadium,Inglewood ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270004,500000098,TBD,TBD
+2026,11 Jul 2026 - 17:00 ,Quarter-finals,Hard Rock Stadium,Miami Gardens ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270004,500000099,TBD,TBD
+2026,11 Jul 2026 - 21:00 ,Quarter-finals,Arrowhead Stadium,Kansas City ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270004,500000100,TBD,TBD
+2026,14 Jul 2026 - 15:00 ,Semi-finals,AT&T Stadium,Arlington ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270005,500000101,TBD,TBD
+2026,15 Jul 2026 - 15:00 ,Semi-finals,Mercedes-Benz Stadium,Atlanta ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270005,500000102,TBD,TBD
+2026,18 Jul 2026 - 17:00 ,Play-off for third place,Hard Rock Stadium,Miami Gardens ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270006,500000103,TBD,TBD
+2026,19 Jul 2026 - 15:00 ,Final,MetLife Stadium,East Rutherford ,TBD,TBD,TBD,TBD, ,0,0,0,TBD,TBD,TBD,270007,500000104,TBD,TBD

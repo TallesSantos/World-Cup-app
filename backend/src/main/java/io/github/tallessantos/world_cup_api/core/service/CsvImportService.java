@@ -4,16 +4,17 @@ import io.github.tallessantos.world_cup_api.core.domain.*;
 import io.github.tallessantos.world_cup_api.infra.repository.*;
 import io.github.tallessantos.world_cup_api.infra.repository.csv.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
 @Slf4j
-public class CsvImportService implements CommandLineRunner {
+public class CsvImportService {
 
     private static final String CREATED_BY_NAME = "csv_import_automation";
 
@@ -23,6 +24,21 @@ public class CsvImportService implements CommandLineRunner {
     private final PlayerRepository playerRepository;
     private final PlayerAppearanceRepository playerAppearanceRepository;
     private final CountryRepository countryRepository;
+
+    @Value("${app.data.world-cups-after-2014-path}")
+    private String worldCupsAfter2014;
+
+    @Value("${app.data.world-cups-matches-2018-path}")
+    private String worldCupMatches2018;
+
+    @Value("${app.data.world-cups-matches-2022-path}")
+    private String worldCupMatches2022;
+
+    @Value("${app.data.world-cups-players-2018-path}")
+    private String worldCupPlayers2018;
+
+    @Value("${app.data.world-cups-players-2022-path}")
+    private String worldCupPlayers2022;
 
     public CsvImportService(
             CsvDataSource csvDataSource,
@@ -40,56 +56,59 @@ public class CsvImportService implements CommandLineRunner {
         this.countryRepository = countryRepository;
     }
 
-    @Override
-    public void run(String... args) {
-        if (worldCupRepository.count() > 0L) {
+
+    public void dataEntryUpToThe2014WorldCup() {
+
+        if (!isWorldCupTableEmpty()) {
+            log.warn("Already has data of world cups in database");
             return;
         }
 
-        List<WorldCupEntity> listWorldCups = new ArrayList<>();
-        for (WorldCupCsvRow entity : csvDataSource.loadWorldCups()) {
-            WorldCupEntity worldCupEntity = toWorldCupEntity(CREATED_BY_NAME, entity);
-            listWorldCups.add(worldCupEntity);
+        worldCupDataIngestion(csvDataSource.loadWorldCups());
+        worldCupMatchesDataIngestion(csvDataSource.loadMatches());
+        worldCupCountriesDataIngestion(csvDataSource.loadMatches());
+        worldCupAppearenceDataIngestion(csvDataSource.loadPlayers());
+        log.info("Ingestion data ended");
+    }
+
+    public void dataEntryAfterToThe2014WorldCup() {
+
+        Optional<WorldCupEntity> worldCup2018 = worldCupRepository.findByReference("world-cup-2018");
+        if (worldCup2018.isPresent()) {
+            log.info("Already has 2018 world cup data in database");
+            return;
         }
-        worldCupRepository.saveAll(listWorldCups);
 
-        List<MatchEntity> listMatches = new ArrayList<>();
-        for (MatchCsvRow entity : csvDataSource.loadMatches()) {
-            MatchEntity worldCupEntity = toMatchEntity(CREATED_BY_NAME, entity);
-            listMatches.add(worldCupEntity);
+        worldCupDataIngestion(csvDataSource.loadWorldCups(Path.of(worldCupsAfter2014)));
+        worldCupMatchesDataIngestion(csvDataSource.loadMatches(Path.of(worldCupMatches2018)));
+        worldCupMatchesDataIngestion(csvDataSource.loadMatches(Path.of(worldCupMatches2022)));
+        List<PlayerCsvRow> players2018 = csvDataSource.loadPlayers(Path.of(worldCupPlayers2018));
+        if(!players2018.isEmpty()){
+            worldCupAppearenceDataIngestion(players2018);
+        }else{
+            log.warn("Csv file don't have data");
         }
-        matchRepository.saveAll(listMatches);
 
-        Map<String, CountryEntity> countries = new HashMap<>();
+        List<PlayerCsvRow> players2022 = csvDataSource.loadPlayers(Path.of(worldCupPlayers2022));
+        if(!players2022.isEmpty()){
+            worldCupAppearenceDataIngestion(players2022);
+        }else{
+            log.warn("Csv file don't have data");
+        }log.info("Ingestion data ended");
+    }
 
-        for (MatchCsvRow match : csvDataSource.loadMatches()) {
 
-            if (countries.get(match.homeTeamName().trim()) == null) {
-                CountryEntity entity = createCountryEntity();
-                entity.setName(match.homeTeamName().trim());
-                entity.setInitials(match.homeTeamInitials().trim());
-                countries.put(match.homeTeamName().trim(), entity);
-            }
-            if (countries.get(match.awayTeamName().trim()) == null) {
-                CountryEntity entity = createCountryEntity();
-                entity.setName(match.awayTeamName().trim());
-                entity.setInitials(match.awayTeamInitials().trim());
-                countries.put(match.awayTeamName().trim(), entity);
-            }
-        }
-        countryRepository.saveAll(new HashSet<>(countries.values()));
-
+    private void worldCupAppearenceDataIngestion(List<PlayerCsvRow> rows) {
         List<PlayerAppearanceEntity> listPlayerAppearenceEntity = new ArrayList<>();
-        for (PlayerCsvRow entity : csvDataSource.loadPlayers()) {
+        for (PlayerCsvRow entity : rows) {
             PlayerAppearanceEntity playerEntity = toPlayerAppearanceEntity(CREATED_BY_NAME, entity);
             listPlayerAppearenceEntity.add(playerEntity);
         }
         playerAppearanceRepository.saveAll(listPlayerAppearenceEntity);
 
-        List<PlayerCsvRow> allRows = csvDataSource.loadPlayers();
         Map<String, PlayerEntity> playerMap = new LinkedHashMap<>();
 
-        for (PlayerCsvRow row : allRows) {
+        for (PlayerCsvRow row : rows) {
             String id = CsvSupport.playerId(row.teamInitials(), row.playerName());
             PlayerEntity entity = playerMap.computeIfAbsent(id, _id -> {
                 PlayerEntity e = new PlayerEntity();
@@ -97,8 +116,7 @@ public class CsvImportService implements CommandLineRunner {
                 e.getAudit().setCreatedAt(LocalDateTime.now());
                 return e;
             });
-            // Sobrescreve sempre: garante que a última aparição no CSV
-            // (normalmente a mais recente) define os dados canônicos.
+
             entity.setPlayerName(row.playerName());
             entity.setPlayerName(CsvSupport.toDisplayName(row.playerName()));
             entity.setTeamInitials(row.teamInitials());
@@ -113,6 +131,52 @@ public class CsvImportService implements CommandLineRunner {
         }
 
         playerRepository.saveAll(playerMap.values());
+    }
+
+    private void worldCupCountriesDataIngestion(List<MatchCsvRow> rows) {
+        Map<String, CountryEntity> countries = new HashMap<>();
+
+        for (MatchCsvRow match : rows) {
+
+            if (countries.get(match.homeTeamName().trim()) == null) {
+                CountryEntity entity = createCountryEntity();
+                entity.setName(match.homeTeamName().trim());
+                entity.setInitials(match.homeTeamInitials().trim());
+                countries.put(match.homeTeamName().trim(), entity);
+            }
+            if (countries.get(match.awayTeamName().trim()) == null) {
+                CountryEntity entity = createCountryEntity();
+                entity.setName(match.awayTeamName().trim());
+                entity.setInitials(match.awayTeamInitials().trim());
+                countries.put(match.awayTeamName().trim(), entity);
+            }
+        }
+        countryRepository.saveAllAndFlush(new HashSet<>(countries.values()));
+    }
+
+    private void worldCupMatchesDataIngestion(List<MatchCsvRow> rows) {
+        List<MatchEntity> listMatches = new ArrayList<>();
+        for (MatchCsvRow entity : rows) {
+            MatchEntity worldCupEntity = toMatchEntity(CREATED_BY_NAME, entity);
+            listMatches.add(worldCupEntity);
+        }
+        matchRepository.saveAllAndFlush(listMatches);
+    }
+
+    private void worldCupDataIngestion(List<WorldCupCsvRow> rows) {
+        List<WorldCupEntity> listWorldCups = new ArrayList<>();
+        for (WorldCupCsvRow entity : rows) {
+            WorldCupEntity worldCupEntity = toWorldCupEntity(CREATED_BY_NAME, entity);
+            listWorldCups.add(worldCupEntity);
+        }
+        worldCupRepository.saveAllAndFlush(listWorldCups);
+    }
+
+    private boolean isWorldCupTableEmpty() {
+        if (worldCupRepository.count() > 0L) {
+            return false;
+        }
+        return true;
     }
 
     private CountryEntity createCountryEntity() {

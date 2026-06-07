@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface WorldCupRepository extends JpaRepository<WorldCupEntity, Long> {
 
     @Query("""
@@ -25,4 +27,6 @@ public interface WorldCupRepository extends JpaRepository<WorldCupEntity, Long> 
             @Param("finished") Boolean finished,
             Pageable pageable
     );
+
+    Optional<WorldCupEntity> findByReference(@Param("reference") String reference);
 }

@@ -8,7 +8,7 @@ COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
 COPY src ./src
-COPY data ./data
+COPY app/data ./data
 
 RUN mvn clean package -Dmaven.test.skip=true -B
 

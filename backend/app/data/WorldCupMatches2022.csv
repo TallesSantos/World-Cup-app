@@ -1,0 +1,65 @@
+Year,Datetime,Stage,Stadium,City,Home Team Name,Home Team Goals,Away Team Goals,Away Team Name,Win conditions,Attendance,Half-time Home Goals,Half-time Away Goals,Referee,Assistant 1,Assistant 2,RoundID,MatchID,Home Team Initials,Away Team Initials
+2022,20 Nov 2022 - 17:00 ,Group A,Al Bayt Stadium,Al Khor ,Qatar,0,2,Ecuador, ,67372,0,1,ZANETTI Daniele (URU),LARRUY Juan (URU),RIAL Christian (URU),264681,400222847,QAT,ECU
+2022,21 Nov 2022 - 11:00 ,Group A,Khalifa International Stadium,Al Rayyan ,Senegal,0,2,Netherlands, ,41721,0,1,VINČIČ Slavko (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),264681,400222848,SEN,NED
+2022,25 Nov 2022 - 11:00 ,Group A,Al Janoub Stadium,Al Wakrah ,Qatar,1,3,Senegal, ,44438,1,2,RODRIGUEZ Mario (MEX),MORALES Miguel (MEX),HERNANDEZ Jose (MEX),264681,400222849,QAT,SEN
+2022,25 Nov 2022 - 14:00 ,Group A,Ahmad Bin Ali Stadium,Al Rayyan ,Netherlands,1,1,Ecuador, ,45041,0,0,RAPALLINI Javier (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),264681,400222850,NED,ECU
+2022,29 Nov 2022 - 18:00 ,Group A,Lusail Stadium,Lusail ,Netherlands,2,0,Qatar, ,88966,0,0,GEIGER Mark (USA),FELICIANO Mark (USA),WENGER Joe (USA),264681,400222851,NED,QAT
+2022,29 Nov 2022 - 18:00 ,Group A,Khalifa International Stadium,Al Rayyan ,Ecuador,1,2,Senegal, ,44099,1,1,RUNGE Wilton (BRA),TAVARES Rodrigo (BRA),CERQUEIRA Bruno (BRA),264681,400222852,ECU,SEN
+2022,21 Nov 2022 - 14:00 ,Group B,Ahmad Bin Ali Stadium,Al Rayyan ,England,6,2,Iran, ,45334,3,1,BRYCH Felix (GER),LUPP Mark (GER),ACHMÜLLER Stefan (GER),264681,400222853,ENG,IRN
+2022,21 Nov 2022 - 17:00 ,Group B,Education City Stadium,Al Rayyan ,USA,1,1,Wales, ,43418,1,0,TURPIN Clement (FRA),DANOS Nicolas (FRA),TUAILLON Cyril (FRA),264681,400222854,USA,WAL
+2022,25 Nov 2022 - 17:00 ,Group B,Al Bayt Stadium,Al Khor ,Wales,0,2,Iran, ,42127,0,1,MARCINIAK Szymon (POL),LISTKIEWICZ Tomasz (POL),SOKOLNICKI Pawel (POL),264681,400222855,WAL,IRN
+2022,25 Nov 2022 - 20:00 ,Group B,Al Bayt Stadium,Al Khor ,England,0,0,USA, ,68895,0,0,ORSATO Daniele (ITA),MANGANELLI Alessandro (ITA),VILLA Elenito (ITA),264681,400222856,ENG,USA
+2022,29 Nov 2022 - 22:00 ,Group B,Ahmad Bin Ali Stadium,Al Rayyan ,Iran,0,1,USA, ,45337,0,1,CÜNEYT Cakir (TUR),BAHATTIN Duran (TUR),TAŞKIRAN Tarık (TUR),264681,400222857,IRN,USA
+2022,29 Nov 2022 - 22:00 ,Group B,Ahmad Bin Ali Stadium,Al Rayyan ,Wales,0,3,England, ,44297,0,3,LAHOZ Antonio Mateu (ESP),YUSTE Juan (ESP),FIGUERAS Pau (ESP),264681,400222858,WAL,ENG
+2022,22 Nov 2022 - 11:00 ,Group C,Education City Stadium,Al Rayyan ,Argentina,1,2,Saudi Arabia, ,88012,1,1,CUNHA Andres (URU),BERNAL Nicolas (URU),FANDINO Mauricio (URU),264681,400222859,ARG,KSA
+2022,22 Nov 2022 - 14:00 ,Group C,Stadium 974,Doha ,Denmark,0,0,Tunisia, ,42925,0,0,GOMES WINTER Mario (POR),SOARES Paulo (POR),FIGUEIREDO Bruno (POR),264681,400222860,DEN,TUN
+2022,26 Nov 2022 - 11:00 ,Group C,Ahmad Bin Ali Stadium,Al Rayyan ,Tunisia,0,1,Australia, ,41241,0,1,ROCCHI Gianluca (ITA),RANGHETTI Lorenzo (ITA),TOLFO Alessandro (ITA),264681,400222861,TUN,AUS
+2022,26 Nov 2022 - 14:00 ,Group C,Lusail Stadium,Lusail ,Poland,2,0,Saudi Arabia, ,89418,1,0,ALIYEV Alireza Faghani (IRN),REZA Mohammadreza (IRN),SOKHANDAN Mohammadreza (IRN),264681,400222862,POL,KSA
+2022,30 Nov 2022 - 18:00 ,Group C,Lusail Stadium,Lusail ,Poland,0,2,Argentina, ,88235,0,0,MWANZA Janny (ZAM),MARANGE Tibone (ZIM),MOKOENA Zakhele (RSA),264681,400222863,POL,ARG
+2022,30 Nov 2022 - 18:00 ,Group C,Al Janoub Stadium,Al Wakrah ,Australia,1,0,Denmark, ,44438,1,0,COLLUM William (SCO),MULVENNY Joe (SCO),CARTER Gary (IRL),264681,400222864,AUS,DEN
+2022,22 Nov 2022 - 17:00 ,Group D,Al Janoub Stadium,Al Wakrah ,France,4,1,Australia, ,44137,2,1,PITANA Nestor (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),264681,400222865,FRA,AUS
+2022,22 Nov 2022 - 20:00 ,Group D,Stadium 974,Doha ,Denmark,2,1,Tunisia, ,,36843,2,0,HAIMOUDI Djamel (ALG),TAHRAT Abdelhamid (ALG),ACHIK Redouane (MAR),400222866,400222854,DEN,TUN
+2022,26 Nov 2022 - 17:00 ,Group D,Education City Stadium,Al Rayyan ,France,2,1,Denmark, ,44664,1,0,MAZIC Milorad (SRB),DJURDJEVIC Milovan (SRB),RUJEVIC Dalibor (SRB),264681,400222867,FRA,DEN
+2022,26 Nov 2022 - 20:00 ,Group D,Al Janoub Stadium,Al Wakrah ,Tunisia,0,1,Australia, ,,42127,0,0,MWANZA Janny (ZAM),MARANGE Tibone (ZIM),MOKOENA Zakhele (RSA),400222868,400222862,TUN,AUS
+2022,30 Nov 2022 - 22:00 ,Group D,Al Thumama Stadium,Doha ,Tunisia,1,0,France, ,44819,0,0,VINČIČ Slavko (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),264681,400222869,TUN,FRA
+2022,30 Nov 2022 - 22:00 ,Group D,Al Janoub Stadium,Al Wakrah ,Australia,1,0,Denmark, ,40338,1,0,RAPALLINI Javier (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),264681,400222870,AUS,DEN
+2022,23 Nov 2022 - 11:00 ,Group E,Khalifa International Stadium,Al Rayyan ,Spain,7,0,Costa Rica, ,42429,3,0,TURPIN Clement (FRA),DANOS Nicolas (FRA),TUAILLON Cyril (FRA),264681,400222871,ESP,CRC
+2022,23 Nov 2022 - 14:00 ,Group E,Stadium 974,Doha ,Germany,1,2,Japan, ,42608,1,0,RODRIGUEZ Mario (MEX),MORALES Miguel (MEX),HERNANDEZ Jose (MEX),264681,400222872,GER,JPN
+2022,27 Nov 2022 - 11:00 ,Group E,Al Bayt Stadium,Al Khor ,Japan,0,1,Costa Rica, ,46752,0,0,ORSATO Daniele (ITA),MANGANELLI Alessandro (ITA),VILLA Elenito (ITA),264681,400222873,JPN,CRC
+2022,27 Nov 2022 - 14:00 ,Group E,Al Bayt Stadium,Al Khor ,Spain,1,1,Germany, ,68055,0,1,MARCINIAK Szymon (POL),LISTKIEWICZ Tomasz (POL),SOKOLNICKI Pawel (POL),264681,400222874,ESP,GER
+2022,01 Dec 2022 - 18:00 ,Group E,Khalifa International Stadium,Al Rayyan ,Japan,2,1,Spain, ,44781,0,0,SKOMINA Damir (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),264681,400222875,JPN,ESP
+2022,01 Dec 2022 - 18:00 ,Group E,Al Bayt Stadium,Al Khor ,Costa Rica,2,4,Germany, ,68432,1,1,ALIYEV Alireza Faghani (IRN),REZA Mohammadreza (IRN),SOKHANDAN Mohammadreza (IRN),264681,400222876,CRC,GER
+2022,23 Nov 2022 - 17:00 ,Group F,Al Thumama Stadium,Doha ,Morocco,0,0,Croatia, ,42925,0,0,LAHOZ Antonio Mateu (ESP),YUSTE Juan (ESP),FIGUERAS Pau (ESP),264681,400222877,MAR,CRO
+2022,23 Nov 2022 - 20:00 ,Group F,Lusail Stadium,Lusail ,Belgium,1,0,Canada, ,89012,0,0,GEIGER Mark (USA),FELICIANO Mark (USA),WENGER Joe (USA),264681,400222878,BEL,CAN
+2022,27 Nov 2022 - 17:00 ,Group F,Ahmad Bin Ali Stadium,Al Rayyan ,Belgium,0,2,Morocco, ,44137,0,0,RUNGE Wilton (BRA),TAVARES Rodrigo (BRA),CERQUEIRA Bruno (BRA),264681,400222879,BEL,MAR
+2022,27 Nov 2022 - 20:00 ,Group F,Khalifa International Stadium,Al Rayyan ,Croatia,4,1,Canada, ,44241,2,0,BRYCH Felix (GER),LUPP Mark (GER),ACHMÜLLER Stefan (GER),264681,400222880,CRO,CAN
+2022,01 Dec 2022 - 22:00 ,Group F,Al Thumama Stadium,Doha ,Croatia,0,0,Belgium, ,44667,0,0,CUNHA Andres (URU),BERNAL Nicolas (URU),FANDINO Mauricio (URU),264681,400222881,CRO,BEL
+2022,01 Dec 2022 - 22:00 ,Group F,Al Janoub Stadium,Al Wakrah ,Canada,1,2,Morocco, ,44137,0,0,ROCCHI Gianluca (ITA),RANGHETTI Lorenzo (ITA),TOLFO Alessandro (ITA),264681,400222882,CAN,MAR
+2022,24 Nov 2022 - 11:00 ,Group G,Stadium 974,Doha ,Switzerland,1,0,Cameroon, ,42519,0,0,GOMES WINTER Mario (POR),SOARES Paulo (POR),FIGUEIREDO Bruno (POR),264681,400222883,SUI,CMR
+2022,24 Nov 2022 - 14:00 ,Group G,Lusail Stadium,Lusail ,Brazil,2,0,Serbia, ,88103,1,0,PITANA Nestor (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),264681,400222884,BRA,SRB
+2022,28 Nov 2022 - 11:00 ,Group G,Lusail Stadium,Lusail ,Cameroon,3,3,Serbia, ,44105,3,3,COLLUM William (SCO),MULVENNY Joe (SCO),CARTER Gary (IRL),264681,400222885,CMR,SRB
+2022,28 Nov 2022 - 14:00 ,Group G,Stadium 974,Doha ,Brazil,1,0,Switzerland, ,43649,0,0,MAZIC Milorad (SRB),DJURDJEVIC Milovan (SRB),RUJEVIC Dalibor (SRB),264681,400222886,BRA,SUI
+2022,02 Dec 2022 - 18:00 ,Group G,Lusail Stadium,Lusail ,Cameroon,1,0,Brazil, ,88103,0,0,HAIMOUDI Djamel (ALG),TAHRAT Abdelhamid (ALG),ACHIK Redouane (MAR),264681,400222887,CMR,BRA
+2022,02 Dec 2022 - 18:00 ,Group G,Al Janoub Stadium,Al Wakrah ,Serbia,2,3,Switzerland, ,44137,0,1,MWANZA Janny (ZAM),MARANGE Tibone (ZIM),MOKOENA Zakhele (RSA),264681,400222888,SRB,SUI
+2022,24 Nov 2022 - 17:00 ,Group H,Education City Stadium,Al Rayyan ,South Korea,0,0,Uruguay, ,40756,0,0,ORSATO Daniele (ITA),MANGANELLI Alessandro (ITA),VILLA Elenito (ITA),264681,400222889,KOR,URU
+2022,24 Nov 2022 - 20:00 ,Group H,Al Thumama Stadium,Doha ,Portugal,3,2,Ghana, ,44819,2,0,CÜNEYT Cakir (TUR),BAHATTIN Duran (TUR),TAŞKIRAN Tarık (TUR),264681,400222890,POR,GHA
+2022,28 Nov 2022 - 17:00 ,Group H,Education City Stadium,Al Rayyan ,South Korea,2,3,Ghana, ,43667,1,2,RODRIGUEZ Mario (MEX),MORALES Miguel (MEX),HERNANDEZ Jose (MEX),264681,400222891,KOR,GHA
+2022,28 Nov 2022 - 20:00 ,Group H,Lusail Stadium,Lusail ,Portugal,2,0,Uruguay, ,88779,2,0,TURPIN Clement (FRA),DANOS Nicolas (FRA),TUAILLON Cyril (FRA),264681,400222892,POR,URU
+2022,02 Dec 2022 - 22:00 ,Group H,Education City Stadium,Al Rayyan ,Ghana,0,2,Uruguay, ,44819,0,2,MARCINIAK Szymon (POL),LISTKIEWICZ Tomasz (POL),SOKOLNICKI Pawel (POL),264681,400222893,GHA,URU
+2022,02 Dec 2022 - 22:00 ,Group H,Lusail Stadium,Lusail ,South Korea,2,1,Portugal, ,88103,2,0,SKOMINA Damir (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),264681,400222894,KOR,POR
+2022,03 Dec 2022 - 18:00 ,Round of 16,Ahmad Bin Ali Stadium,Al Rayyan ,Netherlands,3,1,USA, ,44137,2,0,LAHOZ Antonio Mateu (ESP),YUSTE Juan (ESP),FIGUERAS Pau (ESP),264682,400222895,NED,USA
+2022,03 Dec 2022 - 22:00 ,Round of 16,Lusail Stadium,Lusail ,Argentina,2,1,Australia, ,88966,1,0,RAPALLINI Javier (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),264682,400222896,ARG,AUS
+2022,04 Dec 2022 - 18:00 ,Round of 16,Al Thumama Stadium,Doha ,France,3,1,Poland, ,44819,1,0,ALIYEV Alireza Faghani (IRN),REZA Mohammadreza (IRN),SOKHANDAN Mohammadreza (IRN),264682,400222897,FRA,POL
+2022,04 Dec 2022 - 22:00 ,Round of 16,Education City Stadium,Al Rayyan ,England,3,0,Senegal, ,44781,2,0,CUNHA Andres (URU),BERNAL Nicolas (URU),FANDINO Mauricio (URU),264682,400222898,ENG,SEN
+2022,05 Dec 2022 - 18:00 ,Round of 16,Khalifa International Stadium,Al Rayyan ,Japan,1,1,Croatia,1-3 pen.,44781,0,1,BRYCH Felix (GER),LUPP Mark (GER),ACHMÜLLER Stefan (GER),264682,400222899,JPN,CRO
+2022,05 Dec 2022 - 22:00 ,Round of 16,Al Bayt Stadium,Al Khor ,Brazil,4,1,South Korea, ,68295,4,1,PITANA Nestor (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),264682,400222900,BRA,KOR
+2022,06 Dec 2022 - 18:00 ,Round of 16,Al Thumama Stadium,Doha ,Morocco,0,0,Spain,3-0 pen.,44819,0,0,ORSATO Daniele (ITA),MANGANELLI Alessandro (ITA),VILLA Elenito (ITA),264682,400222901,MAR,ESP
+2022,06 Dec 2022 - 22:00 ,Round of 16,Lusail Stadium,Lusail ,Portugal,6,1,Switzerland, ,88103,3,0,ROCCHI Gianluca (ITA),RANGHETTI Lorenzo (ITA),TOLFO Alessandro (ITA),264682,400222902,POR,SUI
+2022,09 Dec 2022 - 18:00 ,Quarter-finals,Education City Stadium,Al Rayyan ,Croatia,1,1,Brazil,4-2 pen.,44781,0,0,LAHOZ Antonio Mateu (ESP),YUSTE Juan (ESP),FIGUERAS Pau (ESP),264683,400222903,CRO,BRA
+2022,09 Dec 2022 - 22:00 ,Quarter-finals,Lusail Stadium,Lusail ,Netherlands,2,2,Argentina,3-4 pen.,88103,0,0,RAPALLINI Javier (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),264683,400222904,NED,ARG
+2022,10 Dec 2022 - 18:00 ,Quarter-finals,Al Thumama Stadium,Doha ,Morocco,1,0,Portugal, ,44819,0,0,MARCINIAK Szymon (POL),LISTKIEWICZ Tomasz (POL),SOKOLNICKI Pawel (POL),264683,400222905,MAR,POR
+2022,10 Dec 2022 - 22:00 ,Quarter-finals,Al Bayt Stadium,Al Khor ,England,1,2,France, ,68295,0,0,BRYCH Felix (GER),LUPP Mark (GER),ACHMÜLLER Stefan (GER),264683,400222906,ENG,FRA
+2022,13 Dec 2022 - 22:00 ,Semi-finals,Lusail Stadium,Lusail ,Argentina,3,0,Croatia, ,88103,2,0,VINČIČ Slavko (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),264684,400222907,ARG,CRO
+2022,14 Dec 2022 - 22:00 ,Semi-finals,Al Bayt Stadium,Al Khor ,France,2,0,Morocco, ,68295,1,0,ORSATO Daniele (ITA),MANGANELLI Alessandro (ITA),VILLA Elenito (ITA),264684,400222908,FRA,MAR
+2022,17 Dec 2022 - 18:00 ,Play-off for third place,Khalifa International Stadium,Al Rayyan ,Croatia,2,1,Morocco, ,44137,1,0,RODRIGUEZ Mario (MEX),MORALES Miguel (MEX),HERNANDEZ Jose (MEX),264685,400222909,CRO,MAR
+2022,18 Dec 2022 - 18:00 ,Final,Lusail Stadium,Lusail ,Argentina,3,3,France,4-2 pen.,88966,2,0,MARCINIAK Szymon (POL),LISTKIEWICZ Tomasz (POL),SOKOLNICKI Pawel (POL),264686,400222910,ARG,FRA

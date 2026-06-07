@@ -50,18 +50,15 @@ export interface KnockoutStage {
 
     finalMatch: WorldCupMatches
     thirdPlaceMatch: WorldCupMatches,
+
     semiFinals: {
-        match1: WorldCupMatches,
-        match2: WorldCupMatches,
-        thirdPlace: WorldCupMatches
-    }
+        matches: WorldCupMatches[]
+    },
 
     quarterFinals: {
-        match1: WorldCupMatches,
-        match2: WorldCupMatches,
-        match3: WorldCupMatches,
-        match4: WorldCupMatches
-    },
+        matches: WorldCupMatches[]
+    }
+    ,
     roundOf16: {
         matches: WorldCupMatches[]
     }

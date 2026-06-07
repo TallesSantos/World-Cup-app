@@ -1,0 +1,65 @@
+Year,Datetime,Stage,Stadium,City,Home Team Name,Home Team Goals,Away Team Goals,Away Team Name,Win conditions,Attendance,Half-time Home Goals,Half-time Away Goals,Referee,Assistant 1,Assistant 2,RoundID,MatchID,Home Team Initials,Away Team Initials
+2018,14 Jun 2018 - 18:00 ,Group A,Luzhniki Stadium,Moscow ,Russia,5,0,Saudi Arabia, ,78011,2,0,IRMATOV Ravshan (UZB),RASULOV Bahadyr (UZB),KIM Dae-young (KOR),258620,300438007,RUS,KSA
+2018,15 Jun 2018 - 12:00 ,Group A,Fisht Stadium,Sochi ,Egypt,0,1,Uruguay, ,41282,0,0,GOMES WINTER Mario (POR),SOARES Paulo (POR),FIGUEIREDO Bruno (POR),258620,300438010,EGY,URU
+2018,19 Jun 2018 - 15:00 ,Group A,Saint Petersburg Stadium,Saint Petersburg ,Russia,3,0,Egypt, ,64468,3,0,CÜNEYT Cakir (TUR),BAHATTIN Duran (TUR),TAŞKIRAN Tarık (TUR),258620,300438013,RUS,EGY
+2018,20 Jun 2018 - 18:00 ,Group A,Samara Arena,Samara ,Uruguay,1,0,Saudi Arabia, ,41892,0,0,PITANA Nestor (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),258620,300438014,URU,KSA
+2018,25 Jun 2018 - 15:00 ,Group A,Rostov Arena,Rostov-on-Don ,Uruguay,3,0,Russia, ,45011,0,0,IRMATOV Ravshan (UZB),RASULOV Bahadyr (UZB),KIM Dae-young (KOR),258620,300438017,URU,RUS
+2018,25 Jun 2018 - 15:00 ,Group A,Volgograd Arena,Volgograd ,Saudi Arabia,2,1,Egypt, ,32896,1,0,HAIMOUDI Djamel (ALG),TAHRAT Abdelhamid (ALG),ACHIK Redouane (MAR),258620,300438016,KSA,EGY
+2018,15 Jun 2018 - 15:00 ,Group B,Sochi Stadium,Sochi ,Morocco,0,1,Iran, ,41284,0,0,COLLUM William (SCO),MULVENNY Joe (SCO),CARTER Gary (IRL),258620,300438008,MAR,IRN
+2018,15 Jun 2018 - 18:00 ,Group B,Luzhniki Stadium,Moscow ,Portugal,3,3,Spain, ,80698,2,1,ROCCHI Gianluca (ITA),RANGHETTI Lorenzo (ITA),TOLFO Alessandro (ITA),258620,300438009,POR,ESP
+2018,20 Jun 2018 - 12:00 ,Group B,Mordovia Arena,Saransk ,Portugal,1,0,Morocco, ,41140,1,0,MARCINIAK Szymon (POL),LISTKIEWICZ Tomasz (POL),SOKOLNICKI Pawel (POL),258620,300438011,POR,MAR
+2018,20 Jun 2018 - 15:00 ,Group B,Kazan Arena,Kazan ,Iran,0,1,Spain, ,44190,0,0,RUNGE Wilton (BRA),TAVARES Rodrigo (BRA),CERQUEIRA Bruno (BRA),258620,300438012,IRN,ESP
+2018,25 Jun 2018 - 18:00 ,Group B,Luzhniki Stadium,Moscow ,Iran,1,1,Portugal, ,78011,0,1,GEIGER Mark (USA),FELICIANO Mark (USA),WENGER Joe (USA),258620,300438019,IRN,POR
+2018,25 Jun 2018 - 18:00 ,Group B,Kaliningrad Stadium,Kaliningrad ,Spain,2,2,Morocco, ,35211,0,1,BRYCH Felix (GER),LUPP Mark (GER),ACHMÜLLER Stefan (GER),258620,300438018,ESP,MAR
+2018,16 Jun 2018 - 12:00 ,Group C,Kazan Arena,Kazan ,France,2,1,Australia, ,43517,1,1,CUNHA Andres (URU),BERNAL Nicolas (URU),FANDINO Mauricio (URU),258620,300438021,FRA,AUS
+2018,16 Jun 2018 - 15:00 ,Group C,Fisht Stadium,Sochi ,Peru,0,1,Denmark, ,41687,0,1,LAHOZ Antonio Mateu (ESP),YUSTE Juan (ESP),FIGUERAS Pau (ESP),258620,300438022,PER,DEN
+2018,21 Jun 2018 - 12:00 ,Group C,Ekaterinburg Arena,Ekaterinburg ,Denmark,1,1,Australia, ,35553,1,1,RODRIGUEZ Marco (MEX),TORRENTERA Marvin (MEX),QUINTERO Marcos (MEX),258620,300438023,DEN,AUS
+2018,21 Jun 2018 - 18:00 ,Group C,Ekaterinburg Arena,Ekaterinburg ,France,1,0,Peru, ,35512,0,0,ALIYEV Alireza Faghani (IRN),REZA Mohammadreza (IRN),SOKHANDAN Mohammadreza (IRN),258620,300438024,FRA,PER
+2018,26 Jun 2018 - 15:00 ,Group C,Mordovia Arena,Saransk ,Denmark,0,0,France, ,41069,0,0,MWANZA Janny (ZAM),MARANGE Tibone (ZIM),MOKOENA Zakhele (RSA),258620,300438027,DEN,FRA
+2018,26 Jun 2018 - 15:00 ,Group C,Fisht Stadium,Sochi ,Australia,0,2,Peru, ,41843,0,0,SKOMINA Damir (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),258620,300438026,AUS,PER
+2018,16 Jun 2018 - 18:00 ,Group D,Volgograd Arena,Volgograd ,Argentina,1,1,Iceland, ,45727,0,1,GEIGER Mark (USA),FELICIANO Mark (USA),WENGER Joe (USA),258620,300438020,ARG,ISL
+2018,16 Jun 2018 - 21:00 ,Group D,Nizhny Novgorod Stadium,Nizhny Novgorod ,Croatia,2,0,Nigeria, ,42724,1,0,MARCINIAK Szymon (POL),LISTKIEWICZ Tomasz (POL),SOKOLNICKI Pawel (POL),258620,300438025,CRO,NGA
+2018,21 Jun 2018 - 15:00 ,Group D,Rostov Arena,Rostov-on-Don ,Nigeria,2,0,Iceland, ,40965,0,0,ORSATO Daniele (ITA),MANGANELLI Alessandro (ITA),VILLA Elenito (ITA),258620,300438028,NGA,ISL
+2018,21 Jun 2018 - 21:00 ,Group D,Nizhny Novgorod Stadium,Nizhny Novgorod ,Argentina,0,3,Croatia, ,45184,0,1,MAZIC Milorad (SRB),DJURDJEVIC Milovan (SRB),RUJEVIC Dalibor (SRB),258620,300438029,ARG,CRO
+2018,26 Jun 2018 - 18:00 ,Group D,Saint Petersburg Stadium,Saint Petersburg ,Iceland,1,2,Croatia, ,64272,0,1,TURPIN Clement (FRA),DANOS Nicolas (FRA),TUAILLON Cyril (FRA),258620,300438030,ISL,CRO
+2018,26 Jun 2018 - 18:00 ,Group D,Saint Petersburg Stadium,Saint Petersburg ,Nigeria,1,2,Argentina, ,64000,0,0,LAHOZ Antonio Mateu (ESP),YUSTE Juan (ESP),FIGUERAS Pau (ESP),258620,300438031,NGA,ARG
+2018,17 Jun 2018 - 12:00 ,Group E,Gazprom Arena,Saint Petersburg ,Brazil,1,1,Switzerland, ,64482,1,0,CÜNEYT Cakir (TUR),BAHATTIN Duran (TUR),TAŞKIRAN Tarık (TUR),258621,300438032,BRA,SUI
+2018,17 Jun 2018 - 15:00 ,Group E,Rostov Arena,Rostov-on-Don ,Costa Rica,0,1,Serbia, ,40853,0,0,ROCCHI Gianluca (ITA),RANGHETTI Lorenzo (ITA),TOLFO Alessandro (ITA),258621,300438033,CRC,SRB
+2018,22 Jun 2018 - 12:00 ,Group E,Samara Arena,Samara ,Brazil,2,0,Costa Rica, ,41582,0,0,PITANA Nestor (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),258621,300438034,BRA,CRC
+2018,22 Jun 2018 - 21:00 ,Group E,Kaliningrad Stadium,Kaliningrad ,Serbia,1,2,Switzerland, ,35353,1,0,VINČIČ Slavko (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),258621,300438035,SRB,SUI
+2018,27 Jun 2018 - 18:00 ,Group E,Saint Petersburg Stadium,Saint Petersburg ,Brazil,2,0,Serbia, ,64468,0,0,MARCINIAK Szymon (POL),LISTKIEWICZ Tomasz (POL),SOKOLNICKI Pawel (POL),258621,300438036,BRA,SRB
+2018,27 Jun 2018 - 18:00 ,Group E,Nizhny Novgorod Stadium,Nizhny Novgorod ,Switzerland,2,2,Costa Rica, ,44081,0,2,BRYCH Felix (GER),LUPP Mark (GER),ACHMÜLLER Stefan (GER),258621,300438037,SUI,CRC
+2018,17 Jun 2018 - 18:00 ,Group F,Kazan Arena,Kazan ,Germany,0,1,Mexico, ,44190,0,1,IRMATOV Ravshan (UZB),RASULOV Bahadyr (UZB),KIM Dae-young (KOR),258621,300438038,GER,MEX
+2018,17 Jun 2018 - 21:00 ,Group F,Fisht Stadium,Sochi ,Sweden,1,0,South Korea, ,43648,1,0,ORSATO Daniele (ITA),MANGANELLI Alessandro (ITA),VILLA Elenito (ITA),258621,300438039,SWE,KOR
+2018,23 Jun 2018 - 12:00 ,Group F,Luzhniki Stadium,Moscow ,South Korea,1,2,Mexico, ,80215,0,1,SKOMINA Damir (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),258621,300438040,KOR,MEX
+2018,23 Jun 2018 - 18:00 ,Group F,Fisht Stadium,Sochi ,Germany,2,1,Sweden, ,43490,0,0,MAZIC Milorad (SRB),DJURDJEVIC Milovan (SRB),RUJEVIC Dalibor (SRB),258621,300438041,GER,SWE
+2018,27 Jun 2018 - 15:00 ,Group F,Kazan Arena,Kazan ,South Korea,2,0,Germany, ,42491,0,0,RODRIGUEZ Marco (MEX),TORRENTERA Marvin (MEX),QUINTERO Marcos (MEX),258621,300438042,KOR,GER
+2018,27 Jun 2018 - 15:00 ,Group F,Ekaterinburg Arena,Ekaterinburg ,Mexico,0,3,Sweden, ,35672,0,1,HAIMOUDI Djamel (ALG),TAHRAT Abdelhamid (ALG),ACHIK Redouane (MAR),258621,300438043,MEX,SWE
+2018,18 Jun 2018 - 12:00 ,Group G,Fisht Stadium,Sochi ,Belgium,3,0,Panama, ,43149,0,0,CUNHA Andres (URU),BERNAL Nicolas (URU),FANDINO Mauricio (URU),258621,300438044,BEL,PAN
+2018,18 Jun 2018 - 18:00 ,Group G,Volgograd Arena,Volgograd ,Tunisia,1,2,England, ,41392,1,1,LAHOZ Antonio Mateu (ESP),YUSTE Juan (ESP),FIGUERAS Pau (ESP),258621,300438045,TUN,ENG
+2018,23 Jun 2018 - 15:00 ,Group G,Nizhny Novgorod Stadium,Nizhny Novgorod ,Belgium,5,2,Tunisia, ,44747,2,0,TURPIN Clement (FRA),DANOS Nicolas (FRA),TUAILLON Cyril (FRA),258621,300438046,BEL,TUN
+2018,24 Jun 2018 - 12:00 ,Group G,Nizhny Novgorod Stadium,Nizhny Novgorod ,England,6,1,Panama, ,44198,2,0,MWANZA Janny (ZAM),MARANGE Tibone (ZIM),MOKOENA Zakhele (RSA),258621,300438047,ENG,PAN
+2018,28 Jun 2018 - 15:00 ,Group G,Kaliningrad Stadium,Kaliningrad ,England,0,1,Belgium, ,35486,0,0,GEIGER Mark (USA),FELICIANO Mark (USA),WENGER Joe (USA),258621,300438048,ENG,BEL
+2018,28 Jun 2018 - 15:00 ,Group G,Mordovia Arena,Saransk ,Panama,1,2,Tunisia, ,40726,0,1,ALIYEV Alireza Faghani (IRN),REZA Mohammadreza (IRN),SOKHANDAN Mohammadreza (IRN),258621,300438049,PAN,TUN
+2018,19 Jun 2018 - 12:00 ,Group H,Volgograd Arena,Volgograd ,Colombia,1,2,Japan, ,45089,0,1,GOMES WINTER Mario (POR),SOARES Paulo (POR),FIGUEIREDO Bruno (POR),258621,300438050,COL,JPN
+2018,19 Jun 2018 - 18:00 ,Group H,Mordovia Arena,Saransk ,Poland,1,2,Senegal, ,40502,0,1,CÜNEYT Cakir (TUR),BAHATTIN Duran (TUR),TAŞKIRAN Tarık (TUR),258621,300438051,POL,SEN
+2018,24 Jun 2018 - 15:00 ,Group H,Ekaterinburg Arena,Ekaterinburg ,Japan,2,2,Senegal, ,35193,1,0,ROCCHI Gianluca (ITA),RANGHETTI Lorenzo (ITA),TOLFO Alessandro (ITA),258621,300438052,JPN,SEN
+2018,24 Jun 2018 - 18:00 ,Group H,Kazan Arena,Kazan ,Poland,0,3,Colombia, ,43272,0,1,TURPIN Clement (FRA),DANOS Nicolas (FRA),TUAILLON Cyril (FRA),258621,300438053,POL,COL
+2018,28 Jun 2018 - 18:00 ,Group H,Rostov Arena,Rostov-on-Don ,Japan,0,1,Poland, ,43742,0,0,VINČIČ Slavko (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),258621,300438054,JPN,POL
+2018,28 Jun 2018 - 18:00 ,Group H,Samara Arena,Samara ,Senegal,0,1,Colombia, ,41872,0,1,MAZIC Milorad (SRB),DJURDJEVIC Milovan (SRB),RUJEVIC Dalibor (SRB),258621,300438055,SEN,COL
+2018,30 Jun 2018 - 15:00 ,Round of 16,Fisht Stadium,Sochi ,France,4,3,Argentina, ,45011,2,2,BRYCH Felix (GER),LUPP Mark (GER),ACHMÜLLER Stefan (GER),258622,300438056,FRA,ARG
+2018,30 Jun 2018 - 19:00 ,Round of 16,Nizhny Novgorod Stadium,Nizhny Novgorod ,Uruguay,2,1,Portugal, ,44074,0,0,LAHOZ Antonio Mateu (ESP),YUSTE Juan (ESP),FIGUERAS Pau (ESP),258622,300438057,URU,POR
+2018,01 Jul 2018 - 15:00 ,Round of 16,Luzhniki Stadium,Moscow ,Spain,1,1,Russia,4-5 pen.,78011,1,0,ROCCHI Gianluca (ITA),RANGHETTI Lorenzo (ITA),TOLFO Alessandro (ITA),258622,300438058,ESP,RUS
+2018,01 Jul 2018 - 19:00 ,Round of 16,Kazan Arena,Kazan ,Croatia,1,1,Denmark,3-2 pen.,41282,0,1,TURPIN Clement (FRA),DANOS Nicolas (FRA),TUAILLON Cyril (FRA),258622,300438059,CRO,DEN
+2018,02 Jul 2018 - 15:00 ,Round of 16,Samara Arena,Samara ,Brazil,2,0,Mexico, ,41299,1,0,MARCINIAK Szymon (POL),LISTKIEWICZ Tomasz (POL),SOKOLNICKI Pawel (POL),258622,300438060,BRA,MEX
+2018,02 Jul 2018 - 19:00 ,Round of 16,Rostov Arena,Rostov-on-Don ,Belgium,3,2,Japan, ,41116,0,0,COLLUM William (SCO),MULVENNY Joe (SCO),CARTER Gary (IRL),258622,300438061,BEL,JPN
+2018,03 Jul 2018 - 15:00 ,Round of 16,Saint Petersburg Stadium,Saint Petersburg ,Sweden,1,0,Switzerland, ,64468,1,0,VINČIČ Slavko (SVN),VUKAN Jure (SVN),KOVACIC Robert (SVN),258622,300438062,SWE,SUI
+2018,03 Jul 2018 - 19:00 ,Round of 16,Luzhniki Stadium,Moscow ,Colombia,1,1,England,3-4 pen.,78011,1,0,GEIGER Mark (USA),FELICIANO Mark (USA),WENGER Joe (USA),258622,300438063,COL,ENG
+2018,06 Jul 2018 - 15:00 ,Quarter-finals,Nizhny Novgorod Stadium,Nizhny Novgorod ,Uruguay,0,2,France, ,44012,0,0,CÜNEYT Cakir (TUR),BAHATTIN Duran (TUR),TAŞKIRAN Tarık (TUR),258623,300438064,URU,FRA
+2018,06 Jul 2018 - 19:00 ,Quarter-finals,Kazan Arena,Kazan ,Brazil,1,2,Belgium, ,44466,0,0,MAZIC Milorad (SRB),DJURDJEVIC Milovan (SRB),RUJEVIC Dalibor (SRB),258623,300438065,BRA,BEL
+2018,07 Jul 2018 - 15:00 ,Quarter-finals,Fisht Stadium,Sochi ,Sweden,0,2,England, ,43168,0,0,CUNHA Andres (URU),BERNAL Nicolas (URU),FANDINO Mauricio (URU),258623,300438066,SWE,ENG
+2018,07 Jul 2018 - 19:00 ,Quarter-finals,Fisht Stadium,Sochi ,Russia,2,2,Croatia,3-4 pen.,41970,0,1,ALIYEV Alireza Faghani (IRN),REZA Mohammadreza (IRN),SOKHANDAN Mohammadreza (IRN),258623,300438067,RUS,CRO
+2018,10 Jul 2018 - 19:00 ,Semi-finals,Saint Petersburg Stadium,Saint Petersburg ,France,1,0,Belgium, ,64468,1,0,PITANA Nestor (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),258624,300438068,FRA,BEL
+2018,11 Jul 2018 - 19:00 ,Semi-finals,Luzhniki Stadium,Moscow ,Croatia,2,1,England,After extra time,78011,0,1,BRYCH Felix (GER),LUPP Mark (GER),ACHMÜLLER Stefan (GER),258624,300438069,CRO,ENG
+2018,14 Jul 2018 - 15:00 ,Play-off for third place,Saint Petersburg Stadium,Saint Petersburg ,Belgium,2,0,England, ,64468,0,0,LAHOZ Antonio Mateu (ESP),YUSTE Juan (ESP),FIGUERAS Pau (ESP),258625,300438070,BEL,ENG
+2018,15 Jul 2018 - 17:00 ,Final,Luzhniki Stadium,Moscow ,France,4,2,Croatia, ,78011,2,1,PITANA Nestor (ARG),MAIDANA Hernan (ARG),BELATTI Juan Pablo (ARG),258626,300438071,FRA,CRO

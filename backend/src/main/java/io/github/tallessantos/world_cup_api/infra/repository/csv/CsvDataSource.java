@@ -36,7 +36,20 @@ public class CsvDataSource {
                 .toList();
     }
 
+    public List<WorldCupCsvRow> loadWorldCups(Path csvMatchesPath) {
+        return read(csvMatchesPath).stream()
+                .map(this::toWorldCupRow)
+                .toList();
+    }
+
     public List<MatchCsvRow> loadMatches() {
+        return read(matchesCsvPath).stream()
+                .filter(this::isValidMatchRecord)
+                .map(this::toMatchRow)
+                .toList();
+    }
+
+    public List<MatchCsvRow> loadMatches(Path matchesCsvPath) {
         return read(matchesCsvPath).stream()
                 .filter(this::isValidMatchRecord)
                 .map(this::toMatchRow)
@@ -45,6 +58,12 @@ public class CsvDataSource {
 
     public List<PlayerCsvRow> loadPlayers() {
         return read(playersCsvPath).stream()
+                .map(this::toPlayerRow)
+                .toList();
+    }
+
+    public List<PlayerCsvRow> loadPlayers(Path csvPlayersPath) {
+        return read(csvPlayersPath).stream()
                 .map(this::toPlayerRow)
                 .toList();
     }

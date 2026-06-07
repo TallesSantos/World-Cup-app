@@ -5,7 +5,7 @@ joinfaces:
   primefaces:
     theme: saga
   faces:
-    project-stage: ${FACES_PROJECT_STAGE:-development}
+    project-stage: ${FACES_PROJECT_STAGE:development}
 
 spring:
   application:
@@ -19,7 +19,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: ${JPA_DDL_AUTO:update}
+      ddl-auto: validate
     show-sql: false
     properties:
       hibernate:
@@ -27,15 +27,23 @@ spring:
 
 app:
   world-cups:
-    banners-path: '${APP_WORLDCUPS_BANNERS_PATH:-/worldcups_banners}'
+    banners-path: '${APP_WORLDCUPS_BANNERS_PATH:/worldcups_banners}'
 
   players:
-    players-image: '${APP_PLAYERS_IMAGE_PATH:-/players_image}'
+    players-image: '${APP_PLAYERS_IMAGE_PATH:/players_image}'
 
   data:
-    world-cups-path: '${APP_DATA_WORLDCUPS_PATH:-./app/data/WorldCups.csv}'
-    world-cups-matches-path: '${APP_DATA_MATCHES_PATH:-./app/data/WorldCupMatches.csv}'
-    world-cups-players-path: '${APP_DATA_PLAYERS_PATH:-./app/data/WorldCupPlayers.csv}'
+    world-cups-path: '${APP_DATA_WORLDCUPS_PATH:./app/data/WorldCups.csv}'
+    world-cups-matches-path: '${APP_DATA_MATCHES_PATH:./app/data/WorldCupMatches.csv}'
+    world-cups-players-path: '${APP_DATA_PLAYERS_PATH:./app/data/WorldCupPlayers.csv}'
+
+    world-cups-after-2014-path: '${APP_DATA_WORLDCUPS_AFTER2014_PATH:./app/data/WorldCupsAfter2014.csv}'
+
+    world-cups-matches-2018-path: '${APP_DATA_MATCHES_2018_PATH:./app/data/WorldCupMatches2018.csv}'
+    world-cups-matches-2022-path: '${APP_DATA_MATCHES_2022_PATH:./app/data/WorldCupMatches2022.csv}'
+
+    world-cups-players-2018-path: '${APP_DATA_PLAYERS_2018_PATH:./app/data/WorldCupPlayers2018.csv}'
+    world-cups-players-2022-path: '${APP_DATA_PLAYERS_2022_PATH:./app/data/WorldCupPlayers2022.csv}'
 
   resource:
     server-side-pattern-path: '/storage/**'

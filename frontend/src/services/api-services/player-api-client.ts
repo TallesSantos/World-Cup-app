@@ -11,8 +11,6 @@ export async function getDetailedPlayerById(id: string) {
 
     const player = JSON.parse(await playerResponse.text()) as DetailedSoccerPlayer;
 
-    console.log(player)
-
     return player;
 
 }

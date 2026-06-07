@@ -17,6 +17,7 @@ const options = [
 export default function KnockoutStageMatches({ data }: { data: KnockoutStage }) {
 
     const [round, setRound] = useState<Round>("roundOf16");
+    console.log(data)
     return (
         <ThemedView style={{ gap: 12, marginBottom: 12, flexDirection: "column", justifyContent: "space-between", borderBottomColor: "gray", borderBottomWidth: 1, paddingBottom: 12 }}>
 
@@ -50,21 +51,21 @@ export default function KnockoutStageMatches({ data }: { data: KnockoutStage }) 
                 )
             })}
 
-            {round === "quarterFinals" &&
-                <ThemedView>
-                    <MatchLink match={data.quarterFinals.match1} />
-                    <MatchLink match={data.quarterFinals.match2} />
-                    <MatchLink match={data.quarterFinals.match3} />
-                    <MatchLink match={data.quarterFinals.match4} />
-                </ThemedView>
-            }
+            {round === "quarterFinals" && data?.quarterFinals?.matches?.map((match, index) => {
+                return (
+                    <ThemedView key={index + match.id}>
+                        <MatchLink match={match} />
+                    </ThemedView>
+                )
+            })}
 
-            {round === "semiFinals" &&
-                <ThemedView>
-                    <MatchLink match={data.semiFinals.match1} />
-                    <MatchLink match={data.semiFinals.match2} />
-                </ThemedView>
-            }
+            {round === "semiFinals" && data?.semiFinals?.matches?.map((match, index) => {
+                return (
+                    <ThemedView key={index + match.id}>
+                        <MatchLink match={match} />
+                    </ThemedView>
+                )
+            })}
 
             {round === "grandFinal" &&
                 <ThemedView>
