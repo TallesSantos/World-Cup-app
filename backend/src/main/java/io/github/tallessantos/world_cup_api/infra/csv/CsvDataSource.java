@@ -1,4 +1,4 @@
-package io.github.tallessantos.world_cup_api.infra.repository.csv;
+package io.github.tallessantos.world_cup_api.infra.csv;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;

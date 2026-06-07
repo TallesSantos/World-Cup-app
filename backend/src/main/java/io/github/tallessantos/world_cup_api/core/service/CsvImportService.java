@@ -1,13 +1,14 @@
 package io.github.tallessantos.world_cup_api.core.service;
 
 import io.github.tallessantos.world_cup_api.core.domain.*;
+import io.github.tallessantos.world_cup_api.infra.csv.CsvSupport;
+import io.github.tallessantos.world_cup_api.infra.csv.MatchCsvRow;
+import io.github.tallessantos.world_cup_api.infra.csv.PlayerCsvRow;
+import io.github.tallessantos.world_cup_api.infra.csv.WorldCupCsvRow;
 import io.github.tallessantos.world_cup_api.infra.repository.*;
-import io.github.tallessantos.world_cup_api.infra.repository.csv.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -17,38 +18,20 @@ import java.util.*;
 public class CsvImportService {
 
     private static final String CREATED_BY_NAME = "csv_import_automation";
-
-    private final CsvDataSource csvDataSource;
     private final WorldCupRepository worldCupRepository;
     private final MatchRepository matchRepository;
     private final PlayerRepository playerRepository;
     private final PlayerAppearanceRepository playerAppearanceRepository;
     private final CountryRepository countryRepository;
 
-    @Value("${app.data.world-cups-after-2014-path}")
-    private String worldCupsAfter2014;
-
-    @Value("${app.data.world-cups-matches-2018-path}")
-    private String worldCupMatches2018;
-
-    @Value("${app.data.world-cups-matches-2022-path}")
-    private String worldCupMatches2022;
-
-    @Value("${app.data.world-cups-players-2018-path}")
-    private String worldCupPlayers2018;
-
-    @Value("${app.data.world-cups-players-2022-path}")
-    private String worldCupPlayers2022;
-
     public CsvImportService(
-            CsvDataSource csvDataSource,
             WorldCupRepository worldCupRepository,
             MatchRepository matchRepository,
             PlayerAppearanceRepository playerAppearanceRepository,
             PlayerRepository playerRepository,
             CountryRepository countryRepository
     ) {
-        this.csvDataSource = csvDataSource;
+
         this.worldCupRepository = worldCupRepository;
         this.matchRepository = matchRepository;
         this.playerAppearanceRepository = playerAppearanceRepository;
@@ -56,49 +39,7 @@ public class CsvImportService {
         this.countryRepository = countryRepository;
     }
 
-
-    public void dataEntryUpToThe2014WorldCup() {
-
-        if (!isWorldCupTableEmpty()) {
-            log.warn("Already has data of world cups in database");
-            return;
-        }
-
-        worldCupDataIngestion(csvDataSource.loadWorldCups());
-        worldCupMatchesDataIngestion(csvDataSource.loadMatches());
-        worldCupCountriesDataIngestion(csvDataSource.loadMatches());
-        worldCupAppearenceDataIngestion(csvDataSource.loadPlayers());
-        log.info("Ingestion data ended");
-    }
-
-    public void dataEntryAfterToThe2014WorldCup() {
-
-        Optional<WorldCupEntity> worldCup2018 = worldCupRepository.findByReference("world-cup-2018");
-        if (worldCup2018.isPresent()) {
-            log.info("Already has 2018 world cup data in database");
-            return;
-        }
-
-        worldCupDataIngestion(csvDataSource.loadWorldCups(Path.of(worldCupsAfter2014)));
-        worldCupMatchesDataIngestion(csvDataSource.loadMatches(Path.of(worldCupMatches2018)));
-        worldCupMatchesDataIngestion(csvDataSource.loadMatches(Path.of(worldCupMatches2022)));
-        List<PlayerCsvRow> players2018 = csvDataSource.loadPlayers(Path.of(worldCupPlayers2018));
-        if(!players2018.isEmpty()){
-            worldCupAppearenceDataIngestion(players2018);
-        }else{
-            log.warn("Csv file don't have data");
-        }
-
-        List<PlayerCsvRow> players2022 = csvDataSource.loadPlayers(Path.of(worldCupPlayers2022));
-        if(!players2022.isEmpty()){
-            worldCupAppearenceDataIngestion(players2022);
-        }else{
-            log.warn("Csv file don't have data");
-        }log.info("Ingestion data ended");
-    }
-
-
-    private void worldCupAppearenceDataIngestion(List<PlayerCsvRow> rows) {
+    public void worldCupAppearenceDataIngestion(List<PlayerCsvRow> rows) {
         List<PlayerAppearanceEntity> listPlayerAppearenceEntity = new ArrayList<>();
         for (PlayerCsvRow entity : rows) {
             PlayerAppearanceEntity playerEntity = toPlayerAppearanceEntity(CREATED_BY_NAME, entity);
@@ -133,7 +74,7 @@ public class CsvImportService {
         playerRepository.saveAll(playerMap.values());
     }
 
-    private void worldCupCountriesDataIngestion(List<MatchCsvRow> rows) {
+    public void worldCupCountriesDataIngestion(List<MatchCsvRow> rows) {
         Map<String, CountryEntity> countries = new HashMap<>();
 
         for (MatchCsvRow match : rows) {
@@ -154,7 +95,7 @@ public class CsvImportService {
         countryRepository.saveAllAndFlush(new HashSet<>(countries.values()));
     }
 
-    private void worldCupMatchesDataIngestion(List<MatchCsvRow> rows) {
+    public void worldCupMatchesDataIngestion(List<MatchCsvRow> rows) {
         List<MatchEntity> listMatches = new ArrayList<>();
         for (MatchCsvRow entity : rows) {
             MatchEntity worldCupEntity = toMatchEntity(CREATED_BY_NAME, entity);
@@ -163,7 +104,7 @@ public class CsvImportService {
         matchRepository.saveAllAndFlush(listMatches);
     }
 
-    private void worldCupDataIngestion(List<WorldCupCsvRow> rows) {
+    public void worldCupDataIngestion(List<WorldCupCsvRow> rows) {
         List<WorldCupEntity> listWorldCups = new ArrayList<>();
         for (WorldCupCsvRow entity : rows) {
             WorldCupEntity worldCupEntity = toWorldCupEntity(CREATED_BY_NAME, entity);
@@ -172,7 +113,7 @@ public class CsvImportService {
         worldCupRepository.saveAllAndFlush(listWorldCups);
     }
 
-    private boolean isWorldCupTableEmpty() {
+    public boolean isWorldCupTableEmpty() {
         if (worldCupRepository.count() > 0L) {
             return false;
         }

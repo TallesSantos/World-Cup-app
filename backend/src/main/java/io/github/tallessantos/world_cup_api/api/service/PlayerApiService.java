@@ -5,7 +5,7 @@ import io.github.tallessantos.world_cup_api.infra.repository.MatchRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.PlayerAppearanceRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.PlayerRepository;
 import io.github.tallessantos.world_cup_api.infra.repository.WorldCupRepository;
-import io.github.tallessantos.world_cup_api.infra.repository.csv.CsvSupport;
+import io.github.tallessantos.world_cup_api.infra.csv.CsvSupport;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
